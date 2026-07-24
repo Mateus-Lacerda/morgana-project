@@ -142,7 +142,7 @@ func _find_nearest_enemy() -> Node2D:
 func aura_attack() -> void:
 	if not is_attacking and not is_paralyzed and is_global_cooldown_ready():
 		is_attacking = true
-		animation.play("morgana_attack") # Mantém como placeholder
+		animation.play("morgana_attack_aura")
 		start_global_cooldown(AURA_COOLDOWN_MULT * base_magic_cooldown)
 		AudioManager.play_sfx("aura")
 		
@@ -165,7 +165,7 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 
 func shoot_magic() -> void:
 	is_attacking = true
-	animation.play("morgana_attack_2")
+	animation.play("morgana_attack_shoot")
 	start_global_cooldown(MAGIC_COOLDOWN_MULT * base_magic_cooldown)
 	AudioManager.play_sfx("shoot")
 	var fireball = fireball_scene.instantiate()
