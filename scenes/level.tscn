@@ -2,11 +2,11 @@
 
 [ext_resource type="PackedScene" uid="uid://ofb7ihach6qd" path="res://scenes/background.tscn" id="1_w7c3h"]
 [ext_resource type="PackedScene" uid="uid://bitili646qdbr" path="res://scenes/player.tscn" id="2_w8frs"]
-[ext_resource type="PackedScene" path="res://scenes/bat.tscn" id="3_bat"]
-[ext_resource type="Script" path="res://scripts/enemy_spawner.gd" id="4_enemyspawner"]
+[ext_resource type="Script" uid="uid://x5kg2i3oi6my" path="res://scripts/enemy_spawner.gd" id="4_enemyspawner"]
+[ext_resource type="PackedScene" uid="uid://dtqu63fu6k3vh" path="res://scenes/gate.tscn" id="4_klq6b"]
 [ext_resource type="PackedScene" path="res://scenes/hud.tscn" id="5_hud"]
 [ext_resource type="Script" uid="uid://bodpsd6r2s6kr" path="res://scripts/level.gd" id="6_level"]
-[ext_resource type="PackedScene" path="res://scenes/shop/shop.tscn" id="8_shop"]
+[ext_resource type="PackedScene" uid="uid://dyooh3yxpqggd" path="res://scenes/shop/shop.tscn" id="8_shop"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_walls"]
 size = Vector2(100, 2000)
@@ -33,31 +33,8 @@ limit_right = 4200
 limit_bottom = 780
 position_smoothing_enabled = true
 
-[node name="Gate" type="StaticBody2D" parent="." unique_id=102137214]
+[node name="Gate" parent="." unique_id=1729746193 instance=ExtResource("4_klq6b")]
 position = Vector2(200, 600)
-collision_layer = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Gate" unique_id=1587147032]
-shape = SubResource("RectangleShape2D_walls")
-
-[node name="GateVisual" type="ColorRect" parent="Gate" unique_id=1755341085]
-offset_left = -30.0
-offset_top = -400.0
-offset_right = 30.0
-offset_bottom = 400.0
-color = Color(0.4, 0.25, 0.1, 0.85)
-
-[node name="GateLabel" type="Label" parent="Gate/GateVisual" unique_id=22099694]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 24
-text = "PORTÃO"
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="RightWall" type="StaticBody2D" parent="." unique_id=796456717]
 position = Vector2(4200, 600)
@@ -71,7 +48,7 @@ script = ExtResource("4_enemyspawner")
 
 [node name="HUD" parent="." unique_id=1914251633 instance=ExtResource("5_hud")]
 
-[node name="Shop" parent="." instance=ExtResource("8_shop")]
+[node name="Shop" parent="." unique_id=1550706319 instance=ExtResource("8_shop")]
 
 [node name="IntroCountdown" type="CanvasLayer" parent="." unique_id=1081364165]
 

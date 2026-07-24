@@ -12,8 +12,14 @@ class_name EnemyBase
 
 const GATE_X: float = 200.0
 
+@export var village_attack_interval: float = 2.0
+@export var max_village_hits: int = 3
+
 var hp: int
 var is_dead: bool = false
+var is_attacking_village: bool = false
+var _village_attack_timer: float = 0.0
+var _village_hits_performed: int = 0
 
 @onready var _animation: AnimatedSprite2D = $Animation
 @onready var _collision: CollisionShape2D = $CollisionShape2D
@@ -63,10 +69,35 @@ func _spawn_coins() -> void:
 		get_parent().call_deferred("add_child", particle)
 		particle.global_position = global_position + Vector2(randf_range(-10.0, 10.0), randf_range(-10.0, 10.0))
 
-func _reach_village() -> void:
+func _start_village_attack() -> void:
+	is_attacking_village = true
+	velocity = Vector2.ZERO
+	_village_attack_timer = 0.0
+
+func _process_village_attack(delta: float) -> void:
+	_village_attack_timer -= delta
+	if _village_attack_timer <= 0:
+		_perform_village_attack()
+		_village_attack_timer = village_attack_interval
+
+func _perform_village_attack() -> void:
 	AudioManager.play_sfx("village_hit")
 	GameManager.damage_village(village_damage)
-	queue_free()
+	_play_attack_animation()
+	
+	_village_hits_performed += 1
+	if _village_hits_performed >= max_village_hits:
+		is_dead = true
+		_collision.set_deferred("disabled", true)
+		_dissolve_into_smoke()
+		queue_free()
+
+func _play_attack_animation() -> void:
+	var tween = create_tween()
+	var start_pos = global_position
+	tween.tween_property(self, "global_position", start_pos + Vector2(25, -15), 0.15).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tween.tween_interval(0.1)
+	tween.tween_property(self, "global_position", start_pos, 0.1).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 
 func _on_victory() -> void:
 	if is_dead:
@@ -74,13 +105,18 @@ func _on_victory() -> void:
 	is_dead = true
 	queue_free()
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if is_dead or not GameManager.is_game_active:
 		return
+		
+	if is_attacking_village:
+		_process_village_attack(delta)
+		return
+		
 	velocity = _get_movement_velocity()
 	move_and_slide()
 	if global_position.x <= GATE_X:
-		_reach_village()
+		_start_village_attack()
 
 ## Virtual — filhos podem sobrescrever para pathfinding, voo etc.
 func _get_movement_velocity() -> Vector2:

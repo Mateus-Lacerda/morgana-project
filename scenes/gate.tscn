@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://dtqu63fu6k3vh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_walls"]
+size = Vector2(100, 2000)
+
+[node name="Gate" type="StaticBody2D" unique_id=1729746193]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=189277376]
+shape = SubResource("RectangleShape2D_walls")
+
+[node name="GateVisual" type="ColorRect" parent="." unique_id=25712070]
+offset_left = -30.0
+offset_top = -400.0
+offset_right = 30.0
+offset_bottom = 300.0
+color = Color(0.4, 0.25, 0.1, 0.85)
+
+[node name="GateLabel" type="Label" parent="GateVisual" unique_id=1951321272]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+text = "PORTÃO"
+horizontal_alignment = 1
+vertical_alignment = 1
