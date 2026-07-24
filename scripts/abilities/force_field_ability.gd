@@ -31,10 +31,6 @@ func _ready() -> void:
 	_visual = AuraVisualizer.new()
 	_player.add_child(_visual)
 
-func unlock() -> void:
-	super.unlock()
-	_visual.start_idle_pulse(radius)
-
 func _process(_delta: float) -> void:
 	if not unlocked or not GameManager.is_game_active:
 		return
@@ -72,7 +68,6 @@ func apply_random_evolution() -> void:
 		"radius":
 			radius_level += 1
 			radius += RADIUS_STEP
-			_visual.start_idle_pulse(radius) # refaz o pulso com o novo tamanho base
 		"damage":
 			damage_level += 1
 			damage += DAMAGE_STEP
@@ -90,13 +85,14 @@ func reset() -> void:
 	radius = BASE_RADIUS
 	damage = BASE_DAMAGE
 	trigger_cooldown = BASE_TRIGGER_COOLDOWN
-	_visual.stop_pulse()
 
 func _trigger() -> void:
 	_can_trigger = false
-	# O anel pulsa continuamente o tempo todo (ver start_idle_pulse); aqui só
-	# soma um clarão rápido por cima, pra ficar claro que bateu de verdade.
-	_visual.pulse_hit()
+	# Só trava expandido (sem recuar) quando é automático e rápido demais pra
+	# caber um pulso inteiro entre gatilhos — senão a animação reiniciaria do
+	# zero a cada disparo e travaria sempre no começo, nunca abrindo de vez.
+	var stay_expanded := auto_trigger and trigger_cooldown < AuraVisualizer.PULSE_DURATION
+	_visual.play_pulse(radius, stay_expanded)
 	for target in get_tree().get_nodes_in_group("enemies"):
 		if not is_instance_valid(target):
 			continue
