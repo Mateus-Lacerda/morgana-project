@@ -176,6 +176,19 @@ func _trigger_victory() -> void:
 	high_score = max(high_score, score)
 	victory.emit()
 
+## Usado só pelo modo dev (ver DevMode): pula direto pro combate de qualquer
+## wave configurada, sem passar pela preparação.
+func dev_set_wave(index: int) -> void:
+	index = clampi(index, 0, WAVES_CONFIG.size() - 1)
+	current_wave_index = index
+	current_phase = GamePhase.WAVE
+	var config = WAVES_CONFIG[index]
+	wave_difficulty_multiplier = config.difficulty_mult
+	speed_multiplier = wave_difficulty_multiplier
+	time_left = config.wave_time
+	is_game_active = true
+	wave_started.emit(index + 1)
+
 func restart_match() -> void:
 	ItemManager.reset()
 	_reset_state()

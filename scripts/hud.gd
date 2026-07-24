@@ -5,7 +5,10 @@ extends CanvasLayer
 @onready var score_label: Label = $BottomRight/ScoreLabel
 @onready var combo_label: Label = $BottomRight/ComboLabel
 @onready var money_label: Label = $BottomRight/MoneyLabel
+@onready var active_items_bar: HBoxContainer = $ActiveItemsBar
 @onready var magnet_icon: TextureRect = $ActiveItemsBar/MagnetIcon
+
+var _dynamic_icons: Array[Control] = []
 @onready var fade_overlay: ColorRect = $FadeOverlay
 @onready var result_panel: Panel = $ResultPanel
 @onready var result_title: Label = $ResultPanel/VBox/ResultTitle
@@ -45,6 +48,7 @@ func _ready() -> void:
 	_on_combo_changed(GameManager.combo_multiplier, GameManager.combo_streak)
 	_on_money_changed(GameManager.money)
 	magnet_icon.visible = ItemManager.is_owned(&"coin_magnet")
+	_refresh_active_icons()
 
 var _last_village_value: float = 100.0
 
@@ -100,6 +104,40 @@ func _on_money_changed(value: int) -> void:
 func _on_item_acquired(item: ItemBase) -> void:
 	if item.id == &"coin_magnet":
 		magnet_icon.visible = true
+	_refresh_active_icons()
+
+## Reconstrói os ícones pequenos ao lado do ímã: uma orbe por orbe equipada
+## (a própria forma dela, sem PNG) e um ícone por habilidade desbloqueada.
+func _refresh_active_icons() -> void:
+	for icon in _dynamic_icons:
+		icon.queue_free()
+	_dynamic_icons.clear()
+
+	var manager := get_tree().get_first_node_in_group("orb_manager") as OrbManager
+	if manager:
+		for orb in manager.get_orbs():
+			_add_dynamic_icon(OrbIcon.build(orb.get_kind_id(), 28.0))
+
+	var player := get_tree().get_first_node_in_group("player") as Player
+	if player == null:
+		return
+
+	# Campo de força já vem equipado desde o início da partida.
+	_add_dynamic_icon(_build_png_icon("res://assets/items/force_field_icon_small.png"))
+	if player.wand_ability.unlocked:
+		_add_dynamic_icon(_build_png_icon("res://assets/items/wand_icon.png"))
+
+func _build_png_icon(path: String) -> TextureRect:
+	var icon := TextureRect.new()
+	icon.custom_minimum_size = Vector2(28, 28)
+	icon.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
+	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	icon.texture = load(path)
+	return icon
+
+func _add_dynamic_icon(icon: Control) -> void:
+	active_items_bar.add_child(icon)
+	_dynamic_icons.append(icon)
 
 func _on_game_over() -> void:
 	_show_result("GAME OVER", "A vila caiu...", Color(0.85, 0.2, 0.2))

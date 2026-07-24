@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dfqkg13dpfpe3"
-path="res://.godot/imported/orb_icon_explosive.png-58f52ec368226b0ff1095e4cbec02faf.ctex"
+uid="uid://cg8mta5nda14r"
+path="res://.godot/imported/wand_icon.png-f7fbb85f2b287c38915839cc485f03b4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/items/orb_icon_explosive.png"
-dest_files=["res://.godot/imported/orb_icon_explosive.png-58f52ec368226b0ff1095e4cbec02faf.ctex"]
+source_file="res://assets/items/wand_icon.png"
+dest_files=["res://.godot/imported/wand_icon.png-f7fbb85f2b287c38915839cc485f03b4.ctex"]
 
 [params]
 

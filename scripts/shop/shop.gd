@@ -1,12 +1,5 @@
 extends CanvasLayer
-
-const APPEAR_INTERVAL: float = 15.0
-
-const AVAILABLE_ITEMS: Array[GDScript] = [
-	preload("res://scripts/items/coin_magnet_item.gd"),
-	preload("res://scripts/items/wand_item.gd"),
-	preload("res://scripts/items/force_field_item.gd"),
-]
+class_name Shop
 
 const ORB_ITEMS: Array[GDScript] = [
 	preload("res://scripts/items/orb_combo_item.gd"),
@@ -20,126 +13,99 @@ const SCROLL_ITEMS: Array[GDScript] = [
 	preload("res://scripts/items/scroll_orb_explosive_item.gd"),
 	preload("res://scripts/items/scroll_wand_item.gd"),
 	preload("res://scripts/items/scroll_force_field_item.gd"),
+	preload("res://scripts/items/scroll_transform_combo_item.gd"),
+	preload("res://scripts/items/scroll_transform_blade_item.gd"),
+	preload("res://scripts/items/scroll_transform_explosive_item.gd"),
+]
+
+const SINGLE_ITEMS: Array[GDScript] = [
+	preload("res://scripts/items/coin_magnet_item.gd"),
+	preload("res://scripts/items/wand_item.gd"),
 ]
 
 @onready var shop_ui: Control = $ShopUI
-@onready var single_panel: Panel = $ShopUI/Panel
-@onready var icon: TextureRect = $ShopUI/Panel/VBox/Icon
-@onready var icon_overlay: TextureRect = $ShopUI/Panel/VBox/Icon/IconOverlay
-@onready var name_label: Label = $ShopUI/Panel/VBox/NameLabel
-@onready var description_label: Label = $ShopUI/Panel/VBox/DescriptionLabel
-@onready var cost_label: Label = $ShopUI/Panel/VBox/CostLabel
-@onready var buy_button: Button = $ShopUI/Panel/VBox/ButtonRow/BuyButton
-@onready var close_button: Button = $ShopUI/Panel/VBox/ButtonRow/CloseButton
 @onready var choice_panel: Panel = $ShopUI/ChoicePanel
 @onready var choice_title: Label = $ShopUI/ChoicePanel/VBox/TitleLabel
 @onready var choice_hint: Label = $ShopUI/ChoicePanel/VBox/HintLabel
-@onready var choice_row: HBoxContainer = $ShopUI/ChoicePanel/VBox/ChoiceRow
+@onready var choice_row: GridContainer = $ShopUI/ChoicePanel/VBox/ChoiceScroll/ChoiceRow
 @onready var choice_close_button: Button = $ShopUI/ChoicePanel/VBox/CloseButton
-@onready var timer: Timer = $Timer
 
-const INTRO_TITLE := "Sua primeira orbe mágica"
-const INTRO_HINT := "Ela luta ao seu lado sozinha. Depois, mais orbes e evoluções vão aparecer aqui de tempos em tempos."
-const ORB_CHOICE_TITLE := "Escolha uma orbe"
-const SCROLL_CHOICE_TITLE := "Escolha o que evoluir"
-
-var _current_item: ItemBase
+const INTRO_TITLE := "Loja - Prepare-se para a primeira horda"
+const INTRO_HINT := "Compre o que o dinheiro der: orbes, pergaminhos de evolução e outros itens. Feche quando estiver pronta."
+const WAVE_TITLE_FMT := "Loja - Prepare-se para a horda %d"
+const WAVE_HINT := "Compre o que o dinheiro der. A horda só começa quando você fechar a loja."
 
 func _ready() -> void:
 	shop_ui.visible = false
-	single_panel.visible = false
 	choice_panel.visible = false
-	timer.wait_time = APPEAR_INTERVAL
-	timer.timeout.connect(_on_timer_timeout)
-	buy_button.pressed.connect(_on_buy_pressed)
-	close_button.pressed.connect(_close_shop)
 	choice_close_button.pressed.connect(_close_shop)
-	_run_intro_tutorial()
+	GameManager.preparation_started.connect(_on_preparation_started)
+	_run_first_shop()
 
-## Assim que a partida começa de verdade (fim da contagem regressiva),
-## oferece a primeira orbe já explicando o que ela faz.
-func _run_intro_tutorial() -> void:
+## Assim que a partida começa de verdade (fim da contagem regressiva), abre a
+## loja completa antes da primeira horda.
+func _run_first_shop() -> void:
 	# Espera um frame pra garantir que o _ready() do Level (que pausa o jogo
 	# pra contagem regressiva) já rodou antes de checarmos is_game_active.
 	await get_tree().process_frame
 	while not GameManager.is_game_active:
 		await get_tree().create_timer(0.2).timeout
+	_open_full_shop(INTRO_TITLE, INTRO_HINT)
 
-	var choices := _available_orb_choices()
-	if not choices.is_empty():
-		_open_choice_panel(choices, INTRO_TITLE, INTRO_HINT)
-
-func _on_timer_timeout() -> void:
-	if not GameManager.is_game_active:
-		return
-
-	var orb_choices := _available_orb_choices()
-	if not orb_choices.is_empty():
-		_open_choice_panel(orb_choices, ORB_CHOICE_TITLE)
-		return
-
-	var scroll_choices := _available_scroll_choices()
-	if not scroll_choices.is_empty():
-		_open_choice_panel(scroll_choices, SCROLL_CHOICE_TITLE)
-		return
-
-	var item := _pick_available_item()
-	if item:
-		_open_shop(item)
+func _on_preparation_started(wave_num: int) -> void:
+	_open_full_shop(WAVE_TITLE_FMT % wave_num, WAVE_HINT)
 
 func _find_manager() -> OrbManager:
 	return get_tree().get_first_node_in_group("orb_manager") as OrbManager
 
-## Enquanto ainda houver orbes pra comprar (e slot livre), a loja oferece a
-## escolha delas antes de qualquer outro item.
-func _available_orb_choices() -> Array[ItemBase]:
+## Reúne tudo que dá pra comprar agora: orbes ainda não equipadas (se houver
+## slot livre), pergaminhos de evolução pras orbes/habilidades já equipadas, e
+## os itens avulsos (ímã, varinha, campo de força) ainda não comprados.
+func _gather_full_shop_items() -> Array[ItemBase]:
+	var items: Array[ItemBase] = []
+
 	var manager := _find_manager()
-	if manager == null or not manager.has_room():
-		return []
-	var choices: Array[ItemBase] = []
-	for item_script in ORB_ITEMS:
-		var item: ItemBase = item_script.new()
-		if item.is_available():
-			choices.append(item)
-	return choices
+	if manager != null and manager.has_room():
+		for item_script in ORB_ITEMS:
+			var item: ItemBase = item_script.new()
+			if item.is_available():
+				items.append(item)
 
-## Reúne todos os pergaminhos de evolução disponíveis agora (um por orbe/
-## habilidade já equipada e ainda não no nível máximo), pra escolher qual comprar.
-func _available_scroll_choices() -> Array[ItemBase]:
-	var choices: Array[ItemBase] = []
 	for item_script in SCROLL_ITEMS:
-		var item: ItemBase = item_script.new()
-		if item.is_available():
-			choices.append(item)
-	return choices
+		var scroll: ItemBase = item_script.new()
+		if scroll.is_available():
+			items.append(scroll)
 
-func _pick_available_item() -> ItemBase:
-	var candidates: Array[ItemBase] = []
-	for item_script in AVAILABLE_ITEMS:
-		var item: ItemBase = item_script.new()
-		if (item.stackable or not ItemManager.is_owned(item.id)) and item.is_available():
-			candidates.append(item)
-	if candidates.is_empty():
-		return null
-	return candidates.pick_random()
+	for item_script in SINGLE_ITEMS:
+		var single: ItemBase = item_script.new()
+		if (single.stackable or not ItemManager.is_owned(single.id)) and single.is_available():
+			items.append(single)
 
-func _open_choice_panel(choices: Array[ItemBase], title: String, hint: String = "") -> void:
-	for child in choice_row.get_children():
-		child.queue_free()
-	for item in choices:
-		choice_row.add_child(_build_choice_card(item))
+	return items
 
+func _open_full_shop(title: String, hint: String) -> void:
 	choice_title.text = title
 	choice_hint.text = hint
+	_refresh_full_shop()
 
 	shop_ui.visible = true
 	choice_panel.visible = true
-	single_panel.visible = false
 	GameManager.is_game_active = false
+
+## Reconstrói a lista de cartas com base no que ainda está disponível e no
+## dinheiro atual. Chamada após cada compra pra manter a loja aberta e
+## atualizada, em vez de fechar sozinha.
+func _refresh_full_shop() -> void:
+	var items := _gather_full_shop_items()
+
+	for child in choice_row.get_children():
+		child.queue_free()
+	for item in items:
+		choice_row.add_child(_build_choice_card(item))
 
 func _build_choice_card(item: ItemBase) -> Control:
 	var card := VBoxContainer.new()
-	card.custom_minimum_size = Vector2(140, 170)
+	card.custom_minimum_size = Vector2(150, 180)
 	card.add_theme_constant_override("separation", 4)
 
 	var icon_stack := _build_icon_stack(item, Vector2(48, 48))
@@ -164,38 +130,51 @@ func _build_choice_card(item: ItemBase) -> Control:
 	card_cost.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	card.add_child(card_cost)
 
-	var select_button := Button.new()
-	select_button.text = "Escolher"
-	select_button.disabled = GameManager.money < price
-	select_button.pressed.connect(func():
+	var buy_button := Button.new()
+	buy_button.text = "Comprar"
+	buy_button.disabled = GameManager.money < price
+	buy_button.pressed.connect(func():
 		if ItemManager.purchase(item):
-			_close_shop()
+			_refresh_full_shop()
 	)
-	card.add_child(select_button)
+	card.add_child(buy_button)
 
 	return card
 
-## Ícone grande do item (ex: o pergaminho) com um ícone menor por cima quando
-## houver (ex: a orbe específica que aquele pergaminho evolui).
+## Ícone grande do item (ex: o pergaminho) com a orbe pequena desenhada por
+## cima quando houver (ex: a orbe específica que aquele pergaminho evolui).
+## A orbe nunca é PNG — é a própria forma (Polygon2D) desenhada por OrbIcon.
 func _build_icon_stack(item: ItemBase, size: Vector2) -> Control:
 	var stack := Control.new()
 	stack.custom_minimum_size = size
 
-	var base_icon := TextureRect.new()
-	base_icon.anchor_right = 1.0
-	base_icon.anchor_bottom = 1.0
-	base_icon.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
-	base_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	if item.icon_path != "":
+		var base_icon := TextureRect.new()
+		base_icon.anchor_right = 1.0
+		base_icon.anchor_bottom = 1.0
+		base_icon.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
+		base_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		base_icon.texture = load(item.icon_path)
-	stack.add_child(base_icon)
+		stack.add_child(base_icon)
 
-	if item.icon_overlay_path != "":
+	if item.icon_orb_kind != &"":
+		# Com pergaminho por baixo, a orbe fica pequena e centralizada por cima
+		# dele; sem pergaminho (compra direta da orbe), ela ocupa quase tudo.
+		var orb_diameter := size.x * (0.3 if item.icon_path != "" else 0.55)
+		var orb_icon := OrbIcon.build(item.icon_orb_kind, orb_diameter)
+		var margin := (size.x - orb_diameter) / 2.0
+		orb_icon.offset_left = margin
+		orb_icon.offset_top = margin
+		orb_icon.offset_right = margin + orb_diameter
+		orb_icon.offset_bottom = margin + orb_diameter
+		stack.add_child(orb_icon)
+	elif item.icon_overlay_path != "":
 		var overlay := TextureRect.new()
-		overlay.anchor_left = 0.3
-		overlay.anchor_top = 0.32
-		overlay.anchor_right = 0.7
-		overlay.anchor_bottom = 0.72
+		var margin := size.x * 0.15
+		overlay.offset_left = margin
+		overlay.offset_top = margin
+		overlay.offset_right = size.x - margin
+		overlay.offset_bottom = size.y - margin
 		overlay.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
 		overlay.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		overlay.texture = load(item.icon_overlay_path)
@@ -203,29 +182,7 @@ func _build_icon_stack(item: ItemBase, size: Vector2) -> Control:
 
 	return stack
 
-func _open_shop(item: ItemBase) -> void:
-	_current_item = item
-	icon.texture = load(item.icon_path) if item.icon_path != "" else null
-	icon_overlay.texture = load(item.icon_overlay_path) if item.icon_overlay_path != "" else null
-	icon_overlay.visible = item.icon_overlay_path != ""
-	name_label.text = item.display_name
-	description_label.text = item.description
-	var price := item.compute_cost()
-	cost_label.text = "Custo: %d moedas" % price
-	buy_button.disabled = GameManager.money < price
-
-	shop_ui.visible = true
-	single_panel.visible = true
-	choice_panel.visible = false
-	GameManager.is_game_active = false
-
-func _on_buy_pressed() -> void:
-	if _current_item and ItemManager.purchase(_current_item):
-		_close_shop()
-
 func _close_shop() -> void:
 	shop_ui.visible = false
-	single_panel.visible = false
 	choice_panel.visible = false
-	_current_item = null
 	GameManager.is_game_active = true

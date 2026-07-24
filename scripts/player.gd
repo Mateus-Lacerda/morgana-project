@@ -55,7 +55,7 @@ func _ready() -> void:
 	GameManager.game_over.connect(_on_match_ended)
 	GameManager.victory.connect(_on_match_ended)
 	animation.animation_finished.connect(_on_animated_sprite_2d_animation_finished)
-	
+
 	# Transforma o Hitbox retangular antigo numa Área Circular 360
 	if has_node("Hitbox/CollisionShape2D"):
 		var aura_shape = CircleShape2D.new()
@@ -74,7 +74,9 @@ func _ready() -> void:
 	add_child(wand_ability)
 
 	force_field_ability = ForceFieldAbility.new()
+	force_field_ability.visual = aura_visualizer # compartilha o anel com o aura_attack, mesmo clique
 	add_child(force_field_ability)
+	force_field_ability.unlock() # já começa equipado; só evolui a partir daqui
 
 ## Itens já comprados que o pergaminho de evolução pode melhorar.
 func get_evolvable_abilities() -> Array:
@@ -145,11 +147,11 @@ func aura_attack() -> void:
 		animation.play("morgana_attack_aura")
 		start_global_cooldown(AURA_COOLDOWN_MULT * base_magic_cooldown)
 		AudioManager.play_sfx("aura")
-		
+
 		# Efeito Visual 360
 		if aura_visualizer:
-			aura_visualizer.play_explosion(AURA_MAX_RADIUS)
-		
+			aura_visualizer.play_pulse(AURA_MAX_RADIUS, false)
+
 		# Dano aos inimigos ao redor
 		get_tree().create_timer(0.05).timeout.connect(func():
 			if has_node("Hitbox"):
@@ -181,15 +183,15 @@ func _physics_process(delta: float) -> void:
 		return
 
 	_apply_gravity(delta)
-	
+
 	if is_paralyzed:
 		_handle_paralysis()
 		return
-		
+
 	_handle_jump()
 	_handle_combat()
 	_handle_movement()
-	
+
 	move_and_slide()
 
 func _process(delta: float) -> void:
@@ -213,7 +215,7 @@ func _handle_jump() -> void:
 		# Pulo duplo/triplo (ar) emite partícula
 		if jump_count > 0:
 			_spawn_air_jump_particles()
-			
+
 		velocity.y = JUMP_VELOCITIES[jump_count]
 		AudioManager.play_sfx("jump")
 		jump_count += 1
@@ -223,39 +225,39 @@ func _spawn_air_jump_particles() -> void:
 	var p = CPUParticles2D.new()
 	p.emitting = false
 	p.one_shot = true
-	p.amount = 20                  
+	p.amount = 20
 	p.lifetime = 0.5               # Um pouquinho mais longo pra dar tempo de dispersar
-	p.explosiveness = 0.95         
-	
+	p.explosiveness = 0.95
+
 	p.emission_shape = CPUParticles2D.EMISSION_SHAPE_RECTANGLE
 	p.emission_rect_extents = Vector2(14.0, 1.0)
-	
+
 	p.direction = Vector2(0, 1)
-	p.spread = 15.0                 
+	p.spread = 15.0
 	p.gravity = Vector2(0, 10)
 	p.initial_velocity_min = 5.0
 	p.initial_velocity_max = 15.0
-	
+
 	# O SEGREDO DA DISPERSÃO: Aceleração Radial!
 	# Começa calmo, mas as partículas são empurradas para longe do centro conforme o tempo passa
 	p.radial_accel_min = 30.0
 	p.radial_accel_max = 70.0
-	
+
 	p.scale_amount_min = 1.5
 	p.scale_amount_max = 2.5
-	
+
 	# Transição Dourada
 	var grad = Gradient.new()
 	grad.set_color(0, Color(1.0, 0.85, 0.3, 1.0))
 	grad.set_color(1, Color(1.0, 0.85, 0.3, 0.0))
 	# Mantém bem sólido nos primeiros 40% da vida, depois some
-	grad.add_point(0.4, Color(1.0, 0.85, 0.3, 0.9)) 
+	grad.add_point(0.4, Color(1.0, 0.85, 0.3, 0.9))
 	p.color_ramp = grad
-	
+
 	p.global_position = global_position + Vector2(0, 14)
 	get_parent().add_child(p)
 	p.emitting = true
-	
+
 	get_tree().create_timer(1.0).timeout.connect(p.queue_free)
 
 func _handle_combat() -> void:

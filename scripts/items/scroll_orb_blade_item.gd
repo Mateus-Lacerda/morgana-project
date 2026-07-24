@@ -8,7 +8,7 @@ func _init() -> void:
 	cost = BASE_COST
 	stackable = true
 	icon_path = "res://assets/items/scroll_base.png"
-	icon_overlay_path = "res://assets/items/orb_icon_blade.png"
+	icon_orb_kind = &"orb_blade"
 
 func _find_target():
 	var manager := _find_manager()

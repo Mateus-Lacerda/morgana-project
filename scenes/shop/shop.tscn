@@ -61,91 +61,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color(0, 0, 0, 0.55)
 
-[node name="Panel" type="Panel" parent="ShopUI" unique_id=956313465]
-layout_mode = 0
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -170.0
-offset_top = -170.0
-offset_right = 170.0
-offset_bottom = 170.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
-
-[node name="VBox" type="VBoxContainer" parent="ShopUI/Panel" unique_id=394165581]
-layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 20.0
-offset_top = 16.0
-offset_right = -20.0
-offset_bottom = -16.0
-theme_override_constants/separation = 6
-alignment = 1
-
-[node name="TitleLabel" type="Label" parent="ShopUI/Panel/VBox" unique_id=1559641303]
-layout_mode = 2
-text = "Loja"
-label_settings = SubResource("LabelSettings_title")
-horizontal_alignment = 1
-
-[node name="Icon" type="TextureRect" parent="ShopUI/Panel/VBox" unique_id=309814305]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-size_flags_horizontal = 4
-expand_mode = 1
-stretch_mode = 5
-
-[node name="IconOverlay" type="TextureRect" parent="ShopUI/Panel/VBox/Icon" unique_id=1181964524]
-visible = false
-layout_mode = 0
-anchor_left = 0.3
-anchor_top = 0.32
-anchor_right = 0.7
-anchor_bottom = 0.72
-expand_mode = 1
-stretch_mode = 5
-
-[node name="NameLabel" type="Label" parent="ShopUI/Panel/VBox" unique_id=2030083978]
-layout_mode = 2
-label_settings = SubResource("LabelSettings_name")
-horizontal_alignment = 1
-
-[node name="DescriptionLabel" type="Label" parent="ShopUI/Panel/VBox" unique_id=1237214919]
-layout_mode = 2
-label_settings = SubResource("LabelSettings_desc")
-horizontal_alignment = 1
-autowrap_mode = 2
-
-[node name="CostLabel" type="Label" parent="ShopUI/Panel/VBox" unique_id=1442853625]
-layout_mode = 2
-label_settings = SubResource("LabelSettings_cost")
-horizontal_alignment = 1
-
-[node name="ButtonSpacer" type="Control" parent="ShopUI/Panel/VBox" unique_id=767447117]
-custom_minimum_size = Vector2(0, 8)
-layout_mode = 2
-
-[node name="ButtonRow" type="HBoxContainer" parent="ShopUI/Panel/VBox" unique_id=708278613]
-layout_mode = 2
-theme_override_constants/separation = 12
-alignment = 1
-
-[node name="BuyButton" type="Button" parent="ShopUI/Panel/VBox/ButtonRow" unique_id=693547788]
-custom_minimum_size = Vector2(120, 44)
-layout_mode = 2
-theme_override_font_sizes/font_size = 18
-theme_override_styles/normal = SubResource("StyleBoxFlat_buy")
-text = "Comprar"
-
-[node name="CloseButton" type="Button" parent="ShopUI/Panel/VBox/ButtonRow" unique_id=809188933]
-custom_minimum_size = Vector2(120, 44)
-layout_mode = 2
-theme_override_font_sizes/font_size = 18
-theme_override_styles/normal = SubResource("StyleBoxFlat_close")
-text = "Fechar"
-
 [node name="ChoicePanel" type="Panel" parent="ShopUI" unique_id=1169894478]
 layout_mode = 1
 anchors_preset = 8
@@ -153,10 +68,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -430.0
-offset_top = -160.0
-offset_right = 430.0
-offset_bottom = 232.0
+offset_left = -460.0
+offset_top = -280.0
+offset_right = 460.0
+offset_bottom = 280.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
@@ -184,19 +99,22 @@ label_settings = SubResource("LabelSettings_desc")
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="ChoiceRow" type="HBoxContainer" parent="ShopUI/ChoicePanel/VBox" unique_id=1736644009]
+[node name="ChoiceScroll" type="ScrollContainer" parent="ShopUI/ChoicePanel/VBox" unique_id=1736644008]
+custom_minimum_size = Vector2(0, 360)
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/separation = 16
-alignment = 1
+horizontal_scroll_mode = 0
+
+[node name="ChoiceRow" type="GridContainer" parent="ShopUI/ChoicePanel/VBox/ChoiceScroll" unique_id=1736644009]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 16
+columns = 4
 
 [node name="CloseButton" type="Button" parent="ShopUI/ChoicePanel/VBox" unique_id=1617120899]
 custom_minimum_size = Vector2(120, 40)
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 theme_override_styles/normal = SubResource("StyleBoxFlat_close")
-text = "Agora não"
-
-[node name="Timer" type="Timer" parent="." unique_id=1419542305]
-wait_time = 15.0
-autostart = true
+text = "Fechar"

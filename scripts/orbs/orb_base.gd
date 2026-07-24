@@ -16,11 +16,16 @@ const EVOLUTION_FEEDBACK := {
 	"speed": "Velocidade ↑",
 	"size": "Raio ↑",
 	"attack": "Ataque ↑",
+	"transform": "Transformação!",
 }
 
 var speed_level: int = 0
 var size_level: int = 0
 var attack_level: int = 0
+
+## Uma vez totalmente evoluída (3 stats no máximo), a orbe pode passar por uma
+## transformação única — cada filho define o que isso significa (ver _on_transformed).
+var is_transformed: bool = false
 
 func _ready() -> void:
 	var kind := get_kind_id()
@@ -34,7 +39,8 @@ func get_kind_id() -> StringName:
 func _process(delta: float) -> void:
 	_current_angle += orbit_speed * delta
 	var final_angle = _current_angle + orbit_offset
-	position = Vector2(cos(final_angle) * orbit_radius, sin(final_angle) * orbit_radius * 0.5 - 55.0)
+	var orbit_position := Vector2(cos(final_angle) * orbit_radius, sin(final_angle) * orbit_radius * 0.5 - 55.0)
+	position = _compute_position(delta, orbit_position)
 
 	if not GameManager.is_game_active:
 		return
@@ -43,6 +49,11 @@ func _process(delta: float) -> void:
 		var target := _find_target()
 		if target:
 			_execute_attack(target)
+
+## Hook virtual — por padrão só segue a órbita. Orbes transformadas podem
+## sobrescrever pra outros comportamentos de movimento (ex: perseguir um alvo).
+func _compute_position(_delta: float, orbit_position: Vector2) -> Vector2:
+	return orbit_position
 
 # Função virtual para ser sobrescrita pelos filhos
 func _find_target() -> Node2D:
@@ -78,6 +89,23 @@ func is_fully_evolved() -> bool:
 	return speed_level >= MAX_EVOLUTION_LEVEL \
 		and size_level >= MAX_EVOLUTION_LEVEL \
 		and attack_level >= MAX_EVOLUTION_LEVEL
+
+## Só fica disponível quando os 3 stats já estão no máximo — é a evolução
+## final, comprada à parte (ver OrbTransformScrollBase), não pelo sorteio normal.
+func can_transform() -> bool:
+	return is_fully_evolved() and not is_transformed
+
+func transform() -> void:
+	if not can_transform():
+		return
+	is_transformed = true
+	_on_transformed()
+	_show_evolution_feedback("transform")
+	_pulse_evolution()
+
+## Hook virtual — cada orbe define sua própria transformação final.
+func _on_transformed() -> void:
+	pass
 
 ## Chamado pelo pergaminho de evolução: melhora uma das 3 características ao acaso.
 func apply_random_evolution() -> void:

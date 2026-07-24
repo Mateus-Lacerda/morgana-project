@@ -6,23 +6,36 @@ const RADIUS_STEP: float = 20.0
 const DAMAGE_STEP: int = 15
 const BASE_RADIUS: float = 120.0
 const BASE_DAMAGE: int = 60
-const TRIGGER_COOLDOWN: float = 3.0
+const BASE_TRIGGER_COOLDOWN: float = 3.0
+
+## Cadência do próprio campo: cada nível encurta o intervalo entre pulsos.
+## No nível máximo o campo pulsa quase sem pausa — "sempre ativo".
+const COOLDOWN_STEP: float = 0.55
+const MIN_TRIGGER_COOLDOWN: float = 0.15
 
 var auto_trigger: bool = false
 var radius_level: int = 0
 var damage_level: int = 0
+var cooldown_level: int = 0
 
 var radius: float = BASE_RADIUS
 var damage: int = BASE_DAMAGE
+var trigger_cooldown: float = BASE_TRIGGER_COOLDOWN
 
 var _player: Node2D
 var _can_trigger: bool = true
-var _visual: AuraVisualizer
+
+## Pode ser injetado de fora (ver Player._ready) pra compartilhar o mesmo
+## anel visual do aura_attack antigo — os dois disparam no mesmo clique
+## direito, então usar instâncias separadas fazia dois círculos translúcidos
+## se sobreporem e a transparência de cada um somar visualmente com a outra.
+var visual: AuraVisualizer
 
 func _ready() -> void:
 	_player = get_parent()
-	_visual = AuraVisualizer.new()
-	_player.add_child(_visual)
+	if visual == null:
+		visual = AuraVisualizer.new()
+		_player.add_child(visual)
 
 func _process(_delta: float) -> void:
 	if not unlocked or not GameManager.is_game_active:
@@ -31,14 +44,15 @@ func _process(_delta: float) -> void:
 		return
 	if auto_trigger:
 		_trigger()
-	elif Input.is_action_just_pressed("magic_attack"):
+	elif Input.is_action_just_pressed("aura_attack"):
 		_trigger()
 
 func total_evolution_level() -> int:
-	return int(auto_trigger) + radius_level + damage_level
+	return int(auto_trigger) + radius_level + damage_level + cooldown_level
 
 func is_fully_evolved() -> bool:
-	return auto_trigger and radius_level >= MAX_LEVEL and damage_level >= MAX_LEVEL
+	return auto_trigger and radius_level >= MAX_LEVEL and damage_level >= MAX_LEVEL \
+		and cooldown_level >= MAX_LEVEL
 
 func apply_random_evolution() -> void:
 	var options: Array[String] = []
@@ -48,6 +62,8 @@ func apply_random_evolution() -> void:
 		options.append("radius")
 	if damage_level < MAX_LEVEL:
 		options.append("damage")
+	if cooldown_level < MAX_LEVEL:
+		options.append("cooldown")
 	if options.is_empty():
 		return
 
@@ -61,11 +77,28 @@ func apply_random_evolution() -> void:
 		"damage":
 			damage_level += 1
 			damage += DAMAGE_STEP
+		"cooldown":
+			cooldown_level += 1
+			trigger_cooldown = max(MIN_TRIGGER_COOLDOWN, trigger_cooldown - COOLDOWN_STEP)
+
+## Desfaz totalmente a compra do campo de força e tudo que os pergaminhos evoluíram nele.
+func reset() -> void:
+	unlocked = false
+	auto_trigger = false
+	radius_level = 0
+	damage_level = 0
+	cooldown_level = 0
+	radius = BASE_RADIUS
+	damage = BASE_DAMAGE
+	trigger_cooldown = BASE_TRIGGER_COOLDOWN
 
 func _trigger() -> void:
 	_can_trigger = false
-	# TODO: trocar por um sprite/animação de anel próprios quando existirem.
-	_visual.play_explosion(radius)
+	# Só trava expandido (sem recuar) quando é automático e rápido demais pra
+	# caber um pulso inteiro entre gatilhos — senão a animação reiniciaria do
+	# zero a cada disparo e travaria sempre no começo, nunca abrindo de vez.
+	var stay_expanded := auto_trigger and trigger_cooldown < AuraVisualizer.PULSE_DURATION
+	visual.play_pulse(radius, stay_expanded)
 	for target in get_tree().get_nodes_in_group("enemies"):
 		if not is_instance_valid(target):
 			continue
@@ -73,6 +106,6 @@ func _trigger() -> void:
 			continue
 		if _player.global_position.distance_to(target.global_position) <= radius:
 			target.take_damage(damage, _player)
-	get_tree().create_timer(TRIGGER_COOLDOWN).timeout.connect(func():
+	get_tree().create_timer(trigger_cooldown).timeout.connect(func():
 		_can_trigger = true
 	)
