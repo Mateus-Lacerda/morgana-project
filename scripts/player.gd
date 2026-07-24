@@ -180,9 +180,53 @@ func _handle_paralysis() -> void:
 
 func _handle_jump() -> void:
 	if Input.is_action_just_pressed("jump") and jump_count < MAX_JUMPS:
+		# Pulo duplo/triplo (ar) emite partícula
+		if jump_count > 0:
+			_spawn_air_jump_particles()
+			
 		velocity.y = JUMP_VELOCITIES[jump_count]
 		AudioManager.play_sfx("jump")
 		jump_count += 1
+		animation.play("morgana_jump")
+
+func _spawn_air_jump_particles() -> void:
+	var p = CPUParticles2D.new()
+	p.emitting = false
+	p.one_shot = true
+	p.amount = 20                  
+	p.lifetime = 0.5               # Um pouquinho mais longo pra dar tempo de dispersar
+	p.explosiveness = 0.95         
+	
+	p.emission_shape = CPUParticles2D.EMISSION_SHAPE_RECTANGLE
+	p.emission_rect_extents = Vector2(14.0, 1.0)
+	
+	p.direction = Vector2(0, 1)
+	p.spread = 15.0                 
+	p.gravity = Vector2(0, 10)
+	p.initial_velocity_min = 5.0
+	p.initial_velocity_max = 15.0
+	
+	# O SEGREDO DA DISPERSÃO: Aceleração Radial!
+	# Começa calmo, mas as partículas são empurradas para longe do centro conforme o tempo passa
+	p.radial_accel_min = 30.0
+	p.radial_accel_max = 70.0
+	
+	p.scale_amount_min = 1.5
+	p.scale_amount_max = 2.5
+	
+	# Transição Dourada
+	var grad = Gradient.new()
+	grad.set_color(0, Color(1.0, 0.85, 0.3, 1.0))
+	grad.set_color(1, Color(1.0, 0.85, 0.3, 0.0))
+	# Mantém bem sólido nos primeiros 40% da vida, depois some
+	grad.add_point(0.4, Color(1.0, 0.85, 0.3, 0.9)) 
+	p.color_ramp = grad
+	
+	p.global_position = global_position + Vector2(0, 14)
+	get_parent().add_child(p)
+	p.emitting = true
+	
+	get_tree().create_timer(1.0).timeout.connect(p.queue_free)
 
 func _handle_combat() -> void:
 	if (wand_ability.auto_fire or Input.is_action_pressed("shoot_attack")) and is_global_cooldown_ready():
@@ -225,4 +269,9 @@ func _update_animations() -> void:
 		else:
 			animation.play("morgana_idle")
 	else:
-		animation.play("morgana_jump")
+		if velocity.y < 0:
+			if animation.animation != "morgana_jump":
+				animation.play("morgana_jump")
+		else:
+			if animation.animation != "morgana_fall":
+				animation.play("morgana_fall")

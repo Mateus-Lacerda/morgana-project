@@ -17,21 +17,31 @@ func initialize(sprite: CanvasItem) -> void:
 	_particles = CPUParticles2D.new()
 	_particles.emitting = false
 	_particles.one_shot = true
-	_particles.explosiveness = 0.9
-	_particles.lifetime = 0.5
-	_particles.amount = 16
-	_particles.emission_shape = CPUParticles2D.EMISSION_SHAPE_SPHERE
-	_particles.emission_sphere_radius = 20.0
-	_particles.gravity = Vector2(0, -60)
-	_particles.initial_velocity_min = 10.0
-	_particles.initial_velocity_max = 25.0
-	_particles.scale_amount_min = 3.0
-	_particles.scale_amount_max = 6.0
-	_particles.color = Color(1.0, 0.9, 0.3)
+	_particles.explosiveness = 0.85
+	_particles.lifetime = 0.6
+	_particles.amount = 20
 	
+	_particles.emission_shape = CPUParticles2D.EMISSION_SHAPE_SPHERE
+	_particles.emission_sphere_radius = 16.0
+	
+	# Movimento suave subindo e espalhando
+	_particles.gravity = Vector2(0, -20)
+	_particles.initial_velocity_min = 5.0
+	_particles.initial_velocity_max = 15.0
+	_particles.radial_accel_min = 15.0
+	_particles.radial_accel_max = 30.0
+	
+	# Tamanhos bem menores, semelhantes ao pulo mágico
+	_particles.scale_amount_min = 1.0
+	_particles.scale_amount_max = 2.0
+	
+	_particles.color = Color(1.0, 0.85, 0.3, 0.9) # Dourado base
+	
+	# Transição suave de opacidade
 	var grad = Gradient.new()
-	grad.set_color(0, Color(1, 1, 1, 1))
-	grad.set_color(1, Color(1, 1, 1, 0))
+	grad.set_color(0, Color(1, 1, 1, 0.9))
+	grad.set_color(1, Color(1, 1, 1, 0.0))
+	grad.add_point(0.3, Color(1, 1, 1, 0.9)) # Segura sólido um tempinho antes de sumir
 	_particles.color_ramp = grad
 	
 	add_child(_particles)
