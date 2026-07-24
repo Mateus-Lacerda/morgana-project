@@ -13,8 +13,9 @@ class SpawnEntry:
 		setup_type = p_type
 
 ## --- Configuração de Posição ---
-enum SpawnMode { CAMERA_RELATIVE, ABSOLUTE }
+enum SpawnMode { CAMERA_RELATIVE, ABSOLUTE, MAP_NODES }
 @export var spawn_mode: SpawnMode = SpawnMode.CAMERA_RELATIVE
+var spawn_nodes: Array[Node] = []
 @export var spawn_offset: Vector2 = Vector2(600, 0)  # Para CAMERA_RELATIVE
 @export var spawn_position: Vector2 = Vector2.ZERO	 # Para ABSOLUTE
 @export var spawn_y_min: float = 400.0
@@ -106,6 +107,22 @@ func _calculate_spawn_position() -> Vector2:
 			pos = cam_pos + spawn_offset
 		SpawnMode.ABSOLUTE:
 			pos = spawn_position
+		SpawnMode.MAP_NODES:
+			var camera = get_viewport().get_camera_2d()
+			var cam_pos = camera.global_position if camera else Vector2(576, 600)
+			var cam_right_edge: float = cam_pos.x + (get_viewport().get_visible_rect().size.x / 2.0)
+			
+			var best_x: float = cam_right_edge + 200.0 # Fallback
+			var min_dist: float = INF
+			
+			for marker in spawn_nodes:
+				if marker.global_position.x > cam_right_edge:
+					var dist = marker.global_position.x - cam_right_edge
+					if dist < min_dist:
+						min_dist = dist
+						best_x = marker.global_position.x
+			
+			pos.x = best_x
 	
 	if randomize_y:
 		pos.y = randf_range(spawn_y_min, spawn_y_max)

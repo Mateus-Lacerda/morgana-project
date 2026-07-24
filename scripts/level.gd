@@ -20,6 +20,11 @@ var bat_scene = preload("res://scenes/bat.tscn")
 
 func _ready() -> void:
 	var spawner: EnemySpawner = $EnemySpawner
+	spawner.spawn_mode = EnemySpawner.SpawnMode.MAP_NODES
+	
+	if has_node("SpawnPoints"):
+		spawner.spawn_nodes = $SpawnPoints.get_children()
+	
 	spawner.set_spawn_table([
 		EnemySpawner.SpawnEntry.new(bat_scene, 0.7, "common"),
 		EnemySpawner.SpawnEntry.new(bat_scene, 0.2, "fast"),
