@@ -14,7 +14,15 @@ extends CanvasLayer
 @onready var restart_button: Button = $ResultPanel/VBox/ButtonRow/RestartButton
 @onready var menu_button: Button = $ResultPanel/VBox/ButtonRow/MenuButton
 
+const INDICATOR_SCENE = preload("res://scenes/ui/offscreen_indicator.tscn")
+var _active_indicators: Dictionary = {}
+var _radar_container: Control
+
 func _ready() -> void:
+	_radar_container = Control.new()
+	_radar_container.set_anchors_preset(Control.PRESET_FULL_RECT)
+	add_child(_radar_container)
+	
 	result_panel.visible = false
 	fade_overlay.modulate.a = 0.0
 	timer_label.pivot_offset = timer_label.size / 2.0
@@ -124,3 +132,66 @@ func _on_restart_pressed() -> void:
 func _on_menu_pressed() -> void:
 	AudioManager.play_sfx("button")
 	get_tree().change_scene_to_file("res://scenes/title.tscn")
+
+func _process(_delta: float) -> void:
+	if not GameManager.is_game_active:
+		return
+		
+	var camera = get_viewport().get_camera_2d()
+	if not camera: return
+	
+	var view_size = get_viewport().get_visible_rect().size
+	var cam_center = camera.get_screen_center_position()
+	var top_left = cam_center - (view_size / 2.0)
+	
+	var enemies = get_tree().get_nodes_in_group("enemies")
+	var offscreen_enemy_ids: Dictionary = {}
+	
+	for e in enemies:
+		if e.get("is_dead"): 
+			continue
+			
+		var ex = e.global_position.x
+		var ey = e.global_position.y
+		
+		var is_offscreen_left = (ex < top_left.x)
+		var is_offscreen_right = (ex > top_left.x + view_size.x)
+		
+		if is_offscreen_left or is_offscreen_right:
+			var eid: int = e.get_instance_id()
+			offscreen_enemy_ids[eid] = true
+			
+			var ind = _get_or_create_indicator(eid)
+			var screen_y = clamp(ey - top_left.y, 40, view_size.y - 40)
+			
+			if is_offscreen_left:
+				ind.position = Vector2(20, screen_y)
+				ind.is_left = true
+				ind.update_status(ex < 600.0) # Perto do portão
+			else:
+				ind.position = Vector2(view_size.x - 20, screen_y)
+				ind.is_left = false
+				ind.update_status(false)
+			
+	# Limpeza: Remove os indicadores de inimigos que voltaram para a tela, morreram ou foram deletados
+	var ids_to_remove: Array = []
+	for eid in _active_indicators.keys():
+		if not offscreen_enemy_ids.has(eid):
+			ids_to_remove.append(eid)
+			
+	for eid in ids_to_remove:
+		_remove_indicator(eid)
+
+func _get_or_create_indicator(enemy_id: int) -> OffscreenIndicator:
+	if not _active_indicators.has(enemy_id):
+		var ind = INDICATOR_SCENE.instantiate()
+		_radar_container.add_child(ind)
+		_active_indicators[enemy_id] = ind
+	return _active_indicators[enemy_id]
+
+func _remove_indicator(enemy_id: int) -> void:
+	if _active_indicators.has(enemy_id):
+		var ind = _active_indicators[enemy_id]
+		if is_instance_valid(ind):
+			ind.queue_free()
+		_active_indicators.erase(enemy_id)
