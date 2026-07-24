@@ -94,8 +94,9 @@ func reset() -> void:
 
 func _trigger() -> void:
 	_can_trigger = false
-	# O anel visual já pulsa continuamente (ver AuraVisualizer.start_idle_pulse);
-	# aqui só aplica o dano, sem precisar de um flash à parte por gatilho.
+	# O anel pulsa continuamente o tempo todo (ver start_idle_pulse); aqui só
+	# soma um clarão rápido por cima, pra ficar claro que bateu de verdade.
+	_visual.pulse_hit()
 	for target in get_tree().get_nodes_in_group("enemies"):
 		if not is_instance_valid(target):
 			continue
