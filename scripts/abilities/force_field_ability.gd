@@ -24,12 +24,18 @@ var trigger_cooldown: float = BASE_TRIGGER_COOLDOWN
 
 var _player: Node2D
 var _can_trigger: bool = true
-var _visual: AuraVisualizer
+
+## Pode ser injetado de fora (ver Player._ready) pra compartilhar o mesmo
+## anel visual do aura_attack antigo — os dois disparam no mesmo clique
+## direito, então usar instâncias separadas fazia dois círculos translúcidos
+## se sobreporem e a transparência de cada um somar visualmente com a outra.
+var visual: AuraVisualizer
 
 func _ready() -> void:
 	_player = get_parent()
-	_visual = AuraVisualizer.new()
-	_player.add_child(_visual)
+	if visual == null:
+		visual = AuraVisualizer.new()
+		_player.add_child(visual)
 
 func _process(_delta: float) -> void:
 	if not unlocked or not GameManager.is_game_active:
@@ -92,7 +98,7 @@ func _trigger() -> void:
 	# caber um pulso inteiro entre gatilhos — senão a animação reiniciaria do
 	# zero a cada disparo e travaria sempre no começo, nunca abrindo de vez.
 	var stay_expanded := auto_trigger and trigger_cooldown < AuraVisualizer.PULSE_DURATION
-	_visual.play_pulse(radius, stay_expanded)
+	visual.play_pulse(radius, stay_expanded)
 	for target in get_tree().get_nodes_in_group("enemies"):
 		if not is_instance_valid(target):
 			continue
