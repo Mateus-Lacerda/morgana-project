@@ -8,7 +8,7 @@ func _init() -> void:
 	display_name = "Orbe Explosiva"
 	description = "Dispara bombas que causam dano em área ao acertar."
 	cost = 75
-	# TODO: ícone próprio quando existir um sprite.
+	icon_orb_kind = &"orb_explosive"
 
 func is_available() -> bool:
 	var manager := _find_manager()
@@ -18,6 +18,14 @@ func apply() -> void:
 	var manager := _find_manager()
 	if manager:
 		manager.add_orb(ORB_SCENE.instantiate())
+
+func remove() -> void:
+	var manager := _find_manager()
+	if manager == null:
+		return
+	for orb in manager.get_orbs():
+		if orb.get_kind_id() == id:
+			orb.queue_free()
 
 func _find_manager() -> OrbManager:
 	var tree := Engine.get_main_loop() as SceneTree

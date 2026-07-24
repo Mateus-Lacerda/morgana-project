@@ -1,12 +1,12 @@
-extends EvolutionScrollBase
-class_name ScrollOrbComboItem
+extends OrbTransformScrollBase
+class_name ScrollTransformComboItem
 
 func _init() -> void:
-	id = &"scroll_orb_combo"
-	display_name = "Pergaminho — Orbe de Combo"
-	description = "Evolui a orbe de combo ao acaso: velocidade, raio ou ataque."
-	cost = BASE_COST
-	stackable = true
+	id = &"scroll_transform_combo"
+	display_name = "Transformação — Orbe de Combo"
+	description = "A orbe de combo passa a disparar em todas as direções a cada ataque."
+	cost = TRANSFORM_COST
+	stackable = false
 	icon_path = "res://assets/items/scroll_base.png"
 	icon_orb_kind = &"orb_combo"
 

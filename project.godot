@@ -24,6 +24,7 @@ config/icon="uid://wb8cn8e25c63"
 GameManager="*res://scripts/game_manager.gd"
 ItemManager="*res://scripts/items/item_manager.gd"
 AudioManager="*res://scripts/audio_manager.gd"
+DevMode="*res://scripts/dev_mode.gd"
 
 [display]
 
@@ -87,3 +88,4 @@ aura_attack={
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 anti_aliasing/quality/msaa_2d=2
+textures/canvas_textures/default_texture_filter=0

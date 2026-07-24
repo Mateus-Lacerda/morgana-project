@@ -13,10 +13,17 @@ const SIZE_MULT: float = 0.5
 var _evo_damage_bonus: int = 0
 var _evo_speed_bonus: float = 0.0
 var _evo_scale_mult: float = 1.0
+var _evo_cooldown_mult: float = 1.0
 
-const EVO_DAMAGE_STEP: int = 4
-const EVO_SPEED_STEP: float = 0.6
-const EVO_SCALE_STEP: float = 0.12
+const EVO_DAMAGE_STEP: int = 8
+const EVO_SPEED_STEP: float = 1.0
+const EVO_SCALE_STEP: float = 0.2
+
+## Transformação final: em vez de mirar só no morcego mais próximo, dispara
+## uma saraivada em todas as direções a cada ataque.
+const OMNI_BOLT_COUNT: int = 8
+const OMNI_COOLDOWN_MULT: float = 1.6 # compensa o dano de 8 tiros de uma vez
+var _omni_fire: bool = false
 
 const POWER_TIERS := [
 	{"mult": 10, "damage": 45, "cooldown": 0.55, "radius": 520.0, "orbit_speed": 4.2, "pierce": true, "visual_scale": 1.6, "color": Color(1.0, 0.85, 0.3)},
@@ -29,6 +36,9 @@ const POWER_TIERS := [
 
 func _ready() -> void:
 	super._ready()
+	# Órbita mais afastada que a lâmina (contato) — fica evidente que essa
+	# orbe ataca à distância em vez de precisar encostar no inimigo.
+	orbit_radius = 60.0
 	# O Player agora é o "avô" (AIFamiliar -> OrbManager -> Player)
 	_player = get_parent().get_parent()
 	add_to_group("ai_familiar")
@@ -51,6 +61,11 @@ func _on_attack_evolved() -> void:
 	_evo_damage_bonus += EVO_DAMAGE_STEP
 	_apply_tier(_tier_for_multiplier(GameManager.combo_multiplier))
 
+func _on_transformed() -> void:
+	_omni_fire = true
+	_evo_cooldown_mult *= OMNI_COOLDOWN_MULT
+	_apply_tier(_tier_for_multiplier(GameManager.combo_multiplier))
+
 func _on_combo_changed(multiplier: int, _streak: int) -> void:
 	_apply_tier(_tier_for_multiplier(multiplier))
 
@@ -62,7 +77,7 @@ func _tier_for_multiplier(multiplier: int) -> Dictionary:
 
 func _apply_tier(tier: Dictionary) -> void:
 	damage_amount = tier.damage
-	attack_cooldown = tier.cooldown
+	attack_cooldown = tier.cooldown * _evo_cooldown_mult
 	detection_radius = tier.radius
 	orbit_speed = tier.orbit_speed
 	_pierce = tier.pierce
@@ -85,7 +100,17 @@ func _find_target() -> Node2D:
 	return get_nearest_entity_in_radius("enemies")
 
 func _execute_attack(target: Node2D) -> void:
-	var direction := (target.global_position - global_position).normalized()
+	if _omni_fire:
+		for i in range(OMNI_BOLT_COUNT):
+			var angle := TAU * i / OMNI_BOLT_COUNT
+			_fire_bolt(Vector2(cos(angle), sin(angle)))
+	else:
+		_fire_bolt((target.global_position - global_position).normalized())
+
+	_flash()
+	start_cooldown(attack_cooldown)
+
+func _fire_bolt(direction: Vector2) -> void:
 	var bolt := fireball_scene.instantiate()
 	bolt.shooter = _player
 	bolt.damage = damage_amount
@@ -94,9 +119,6 @@ func _execute_attack(target: Node2D) -> void:
 	bolt.global_position = global_position
 	# Adiciona o raio no Level (avô do Player)
 	_player.get_parent().add_child(bolt)
-
-	_flash()
-	start_cooldown(attack_cooldown)
 
 func _flash() -> void:
 	var orb := get_node_or_null("Orb")

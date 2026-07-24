@@ -8,7 +8,7 @@ func _init() -> void:
 	cost = BASE_COST
 	stackable = true
 	icon_path = "res://assets/items/scroll_base.png"
-	# TODO: ícone da varinha pra compor sobre o pergaminho quando existir um sprite.
+	icon_overlay_path = "res://assets/items/wand_icon.png"
 
 func _find_target():
 	var player := _find_player()

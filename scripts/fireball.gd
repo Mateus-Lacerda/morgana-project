@@ -7,6 +7,9 @@ var damage: int = 25
 var pierce: bool = false          # true = raio carregado, atravessa vários morcegos
 var explosive: bool = false       # true = explode em área ao acertar, em vez de só atravessar/parar
 var explosion_radius: float = 70.0
+var leaves_burning_zone: bool = false  # true = deixa uma área em chamas após a explosão (molotov)
+var burn_duration: float = 3.0
+var burn_dps: float = 10.0
 
 var _traveled: float = 0.0
 var _hit_bodies: Array = []
@@ -49,7 +52,18 @@ func _explode() -> void:
 			enemy.take_damage(damage, shooter)
 			_hit_bodies.append(enemy)
 	_spawn_explosion_visual()
+	if leaves_burning_zone:
+		_spawn_burning_zone()
 	queue_free()
+
+func _spawn_burning_zone() -> void:
+	var zone := MolotovZone.new()
+	zone.position = global_position
+	zone.radius = explosion_radius
+	zone.dps = burn_dps
+	zone.duration = burn_duration
+	zone.shooter = shooter
+	get_parent().add_child(zone)
 
 func _spawn_explosion_visual() -> void:
 	var particles := CPUParticles2D.new()

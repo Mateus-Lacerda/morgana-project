@@ -6,12 +6,17 @@ func _init() -> void:
 	display_name = "Varinha Encantada"
 	description = "Evolui seu tiro mágico: disparo automático, mira automática, velocidade e dano."
 	cost = 45
-	# TODO: ícone próprio quando existir um sprite.
+	icon_path = "res://assets/items/wand_icon.png"
 
 func apply() -> void:
 	var player := _find_player()
 	if player:
 		player.wand_ability.unlock()
+
+func remove() -> void:
+	var player := _find_player()
+	if player:
+		player.wand_ability.reset()
 
 func _find_player() -> Player:
 	var tree := Engine.get_main_loop() as SceneTree

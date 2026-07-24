@@ -24,17 +24,11 @@ var facing_right: bool = true
 var is_paralyzed: bool = false
 var is_attacking: bool = false
 
-# Aura Attack Variables
-const AURA_DAMAGE = 100
-const AURA_COOLDOWN_MULT: float = 0.75
-const AURA_MAX_RADIUS: float = 160.0
-
 # Global Magic Cooldown System
 var global_cooldown_timer: float = 0.0
 var global_cooldown_max: float = 1.0
 
 var cooldown_visualizer: CooldownVisualizer
-var aura_visualizer: AuraVisualizer
 
 var wand_ability: WandAbility
 var force_field_ability: ForceFieldAbility
@@ -55,26 +49,17 @@ func _ready() -> void:
 	GameManager.game_over.connect(_on_match_ended)
 	GameManager.victory.connect(_on_match_ended)
 	animation.animation_finished.connect(_on_animated_sprite_2d_animation_finished)
-	
-	# Transforma o Hitbox retangular antigo numa Área Circular 360
-	if has_node("Hitbox/CollisionShape2D"):
-		var aura_shape = CircleShape2D.new()
-		aura_shape.radius = AURA_MAX_RADIUS
-		$Hitbox/CollisionShape2D.shape = aura_shape
-		$Hitbox.position = Vector2.ZERO # Centraliza na maga
 
 	cooldown_visualizer = CooldownVisualizer.new()
 	add_child(cooldown_visualizer)
 	cooldown_visualizer.initialize(animation)
-
-	aura_visualizer = AuraVisualizer.new()
-	add_child(aura_visualizer)
 
 	wand_ability = WandAbility.new()
 	add_child(wand_ability)
 
 	force_field_ability = ForceFieldAbility.new()
 	add_child(force_field_ability)
+	force_field_ability.unlock() # já começa equipado; só evolui a partir daqui
 
 ## Itens já comprados que o pergaminho de evolução pode melhorar.
 func get_evolvable_abilities() -> Array:
@@ -139,35 +124,20 @@ func _find_nearest_enemy() -> Node2D:
 			nearest_dist = dist
 	return nearest
 
-func aura_attack() -> void:
-	if not is_attacking and not is_paralyzed and is_global_cooldown_ready():
-		is_attacking = true
-		animation.play("morgana_attack") # Mantém como placeholder
-		start_global_cooldown(AURA_COOLDOWN_MULT * base_magic_cooldown)
-		AudioManager.play_sfx("aura")
-		
-		# Efeito Visual 360
-		if aura_visualizer:
-			aura_visualizer.play_explosion(AURA_MAX_RADIUS)
-		
-		# Dano aos inimigos ao redor
-		get_tree().create_timer(0.05).timeout.connect(func():
-			if has_node("Hitbox"):
-				var targets = $Hitbox.get_overlapping_bodies()
-				for target in targets:
-					if target != self and target.has_method("take_damage"):
-						target.take_damage(AURA_DAMAGE, self)
-		)
-
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if is_attacking:
 		is_attacking = false
 
+## Cadência acima disso soa estranho repetindo o som de tiro a cada disparo
+## (praticamente vira ruído contínuo), então some com o SFX nesse regime.
+const RAPID_FIRE_SFX_THRESHOLD: float = 0.5
+
 func shoot_magic() -> void:
 	is_attacking = true
 	animation.play("morgana_attack_2")
-	start_global_cooldown(MAGIC_COOLDOWN_MULT * base_magic_cooldown)
-	AudioManager.play_sfx("shoot")
+	start_global_cooldown(MAGIC_COOLDOWN_MULT * base_magic_cooldown * wand_ability.cooldown_mult)
+	if wand_ability.cooldown_mult > RAPID_FIRE_SFX_THRESHOLD:
+		AudioManager.play_sfx("shoot")
 	var fireball = fireball_scene.instantiate()
 	fireball.shooter = self
 	fireball.damage = MAGIC_DAMAGE + wand_ability.damage_bonus
@@ -217,8 +187,6 @@ func _handle_jump() -> void:
 func _handle_combat() -> void:
 	if (wand_ability.auto_fire or Input.is_action_pressed("shoot_attack")) and is_global_cooldown_ready():
 		shoot_magic()
-	elif Input.is_action_pressed("aura_attack") and is_global_cooldown_ready():
-		aura_attack()
 
 func _handle_movement() -> void:
 	var direction := Input.get_axis("move_left", "move_right")

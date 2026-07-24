@@ -6,8 +6,15 @@ class_name ItemBase
 @export var description: String = ""
 @export var cost: int = 0
 @export var icon_path: String = ""          # ícone grande, usado na loja
-@export var icon_overlay_path: String = "" # composto por cima do ícone grande (ex: orbe dentro do pergaminho)
 @export var icon_small_path: String = ""    # ícone pequeno, usado na HUD
+
+## Se setado, desenha a própria orbe (Polygon2D, sem PNG) por cima do ícone
+## grande — ex: a orbe pequena dentro do pergaminho que a evolui. Ver OrbIcon.
+@export var icon_orb_kind: StringName = &""
+
+## Overlay em PNG pra itens sem forma de orbe pra reaproveitar (ex: varinha,
+## campo de força) — composto sobre icon_path do mesmo jeito que icon_orb_kind.
+@export var icon_overlay_path: String = ""
 
 ## Itens não-empilháveis só podem ser comprados uma vez (ex: ímã de moedas).
 ## Itens empilháveis (ex: pergaminho de evolução) podem ser comprados várias vezes.
