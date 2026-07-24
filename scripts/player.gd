@@ -223,27 +223,39 @@ func _spawn_air_jump_particles() -> void:
 	var p = CPUParticles2D.new()
 	p.emitting = false
 	p.one_shot = true
-	p.amount = 15
-	p.lifetime = 0.35
-	p.explosiveness = 0.85
-	p.direction = Vector2(0, 1) # Direção para baixo (empurrando o ar)
-	p.spread = 50.0
-	p.gravity = Vector2(0, 50)
-	p.initial_velocity_min = 60.0
-	p.initial_velocity_max = 120.0
-	p.scale_amount_min = 1.0
+	p.amount = 20                  
+	p.lifetime = 0.5               # Um pouquinho mais longo pra dar tempo de dispersar
+	p.explosiveness = 0.95         
+	
+	p.emission_shape = CPUParticles2D.EMISSION_SHAPE_RECTANGLE
+	p.emission_rect_extents = Vector2(14.0, 1.0)
+	
+	p.direction = Vector2(0, 1)
+	p.spread = 15.0                 
+	p.gravity = Vector2(0, 10)
+	p.initial_velocity_min = 5.0
+	p.initial_velocity_max = 15.0
+	
+	# O SEGREDO DA DISPERSÃO: Aceleração Radial!
+	# Começa calmo, mas as partículas são empurradas para longe do centro conforme o tempo passa
+	p.radial_accel_min = 30.0
+	p.radial_accel_max = 70.0
+	
+	p.scale_amount_min = 1.5
 	p.scale_amount_max = 2.5
-	p.color = Color(1.0, 0.85, 0.3, 0.7) # Dourado mágico
 	
-	# Posiciona nos pés/centro inferior da Morgana (subimos um pouco para atrelar ao pulo)
-	p.global_position = global_position + Vector2(0, 10)
+	# Transição Dourada
+	var grad = Gradient.new()
+	grad.set_color(0, Color(1.0, 0.85, 0.3, 1.0))
+	grad.set_color(1, Color(1.0, 0.85, 0.3, 0.0))
+	# Mantém bem sólido nos primeiros 40% da vida, depois some
+	grad.add_point(0.4, Color(1.0, 0.85, 0.3, 0.9)) 
+	p.color_ramp = grad
 	
-	# Anexa ao pai (Level) para a partícula ficar parada no ar onde foi criada,
-	# em vez de seguir o corpo da personagem enquanto ela sobe.
+	p.global_position = global_position + Vector2(0, 14)
 	get_parent().add_child(p)
 	p.emitting = true
 	
-	# Timer para destruir a partícula e limpar a memória depois que acabar
 	get_tree().create_timer(1.0).timeout.connect(p.queue_free)
 
 func _handle_combat() -> void:
