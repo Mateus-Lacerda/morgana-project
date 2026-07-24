@@ -124,6 +124,26 @@ func _find_nearest_enemy() -> Node2D:
 			nearest_dist = dist
 	return nearest
 
+func aura_attack() -> void:
+	if not is_attacking and not is_paralyzed and is_global_cooldown_ready():
+		is_attacking = true
+		animation.play("morgana_attack_aura")
+		start_global_cooldown(AURA_COOLDOWN_MULT * base_magic_cooldown)
+		AudioManager.play_sfx("aura")
+		
+		# Efeito Visual 360
+		if aura_visualizer:
+			aura_visualizer.play_explosion(AURA_MAX_RADIUS)
+		
+		# Dano aos inimigos ao redor
+		get_tree().create_timer(0.05).timeout.connect(func():
+			if has_node("Hitbox"):
+				var targets = $Hitbox.get_overlapping_bodies()
+				for target in targets:
+					if target != self and target.has_method("take_damage"):
+						target.take_damage(AURA_DAMAGE, self)
+		)
+
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if is_attacking:
 		is_attacking = false
@@ -134,7 +154,7 @@ const RAPID_FIRE_SFX_THRESHOLD: float = 0.5
 
 func shoot_magic() -> void:
 	is_attacking = true
-	animation.play("morgana_attack_2")
+	animation.play("morgana_attack_shoot")
 	start_global_cooldown(MAGIC_COOLDOWN_MULT * base_magic_cooldown * wand_ability.cooldown_mult)
 	if wand_ability.cooldown_mult > RAPID_FIRE_SFX_THRESHOLD:
 		AudioManager.play_sfx("shoot")
