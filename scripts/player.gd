@@ -210,9 +210,41 @@ func _handle_paralysis() -> void:
 
 func _handle_jump() -> void:
 	if Input.is_action_just_pressed("jump") and jump_count < MAX_JUMPS:
+		# Pulo duplo/triplo (ar) emite partícula
+		if jump_count > 0:
+			_spawn_air_jump_particles()
+			
 		velocity.y = JUMP_VELOCITIES[jump_count]
 		AudioManager.play_sfx("jump")
 		jump_count += 1
+		animation.play("morgana_jump")
+
+func _spawn_air_jump_particles() -> void:
+	var p = CPUParticles2D.new()
+	p.emitting = false
+	p.one_shot = true
+	p.amount = 15
+	p.lifetime = 0.35
+	p.explosiveness = 0.85
+	p.direction = Vector2(0, 1) # Direção para baixo (empurrando o ar)
+	p.spread = 50.0
+	p.gravity = Vector2(0, 50)
+	p.initial_velocity_min = 60.0
+	p.initial_velocity_max = 120.0
+	p.scale_amount_min = 1.0
+	p.scale_amount_max = 2.5
+	p.color = Color(1.0, 0.85, 0.3, 0.7) # Dourado mágico
+	
+	# Posiciona nos pés/centro inferior da Morgana (subimos um pouco para atrelar ao pulo)
+	p.global_position = global_position + Vector2(0, 10)
+	
+	# Anexa ao pai (Level) para a partícula ficar parada no ar onde foi criada,
+	# em vez de seguir o corpo da personagem enquanto ela sobe.
+	get_parent().add_child(p)
+	p.emitting = true
+	
+	# Timer para destruir a partícula e limpar a memória depois que acabar
+	get_tree().create_timer(1.0).timeout.connect(p.queue_free)
 
 func _handle_combat() -> void:
 	if (wand_ability.auto_fire or Input.is_action_pressed("shoot_attack")) and is_global_cooldown_ready():
@@ -257,4 +289,9 @@ func _update_animations() -> void:
 		else:
 			animation.play("morgana_idle")
 	else:
-		animation.play("morgana_jump")
+		if velocity.y < 0:
+			if animation.animation != "morgana_jump":
+				animation.play("morgana_jump")
+		else:
+			if animation.animation != "morgana_fall":
+				animation.play("morgana_fall")
