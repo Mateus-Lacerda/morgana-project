@@ -30,12 +30,12 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if not unlocked or not GameManager.is_game_active:
 		return
-	if not _can_trigger:
-		return
-	if auto_trigger:
-		_trigger()
-	elif Input.is_action_just_pressed("aura_attack"):
-		_trigger()
+	if auto_trigger and _can_trigger:
+		_can_trigger = false
+		perform_attack()
+		get_tree().create_timer(trigger_cooldown).timeout.connect(func():
+			_can_trigger = true
+		)
 
 func total_evolution_level() -> int:
 	return int(auto_trigger) + radius_level + damage_level + cooldown_level
@@ -82,8 +82,7 @@ func reset() -> void:
 	damage = AuraManager.BASE_DAMAGE
 	trigger_cooldown = AuraManager.BASE_TRIGGER_COOLDOWN
 
-func _trigger() -> void:
-	_can_trigger = false
+func perform_attack() -> void:
 	# Só trava expandido (sem recuar) quando é automático e rápido demais pra
 	# caber um pulso inteiro entre gatilhos — senão a animação reiniciaria do
 	# zero a cada disparo e travaria sempre no começo, nunca abrindo de vez.
@@ -96,6 +95,3 @@ func _trigger() -> void:
 			continue
 		if _player.global_position.distance_to(target.global_position) <= radius:
 			target.take_damage(damage, _player)
-	get_tree().create_timer(trigger_cooldown).timeout.connect(func():
-		_can_trigger = true
-	)

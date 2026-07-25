@@ -4,10 +4,10 @@ extends RefCounted
 ## ==========================================
 ## PARÂMETROS BASE E ESCALONAMENTO DA AURA
 ## ==========================================
-const BASE_RADIUS: float = 120.0
-const RADIUS_STEP: float = 20.0
+const BASE_RADIUS: float = 100.0
+const RADIUS_STEP: float = 15.0
 
-const BASE_DAMAGE: int = 60
+const BASE_DAMAGE: int = 100
 const DAMAGE_STEP: int = 15
 
 ## ==========================================

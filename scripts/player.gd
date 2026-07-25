@@ -25,9 +25,8 @@ var is_paralyzed: bool = false
 var is_attacking: bool = false
 
 # Aura Attack Variables
-const AURA_DAMAGE = 100
 const AURA_COOLDOWN_MULT: float = 0.75
-const AURA_MAX_RADIUS: float = 160.0
+
 
 # Global Magic Cooldown System
 var global_cooldown_timer: float = 0.0
@@ -59,7 +58,7 @@ func _ready() -> void:
 	# Transforma o Hitbox retangular antigo numa Área Circular 360
 	if has_node("Hitbox/CollisionShape2D"):
 		var aura_shape = CircleShape2D.new()
-		aura_shape.radius = AURA_MAX_RADIUS
+		aura_shape.radius = AuraManager.BASE_RADIUS
 		$Hitbox/CollisionShape2D.shape = aura_shape
 		$Hitbox.position = Vector2.ZERO # Centraliza na maga
 
@@ -148,17 +147,10 @@ func aura_attack() -> void:
 		start_global_cooldown(AURA_COOLDOWN_MULT * base_magic_cooldown)
 		AudioManager.play_sfx("aura")
 
-		# Efeito Visual 360
-		if aura_visualizer:
-			aura_visualizer.play_pulse(AURA_MAX_RADIUS, false)
-
-		# Dano aos inimigos ao redor
+		# Efeito Visual 360 e Dano agora são de responsabilidade total da habilidade
 		get_tree().create_timer(0.05).timeout.connect(func():
-			if has_node("Hitbox"):
-				var targets = $Hitbox.get_overlapping_bodies()
-				for target in targets:
-					if target != self and target.has_method("take_damage"):
-						target.take_damage(AURA_DAMAGE, self)
+			if aura_ability and aura_ability.unlocked:
+				aura_ability.perform_attack()
 		)
 
 func _on_animated_sprite_2d_animation_finished() -> void:
