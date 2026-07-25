@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bj53udctnd4l7" path="res://assets/ui/imagem seta cima para pulo.png" id="5_arrow_up"]
 [ext_resource type="Texture2D" uid="uid://2uvmpf2qhju0" path="res://assets/ui/mouse clique esquerdo disparo mágico.png" id="6_mouse_left"]
 [ext_resource type="Texture2D" uid="uid://b4avhuo4jrfxj" path="res://assets/ui/mouse clique direito aura.png" id="7_mouse_right"]
-[ext_resource type="Theme" path="res://assets/theme.tres" id="99_theme"]
+[ext_resource type="Theme" uid="uid://bqjtrs4poj3g" path="res://assets/theme.tres" id="99_theme"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_title"]
 font_size = 46
@@ -69,7 +69,7 @@ alignment = 1
 [node name="TitleLabel" type="Label" parent="VBox" unique_id=355489451]
 custom_minimum_size = Vector2(600, 0)
 layout_mode = 2
-text = "MORGANA'S QUEST"
+text = "MORGANA, A ÉGIDE"
 label_settings = SubResource("LabelSettings_title")
 horizontal_alignment = 1
 autowrap_mode = 2
@@ -191,4 +191,3 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_button")
 text = "Opções"
 
 [node name="OptionsMenu" parent="." unique_id=1225692911 instance=ExtResource("2_options")]
-visible = false

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://3yugaiv6ig3u"
+path="res://.godot/imported/COMPLETO-Sem Torre, Só Morgana.mp3-fc85a20edd696afc405fd640d89f4030.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/music/COMPLETO-Sem Torre, Só Morgana.mp3"
+dest_files=["res://.godot/imported/COMPLETO-Sem Torre, Só Morgana.mp3-fc85a20edd696afc405fd640d89f4030.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

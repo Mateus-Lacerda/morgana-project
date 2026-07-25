@@ -1,8 +1,8 @@
 extends Node
 
 const MUSIC_REGISTRY := {
-	"intro": "res://assets/audio/music/INTRO-No Tower but Morgana.mp3",
-	"main":  "res://assets/audio/music/No Tower but Morgana.mp3",
+	"intro": "res://assets/audio/music/INTRO-Sem Torre, Só Morgana.mp3",
+	"main":  "res://assets/audio/music/SEM INTRO-Sem Torre, Só Morgana.mp3",
 }
 
 var _player_a: AudioStreamPlayer

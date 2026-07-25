@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bwk3553slw0jc"
+path="res://.godot/imported/SEM INTRO-Sem Torre, Só Morgana.mp3-3b0d0bf7ca4f4597d257b33e1c96f589.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/music/SEM INTRO-Sem Torre, Só Morgana.mp3"
+dest_files=["res://.godot/imported/SEM INTRO-Sem Torre, Só Morgana.mp3-3b0d0bf7ca4f4597d257b33e1c96f589.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
