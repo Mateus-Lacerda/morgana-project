@@ -4,18 +4,18 @@ extends RefCounted
 ## ==========================================
 ## PARÂMETROS BASE E ESCALONAMENTO DA AURA
 ## ==========================================
-const BASE_RADIUS: float = 100.0
-const RADIUS_STEP: float = 15.0
+static var BASE_RADIUS: float = 100.0
+static var RADIUS_STEP: float = 15.0
 
-const BASE_DAMAGE: int = 100
-const DAMAGE_STEP: int = 15
+static var BASE_DAMAGE: int = 100
+static var DAMAGE_STEP: int = 15
 
 ## ==========================================
 ## CADÊNCIA E COOLDOWN
 ## ==========================================
-const BASE_TRIGGER_COOLDOWN: float = 3.0
-const COOLDOWN_STEP: float = 0.55
-const MIN_TRIGGER_COOLDOWN: float = 0.15
+static var BASE_TRIGGER_COOLDOWN: float = 3.0
+static var COOLDOWN_STEP: float = 0.55
+static var MIN_TRIGGER_COOLDOWN: float = 0.15
 
 ## ==========================================
 ## TEMPOS DE ANIMAÇÃO DO VISUALIZADOR (FREEZE/PULSO)

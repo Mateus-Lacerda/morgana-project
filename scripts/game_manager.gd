@@ -15,7 +15,7 @@ signal preparation_started(wave_num: int)
 ## TEMPORÁRIO (facilita testes): trava a partida na última wave configurada
 ## em vez de dar vitória, pra continuar spawnando nesse ritmo indefinidamente.
 ## Reverter quando o loop de jogo for definido.
-const INFINITE_TESTING_MODE: bool = false
+var INFINITE_TESTING_MODE: bool = false
 
 const STARTING_MONEY: int = 500
 
@@ -27,13 +27,13 @@ const WAVES_CONFIG = [
 	{ "prep_time": 5.0,  "wave_time": 150.0, "difficulty_mult": 2.2 }
 ]
 
-const TOTAL_EXPECTED_BATS: float = 200.0
-const DAMAGE_PER_HIT: float = 100.0 / TOTAL_EXPECTED_BATS
+var TOTAL_EXPECTED_BATS: float = 200.0
+var DAMAGE_PER_HIT: float = 100.0 / TOTAL_EXPECTED_BATS
 
 ## Vida máxima da vila: metade do valor original — a defesa tolera bem menos
 ## descuido agora (mesmo dano por hit, então na prática a vila aguenta a
 ## metade dos morcegos que passavam antes).
-const MAX_VILLAGE_INTEGRITY: float = 50.0
+var MAX_VILLAGE_INTEGRITY: float = 50.0
 
 enum GamePhase { PREPARATION, WAVE, ENDED }
 var current_phase: GamePhase = GamePhase.PREPARATION
