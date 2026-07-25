@@ -143,7 +143,10 @@ func _find_nearest_enemy() -> Node2D:
 	return nearest
 
 func aura_attack() -> void:
-	if not is_attacking and not is_paralyzed and _aura_cooldown_timer <= 0.0:
+	# Sem "not is_attacking" aqui de propósito: essa flag é compartilhada com
+	# o tiro da varinha, e com ela em disparo automático fica quase sempre
+	# true — bloquearia a aura de novo mesmo com o cooldown já separado.
+	if not is_paralyzed and _aura_cooldown_timer <= 0.0:
 		is_attacking = true
 		animation.play("morgana_attack_aura")
 		_aura_cooldown_timer = PlayerManager.AURA_COOLDOWN_MULT * PlayerManager.BASE_GLOBAL_COOLDOWN
