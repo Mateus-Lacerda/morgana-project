@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://bitili646qdbr" path="res://scenes/player.tscn" id="2_w8frs"]
 [ext_resource type="Script" uid="uid://x5kg2i3oi6my" path="res://scripts/enemy_spawner.gd" id="4_enemyspawner"]
 [ext_resource type="PackedScene" uid="uid://dtqu63fu6k3vh" path="res://scenes/gate.tscn" id="4_klq6b"]
-[ext_resource type="PackedScene" path="res://scenes/hud.tscn" id="5_hud"]
+[ext_resource type="PackedScene" uid="uid://dc35x3pyd3v20" path="res://scenes/hud.tscn" id="5_hud"]
 [ext_resource type="Script" uid="uid://bodpsd6r2s6kr" path="res://scripts/level.gd" id="6_level"]
 [ext_resource type="PackedScene" uid="uid://dyooh3yxpqggd" path="res://scenes/shop/shop.tscn" id="8_shop"]
 [ext_resource type="PackedScene" uid="uid://dd82j0x7p6wq1" path="res://scenes/ui/pause_menu.tscn" id="9_pause"]
@@ -35,7 +35,7 @@ limit_bottom = 780
 position_smoothing_enabled = true
 
 [node name="Gate" parent="." unique_id=1729746193 instance=ExtResource("4_klq6b")]
-position = Vector2(200, 600)
+position = Vector2(200, 760)
 
 [node name="RightWall" type="StaticBody2D" parent="." unique_id=796456717]
 position = Vector2(4200, 600)
@@ -48,6 +48,7 @@ shape = SubResource("RectangleShape2D_walls")
 script = ExtResource("4_enemyspawner")
 
 [node name="HUD" parent="." unique_id=1914251633 instance=ExtResource("5_hud")]
+visible = true
 
 [node name="Shop" parent="." unique_id=1550706319 instance=ExtResource("8_shop")]
 

@@ -25,6 +25,7 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_radar_container = Control.new()
 	_radar_container.set_anchors_preset(Control.PRESET_FULL_RECT)
+	_radar_container.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_radar_container)
 	
 	result_panel.visible = false

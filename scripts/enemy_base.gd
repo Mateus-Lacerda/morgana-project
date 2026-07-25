@@ -26,6 +26,13 @@ var _village_hits_performed: int = 0
 
 func _ready() -> void:
 	add_to_group("enemies")
+	
+	if _animation:
+		var shader = preload("res://assets/shaders/hit_flash.gdshader")
+		var mat = ShaderMaterial.new()
+		mat.shader = shader
+		_animation.material = mat
+		
 	hp = max_hp
 	GameManager.victory.connect(_on_victory)
 	_enemy_ready()  # hook para filhos
@@ -44,9 +51,10 @@ func take_damage(amount: int, source: Node = null) -> void:
 	if is_dead:
 		return
 	hp -= amount
+	_flash_hurt()
+	
 	if hp > 0:
 		AudioManager.play_sfx("enemy_hit")
-		_flash_hurt()
 		return
 	die()
 
@@ -123,10 +131,10 @@ func _get_movement_velocity() -> Vector2:
 	return Vector2(-move_speed * GameManager.speed_multiplier, 0)
 
 func _flash_hurt() -> void:
-	_animation.modulate = Color(1, 0.4, 0.4)
-	await get_tree().create_timer(0.08).timeout
-	if not is_dead:
-		_animation.modulate = Color(1, 1, 1)
+	if _animation and _animation.material:
+		var tween := create_tween()
+		_animation.material.set_shader_parameter("flash_modifier", 1.0)
+		tween.tween_property(_animation.material, "shader_parameter/flash_modifier", 0.0, 0.15)
 
 func _dissolve_into_smoke() -> void:
 	# (mesma lógica de partículas do bat.gd atual, movida para cá)

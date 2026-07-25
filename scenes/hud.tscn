@@ -1,23 +1,27 @@
-[gd_scene load_steps=9 format=3]
+[gd_scene format=3 uid="uid://dc35x3pyd3v20"]
 
-[ext_resource type="Script" path="res://scripts/hud.gd" id="1_hud"]
-[ext_resource type="Texture2D" path="res://assets/items/magnet_small.png" id="2_magnet_small"]
+[ext_resource type="Script" uid="uid://de4dhkub150c0" path="res://scripts/hud.gd" id="1_hud"]
+[ext_resource type="Texture2D" uid="uid://tfdwu5bmjy42" path="res://assets/items/magnet_small.png" id="2_magnet_small"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_hud"]
 font_size = 22
-font_color = Color(1, 1, 1, 1)
 outline_size = 5
 outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_timer"]
 font_size = 44
-font_color = Color(1, 1, 1, 1)
 outline_size = 7
 outline_color = Color(0, 0, 0, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.05, 0.05, 0.08, 0.85)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
 [sub_resource type="LabelSettings" id="LabelSettings_title"]
 font_size = 56
-font_color = Color(1, 1, 1, 1)
 outline_size = 8
 outline_color = Color(0, 0, 0, 1)
 
@@ -25,37 +29,33 @@ outline_color = Color(0, 0, 0, 1)
 font_size = 22
 font_color = Color(0.9, 0.9, 0.9, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
-bg_color = Color(0.05, 0.05, 0.08, 0.85)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_left = 12
-corner_radius_bottom_right = 12
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_restart"]
 bg_color = Color(0.85, 0.3, 0.55, 1)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
-corner_radius_bottom_left = 10
 corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_menu"]
 bg_color = Color(0.2, 0.22, 0.3, 1)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
-corner_radius_bottom_left = 10
 corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
-[node name="HUD" type="CanvasLayer"]
+[node name="HUD" type="CanvasLayer" unique_id=2000342249]
 script = ExtResource("1_hud")
 
-[node name="TopBar" type="Control" parent="."]
+[node name="TopBar" type="Control" parent="." unique_id=1396802765]
+layout_mode = 3
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 90.0
+grow_horizontal = 2
 mouse_filter = 2
 
-[node name="VillageCaption" type="Label" parent="TopBar"]
+[node name="VillageCaption" type="Label" parent="TopBar" unique_id=604209615]
+layout_mode = 0
 offset_left = 20.0
 offset_top = 8.0
 offset_right = 320.0
@@ -63,15 +63,16 @@ offset_bottom = 34.0
 text = "Vida da Vila"
 label_settings = SubResource("LabelSettings_hud")
 
-[node name="VillageBar" type="ProgressBar" parent="TopBar"]
+[node name="VillageBar" type="ProgressBar" parent="TopBar" unique_id=144136886]
+layout_mode = 0
 offset_left = 20.0
 offset_top = 36.0
 offset_right = 300.0
 offset_bottom = 64.0
 value = 100.0
-show_percentage = true
 
-[node name="FamiliarLabel" type="Label" parent="TopBar"]
+[node name="FamiliarLabel" type="Label" parent="TopBar" unique_id=231602646]
+layout_mode = 0
 offset_left = 20.0
 offset_top = 68.0
 offset_right = 320.0
@@ -79,7 +80,8 @@ offset_bottom = 90.0
 text = "✦ Familiar Mágico: cresce com o combo"
 label_settings = SubResource("LabelSettings_hud")
 
-[node name="TimerLabel" type="Label" parent="TopBar"]
+[node name="TimerLabel" type="Label" parent="TopBar" unique_id=2074557099]
+layout_mode = 0
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -220.0
@@ -87,11 +89,12 @@ offset_top = 14.0
 offset_right = -20.0
 offset_bottom = 56.0
 grow_horizontal = 0
-horizontal_alignment = 2
 text = "03:00"
 label_settings = SubResource("LabelSettings_timer")
+horizontal_alignment = 2
 
-[node name="ActiveItemsBar" type="HBoxContainer" parent="."]
+[node name="ActiveItemsBar" type="HBoxContainer" parent="." unique_id=370503270]
+anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 20.0
@@ -102,14 +105,15 @@ grow_vertical = 0
 mouse_filter = 2
 theme_override_constants/separation = 8
 
-[node name="MagnetIcon" type="TextureRect" parent="ActiveItemsBar"]
-visible = false
+[node name="MagnetIcon" type="TextureRect" parent="ActiveItemsBar" unique_id=832555975]
 custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
 texture = ExtResource("2_magnet_small")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="BottomRight" type="Control" parent="."]
+[node name="BottomRight" type="Control" parent="." unique_id=77852806]
+layout_mode = 3
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -123,38 +127,40 @@ grow_horizontal = 0
 grow_vertical = 0
 mouse_filter = 2
 
-[node name="ScoreLabel" type="Label" parent="BottomRight"]
-offset_top = 0.0
+[node name="ScoreLabel" type="Label" parent="BottomRight" unique_id=1339088210]
+layout_mode = 0
 offset_right = 240.0
 offset_bottom = 26.0
-horizontal_alignment = 2
 text = "Pontos: 0"
 label_settings = SubResource("LabelSettings_hud")
+horizontal_alignment = 2
 
-[node name="ComboLabel" type="Label" parent="BottomRight"]
+[node name="ComboLabel" type="Label" parent="BottomRight" unique_id=1825066376]
+layout_mode = 0
 offset_top = 30.0
 offset_right = 240.0
 offset_bottom = 56.0
-horizontal_alignment = 2
-text = ""
 label_settings = SubResource("LabelSettings_hud")
+horizontal_alignment = 2
 
-[node name="MoneyLabel" type="Label" parent="BottomRight"]
+[node name="MoneyLabel" type="Label" parent="BottomRight" unique_id=1804485382]
+layout_mode = 0
 offset_top = 60.0
 offset_right = 240.0
 offset_bottom = 86.0
-horizontal_alignment = 2
 text = "Moedas: 0"
 label_settings = SubResource("LabelSettings_hud")
+horizontal_alignment = 2
 
-[node name="FadeOverlay" type="ColorRect" parent="."]
+[node name="FadeOverlay" type="ColorRect" parent="." unique_id=1227692263]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
-[node name="ResultPanel" type="Panel" parent="."]
-visible = false
+[node name="ResultPanel" type="Panel" parent="." unique_id=1415428194]
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -167,7 +173,8 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
 
-[node name="VBox" type="VBoxContainer" parent="ResultPanel"]
+[node name="VBox" type="VBoxContainer" parent="ResultPanel" unique_id=1425001348]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 20.0
@@ -176,36 +183,40 @@ offset_right = -20.0
 offset_bottom = -20.0
 alignment = 1
 
-[node name="ResultTitle" type="Label" parent="ResultPanel/VBox"]
-horizontal_alignment = 1
+[node name="ResultTitle" type="Label" parent="ResultPanel/VBox" unique_id=1638364433]
+layout_mode = 2
 label_settings = SubResource("LabelSettings_title")
-text = ""
-
-[node name="ResultSubtitle" type="Label" parent="ResultPanel/VBox"]
 horizontal_alignment = 1
+
+[node name="ResultSubtitle" type="Label" parent="ResultPanel/VBox" unique_id=499554928]
+layout_mode = 2
 label_settings = SubResource("LabelSettings_subtitle")
-text = ""
-
-[node name="StatsLabel" type="Label" parent="ResultPanel/VBox"]
 horizontal_alignment = 1
+
+[node name="StatsLabel" type="Label" parent="ResultPanel/VBox" unique_id=2008123469]
+layout_mode = 2
 label_settings = SubResource("LabelSettings_hud")
-text = ""
+horizontal_alignment = 1
 
-[node name="ButtonSpacer" type="Control" parent="ResultPanel/VBox"]
+[node name="ButtonSpacer" type="Control" parent="ResultPanel/VBox" unique_id=763912789]
 custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
 
-[node name="ButtonRow" type="HBoxContainer" parent="ResultPanel/VBox"]
-alignment = 1
+[node name="ButtonRow" type="HBoxContainer" parent="ResultPanel/VBox" unique_id=1055476419]
+layout_mode = 2
 theme_override_constants/separation = 16
+alignment = 1
 
-[node name="RestartButton" type="Button" parent="ResultPanel/VBox/ButtonRow"]
+[node name="RestartButton" type="Button" parent="ResultPanel/VBox/ButtonRow" unique_id=339217543]
 custom_minimum_size = Vector2(170, 48)
+layout_mode = 2
 theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxFlat_restart")
 text = "Jogar de Novo"
 
-[node name="MenuButton" type="Button" parent="ResultPanel/VBox/ButtonRow"]
+[node name="MenuButton" type="Button" parent="ResultPanel/VBox/ButtonRow" unique_id=249816455]
 custom_minimum_size = Vector2(170, 48)
+layout_mode = 2
 theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxFlat_menu")
 text = "Menu Principal"
