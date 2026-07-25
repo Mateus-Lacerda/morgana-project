@@ -32,7 +32,7 @@ func play_pulse(max_radius: float, stay_expanded: bool) -> void:
 		_tween.kill()
 
 	_current_radius = 14.0
-	_current_alpha = 0.7
+	_current_alpha = 0.4
 
 	_tween = create_tween()
 	_tween.tween_property(self, "_current_radius", max_radius, EXPAND_DURATION).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
@@ -49,4 +49,3 @@ func _draw() -> void:
 	if _current_radius <= 0.0:
 		return
 	draw_circle(Vector2.ZERO, _current_radius, Color(0.3, 0.8, 1.0, _current_alpha))
-	draw_arc(Vector2.ZERO, _current_radius, 0, TAU, 32, Color(0.8, 0.95, 1.0, clampf(_current_alpha * 1.5, 0.0, 1.0)), 2.0)

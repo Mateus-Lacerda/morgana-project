@@ -1,21 +1,26 @@
 extends OrbBase
 class_name OrbExplosive
 
-@export var damage_amount: int = 20
+@export_group("Base Stats (Bomb)")
+@export var damage_amount: int = 45
 @export var explosion_radius: float = 70.0
+@export var attack_cooldown_base: float = 1.2
 
-const ATTACK_STEP: int = 5
-const EXPLOSION_RADIUS_STEP: float = 16.0
-const EXPLOSION_RADIUS_GROWTH: float = 1.5 # cada pergaminho aumenta o próprio incremento seguinte
+@export_group("Evolution Scaling")
+@export var attack_step: int = 15
+@export var explosion_radius_step_val: float = 16.0
+@export var explosion_radius_growth: float = 1.5
+
+@export_group("Molotov Transformation")
+@export var molotov_burn_duration: float = 3.0
+@export var molotov_dps_ratio: float = 0.4
 
 var projectile_scene := preload("res://scenes/orbs/bomb_projectile.tscn")
 var _player: Node2D
-var _explosion_radius_step: float = EXPLOSION_RADIUS_STEP
+var _current_radius_step: float
 
 ## Transformação final: vira um "molotov" — a explosão deixa uma área em
 ## chamas que continua causando dano por um tempo.
-const MOLOTOV_BURN_DURATION: float = 3.0
-const MOLOTOV_DPS_RATIO: float = 0.4 # dano por segundo = % do dano de impacto
 var _is_molotov: bool = false
 
 func _ready() -> void:
@@ -25,7 +30,8 @@ func _ready() -> void:
 	orbit_radius = 82.0
 	# O Player é o "avô" (OrbExplosive -> OrbManager -> Player), igual ao OrbCombo
 	_player = get_parent().get_parent()
-	attack_cooldown = 2.0
+	attack_cooldown = attack_cooldown_base
+	_current_radius_step = explosion_radius_step_val
 
 func get_kind_id() -> StringName:
 	return &"orb_explosive"
@@ -34,14 +40,14 @@ func get_kind_id() -> StringName:
 ## a cada pergaminho, então o próprio incremento cresce (não é linear).
 func _on_size_evolved() -> void:
 	super._on_size_evolved()
-	explosion_radius += _explosion_radius_step
-	_explosion_radius_step *= EXPLOSION_RADIUS_GROWTH
+	explosion_radius += _current_radius_step
+	_current_radius_step *= explosion_radius_growth
 
 func _on_transformed() -> void:
 	_is_molotov = true
 
 func _on_attack_evolved() -> void:
-	damage_amount += ATTACK_STEP
+	damage_amount += attack_step
 
 func _find_target() -> Node2D:
 	return get_nearest_entity_in_radius("enemies")
@@ -56,8 +62,8 @@ func _execute_attack(target: Node2D) -> void:
 	bolt.direction = direction
 	if _is_molotov:
 		bolt.leaves_burning_zone = true
-		bolt.burn_duration = MOLOTOV_BURN_DURATION
-		bolt.burn_dps = damage_amount * MOLOTOV_DPS_RATIO
+		bolt.burn_duration = molotov_burn_duration
+		bolt.burn_dps = damage_amount * molotov_dps_ratio
 	bolt.global_position = global_position
 	_player.get_parent().add_child(bolt)
 

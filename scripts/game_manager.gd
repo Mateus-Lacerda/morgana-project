@@ -15,7 +15,7 @@ signal preparation_started(wave_num: int)
 ## TEMPORÁRIO (facilita testes): trava a partida na última wave configurada
 ## em vez de dar vitória, pra continuar spawnando nesse ritmo indefinidamente.
 ## Reverter quando o loop de jogo for definido.
-const INFINITE_TESTING_MODE: bool = true
+const INFINITE_TESTING_MODE: bool = false
 
 const STARTING_MONEY: int = 50
 

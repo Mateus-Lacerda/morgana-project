@@ -1,7 +1,7 @@
 extends ItemBase
 class_name OrbComboItem
 
-const ORB_SCENE: PackedScene = preload("res://scenes/orbs/ai_familiar.tscn")
+const ORB_SCENE: PackedScene = preload("res://scenes/orbs/orb_combo.tscn")
 
 func _init() -> void:
 	id = &"orb_combo"
