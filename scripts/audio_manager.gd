@@ -1,15 +1,22 @@
 extends Node
 
 var click_sfx = preload("res://assets/audio/click.mp3")
+var jump_sfx = preload("res://assets/audio/jump.wav")
+var shoot_sfx = preload("res://assets/audio/Bow Attack 2.wav")
+var aura_sfx = preload("res://assets/audio/Firebuff 1.wav")
+var player_hurt_sfx = preload("res://assets/audio/Ice Freeze 2.wav")
+var village_hit_sfx = preload("res://assets/audio/Door Close 2.wav")
+var enemy_hit_sfx = preload("res://assets/audio/Sword Impact Hit 1.wav")
+var enemy_die_sfx = preload("res://assets/audio/Sword Impact Hit 2.wav")
 
 var sounds: Dictionary = {
-	"jump": click_sfx,
-	"shoot": click_sfx,
-	"aura": click_sfx,
-	"player_hurt": click_sfx,
-	"enemy_hit": click_sfx,
-	"enemy_die": click_sfx,
-	"village_hit": click_sfx,
+	"jump": jump_sfx,
+	"shoot": shoot_sfx,
+	"aura": aura_sfx,
+	"player_hurt": player_hurt_sfx,
+	"enemy_hit": enemy_hit_sfx,
+	"enemy_die": enemy_die_sfx,
+	"village_hit": village_hit_sfx,
 	"button": click_sfx
 }
 
