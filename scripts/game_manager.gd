@@ -20,10 +20,10 @@ const INFINITE_TESTING_MODE: bool = false
 const STARTING_MONEY: int = 500
 
 const WAVES_CONFIG = [
-	{ "prep_time": 15.0, "wave_time": 60.0, "difficulty_mult": 1.0 },
-	{ "prep_time": 12.0, "wave_time": 75.0, "difficulty_mult": 1.25 },
-	{ "prep_time": 10.0, "wave_time": 90.0, "difficulty_mult": 1.5 },
-	{ "prep_time": 10.0, "wave_time": 120.0, "difficulty_mult": 1.8 },
+	{ "prep_time": 5.0, "wave_time": 60.0, "difficulty_mult": 1.0 },
+	{ "prep_time": 5.0, "wave_time": 75.0, "difficulty_mult": 1.25 },
+	{ "prep_time": 5.0, "wave_time": 90.0, "difficulty_mult": 1.5 },
+	{ "prep_time": 5.0, "wave_time": 120.0, "difficulty_mult": 1.8 },
 	{ "prep_time": 5.0,  "wave_time": 150.0, "difficulty_mult": 2.2 }
 ]
 

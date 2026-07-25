@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://pm5p6q417acn"
-path="res://.godot/imported/portão.png-1735189484d167024764a9b3aa82b999.ctex"
+uid="uid://c1t0nc01tyc44"
+path="res://.godot/imported/Layer_0003_6.png-e22f64558aff453a953a8b4bde3575ff.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/portão.png"
-dest_files=["res://.godot/imported/portão.png-1735189484d167024764a9b3aa82b999.ctex"]
+source_file="res://assets/scenario/Background layers/Layer_0003_6.png"
+dest_files=["res://.godot/imported/Layer_0003_6.png-e22f64558aff453a953a8b4bde3575ff.ctex"]
 
 [params]
 

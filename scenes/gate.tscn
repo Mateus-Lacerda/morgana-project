@@ -1,36 +1,54 @@
 [gd_scene format=3 uid="uid://dtqu63fu6k3vh"]
 
-[ext_resource type="Texture2D" uid="uid://pm5p6q417acn" path="res://assets/portão.png" id="1_xfvdi"]
+[ext_resource type="Texture2D" uid="uid://c2usauf0gopp1" path="res://assets/scenario/gate2.png" id="1_hudsw"]
+[ext_resource type="Texture2D" uid="uid://cj7qmvgdscg2" path="res://assets/scenario/Background layers/Layer_0000_9.png" id="2_hudsw"]
+[ext_resource type="Texture2D" uid="uid://bfuaprybyo6c4" path="res://assets/scenario/gate.png" id="2_xwxio"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_walls"]
-size = Vector2(100, 2000)
+size = Vector2(49, 2000)
 
 [node name="Gate" type="StaticBody2D" unique_id=1729746193]
 collision_layer = 2
+metadata/_edit_vertical_guides_ = [-439.0]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=189277376]
+position = Vector2(25.5, 0)
 shape = SubResource("RectangleShape2D_walls")
 
-[node name="GateVisual" type="ColorRect" parent="." unique_id=25712070]
-offset_left = -30.0
-offset_top = -400.0
-offset_right = 30.0
-offset_bottom = 300.0
-color = Color(0.4, 0.25, 0.1, 0.85)
+[node name="Gate" type="Node2D" parent="." unique_id=1011706480]
 
-[node name="GateLabel" type="Label" parent="GateVisual" unique_id=1951321272]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 24
-text = "PORTÃO"
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="IlustraçãoPortão4" type="Sprite2D" parent="Gate" unique_id=1224320378]
+clip_children = 2
+position = Vector2(-62.999992, -563)
+scale = Vector2(0.41379312, 0.41379312)
+texture = ExtResource("1_hudsw")
+flip_v = true
 
-[node name="Portão" type="Sprite2D" parent="." unique_id=2025911910]
-visible = false
-position = Vector2(416, -656)
-texture = ExtResource("1_xfvdi")
+[node name="IlustraçãoPortão2" type="Sprite2D" parent="Gate" unique_id=1910477465]
+clip_children = 2
+position = Vector2(25.000002, -563.00006)
+scale = Vector2(0.41379312, 0.41379312)
+texture = ExtResource("2_xwxio")
+flip_v = true
+
+[node name="IlustraçãoPortão3" type="Sprite2D" parent="Gate" unique_id=1211006752]
+clip_children = 2
+position = Vector2(-62.999992, -191.99994)
+scale = Vector2(0.41379312, 0.41379312)
+texture = ExtResource("1_hudsw")
+
+[node name="Layer00009" type="Sprite2D" parent="Gate/IlustraçãoPortão3" unique_id=1527049305]
+position = Vector2(152.25005, -497.83344)
+scale = Vector2(2.4166663, 2.4166663)
+texture = ExtResource("2_hudsw")
+
+[node name="IlustraçãoPortão" type="Sprite2D" parent="Gate" unique_id=458817087]
+clip_children = 2
+position = Vector2(25.000002, -192)
+scale = Vector2(0.41379312, 0.41379312)
+texture = ExtResource("2_xwxio")
+
+[node name="Layer00010" type="Sprite2D" parent="Gate/IlustraçãoPortão" unique_id=1357914227]
+position = Vector2(-60.416603, -497.83328)
+scale = Vector2(2.4166663, 2.4166663)
+texture = ExtResource("2_hudsw")

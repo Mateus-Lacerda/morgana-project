@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://1tocedy4vqh4"
-path="res://.godot/imported/Layer_0001_8.png-9e2edcf05bb1f731c73e75e50f2abc09.ctex"
+uid="uid://bfuaprybyo6c4"
+path="res://.godot/imported/gate.png-e255558868121c9e9c93cbfcb0f12b0b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Background layers/Layer_0001_8.png"
-dest_files=["res://.godot/imported/Layer_0001_8.png-9e2edcf05bb1f731c73e75e50f2abc09.ctex"]
+source_file="res://assets/scenario/gate.png"
+dest_files=["res://.godot/imported/gate.png-e255558868121c9e9c93cbfcb0f12b0b.ctex"]
 
 [params]
 
