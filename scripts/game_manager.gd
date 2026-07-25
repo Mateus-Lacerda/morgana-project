@@ -189,12 +189,6 @@ func dev_set_wave(index: int) -> void:
 	is_game_active = true
 	wave_started.emit(index + 1)
 
-func restart_match() -> void:
+func clean_for_restart() -> void:
 	ItemManager.reset()
 	_reset_state()
-	village_integrity_changed.emit(village_integrity)
-	time_changed.emit(time_left)
-	enemy_defeated_changed.emit(enemies_defeated)
-	score_changed.emit(score)
-	combo_changed.emit(combo_multiplier, combo_streak)
-	money_changed.emit(money)

@@ -22,6 +22,7 @@ var _active_indicators: Dictionary = {}
 var _radar_container: Control
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	_radar_container = Control.new()
 	_radar_container.set_anchors_preset(Control.PRESET_FULL_RECT)
 	add_child(_radar_container)
@@ -164,11 +165,13 @@ func _show_result(title: String, subtitle: String, color: Color) -> void:
 
 func _on_restart_pressed() -> void:
 	AudioManager.play_sfx("button")
-	GameManager.restart_match()
+	get_tree().paused = false
+	GameManager.clean_for_restart()
 	get_tree().reload_current_scene()
 
 func _on_menu_pressed() -> void:
 	AudioManager.play_sfx("button")
+	get_tree().paused = false
 	get_tree().change_scene_to_file("res://scenes/title.tscn")
 
 func _process(_delta: float) -> void:
