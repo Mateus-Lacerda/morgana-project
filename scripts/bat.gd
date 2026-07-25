@@ -28,4 +28,4 @@ func _enemy_ready() -> void:
 	coin_scene = config.coin
 	_animation.scale *= config.scale
 	_animation.modulate = config.tint
-	_animation.play("fly")
+	_animation.play("bat_fly")

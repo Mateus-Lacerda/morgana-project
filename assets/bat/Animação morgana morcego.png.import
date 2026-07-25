@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ceql0cpmosccs"
-path="res://.godot/imported/bat_flying.png-55011ecac59718f1f825771b9a8ed5cb.ctex"
+uid="uid://cfyl017l0l8mq"
+path="res://.godot/imported/Animação morgana morcego.png-1ccc0a943ba1bcfd1c9b41a323e3d99c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/bat/bat_flying.png"
-dest_files=["res://.godot/imported/bat_flying.png-55011ecac59718f1f825771b9a8ed5cb.ctex"]
+source_file="res://assets/bat/Animação morgana morcego.png"
+dest_files=["res://.godot/imported/Animação morgana morcego.png-1ccc0a943ba1bcfd1c9b41a323e3d99c.ctex"]
 
 [params]
 
