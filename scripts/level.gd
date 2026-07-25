@@ -20,13 +20,19 @@ var bat_scene = preload("res://scenes/bat.tscn")
 
 ## Ponto único de spawn, fixo no mundo — sempre no limite direito do nível,
 ## não muda com a posição da câmera (diferente do MAP_NODES/CAMERA_RELATIVE).
+## O X é fixo, mas o Y varia dentro dos limites verticais da câmera — senão
+## todos os morcegos saem alinhados exatamente na mesma altura.
 const SPAWN_POINT: Vector2 = Vector2(4100.0, 550.0)
+const SPAWN_Y_MIN: float = 380.0
+const SPAWN_Y_MAX: float = 760.0
 
 func _ready() -> void:
 	var spawner: EnemySpawner = $EnemySpawner
 	spawner.spawn_mode = EnemySpawner.SpawnMode.ABSOLUTE
 	spawner.spawn_position = SPAWN_POINT
-	spawner.randomize_y = false
+	spawner.randomize_y = true
+	spawner.spawn_y_min = SPAWN_Y_MIN
+	spawner.spawn_y_max = SPAWN_Y_MAX
 
 	spawner.set_spawn_table([
 		EnemySpawner.SpawnEntry.new(bat_scene, 0.7, "common"),
