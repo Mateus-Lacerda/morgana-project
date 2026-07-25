@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bvamgomfnl5sn"]
 
 [ext_resource type="Script" uid="uid://6yw5uqotwymt" path="res://scripts/bat.gd" id="1_bat"]
-[ext_resource type="Texture2D" uid="uid://cfyl017l0l8mq" path="res://assets/bat/Animação morgana morcego.png" id="2_48wkk"]
+[ext_resource type="Texture2D" uid="uid://cfyl017l0l8mq" path="res://assets/bat/bat_flying.png" id="2_48wkk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ss3tx"]
 atlas = ExtResource("2_48wkk")
