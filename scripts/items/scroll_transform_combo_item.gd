@@ -5,7 +5,7 @@ func _init() -> void:
 	id = &"scroll_transform_combo"
 	display_name = "Transformação — Orbe de Combo"
 	description = "A orbe de combo passa a disparar em todas as direções a cada ataque."
-	cost = TRANSFORM_COST
+	cost = EconomyManager.SCROLL_TRANSFORM_COST
 	stackable = false
 	icon_path = "res://assets/items/scroll_base.png"
 	icon_orb_kind = &"orb_combo"

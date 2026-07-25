@@ -5,7 +5,7 @@ func _init() -> void:
 	id = &"scroll_orb_explosive"
 	display_name = "Pergaminho — Orbe Explosiva"
 	description = "Evolui a orbe explosiva ao acaso: velocidade, raio ou ataque."
-	cost = BASE_COST
+	cost = EconomyManager.SCROLL_BASE_COST
 	stackable = true
 	icon_path = "res://assets/items/scroll_base.png"
 	icon_orb_kind = &"orb_explosive"

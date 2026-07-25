@@ -1,10 +1,9 @@
 extends ItemBase
 class_name OrbTransformScrollBase
 
-const TRANSFORM_COST: int = 150
 
 func compute_cost() -> int:
-	return TRANSFORM_COST
+	return EconomyManager.SCROLL_TRANSFORM_COST
 
 ## Só aparece quando a orbe alvo já está com os 3 stats no máximo.
 func is_available() -> bool:

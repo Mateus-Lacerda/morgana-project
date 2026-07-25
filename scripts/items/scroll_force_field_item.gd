@@ -5,7 +5,7 @@ func _init() -> void:
 	id = &"scroll_force_field"
 	display_name = "Pergaminho — Campo de Força"
 	description = "Evolui o campo de força ao acaso: ativação automática, raio ou dano."
-	cost = BASE_COST
+	cost = EconomyManager.SCROLL_BASE_COST
 	stackable = true
 	icon_path = "res://assets/items/scroll_base.png"
 	icon_overlay_path = "res://assets/items/force_field_icon.png"

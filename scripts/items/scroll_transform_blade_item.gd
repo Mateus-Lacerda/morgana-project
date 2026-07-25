@@ -5,7 +5,7 @@ func _init() -> void:
 	id = &"scroll_transform_blade"
 	display_name = "Transformação — Lâmina Giratória"
 	description = "A lâmina cresce bastante e passa a perseguir o morcego gigante mais próximo."
-	cost = TRANSFORM_COST
+	cost = EconomyManager.SCROLL_TRANSFORM_COST
 	stackable = false
 	icon_path = "res://assets/items/scroll_base.png"
 	icon_orb_kind = &"orb_blade"

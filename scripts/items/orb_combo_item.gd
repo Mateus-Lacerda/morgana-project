@@ -7,7 +7,7 @@ func _init() -> void:
 	id = &"orb_combo"
 	display_name = "Orbe de Combo"
 	description = "Atira raios nos inimigos; fica mais forte quanto maior o combo."
-	cost = 40
+	cost = EconomyManager.COST_ORB_COMBO
 	icon_orb_kind = &"orb_combo"
 
 func is_available() -> bool:

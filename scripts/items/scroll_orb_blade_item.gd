@@ -5,7 +5,7 @@ func _init() -> void:
 	id = &"scroll_orb_blade"
 	display_name = "Pergaminho — Lâmina Giratória"
 	description = "Evolui a lâmina giratória ao acaso: velocidade, raio ou ataque."
-	cost = BASE_COST
+	cost = EconomyManager.SCROLL_BASE_COST
 	stackable = true
 	icon_path = "res://assets/items/scroll_base.png"
 	icon_orb_kind = &"orb_blade"

@@ -5,7 +5,7 @@ func _init() -> void:
 	id = &"wand"
 	display_name = "Varinha Encantada"
 	description = "Evolui seu tiro mágico: disparo automático, mira automática, velocidade e dano."
-	cost = 45
+	cost = EconomyManager.COST_WAND
 	icon_path = "res://assets/items/wand_icon.png"
 
 func apply() -> void:

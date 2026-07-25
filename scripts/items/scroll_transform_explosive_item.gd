@@ -5,7 +5,7 @@ func _init() -> void:
 	id = &"scroll_transform_explosive"
 	display_name = "Transformação — Orbe Explosiva"
 	description = "Vira um molotov mágico: a explosão deixa uma área em chamas que continua causando dano."
-	cost = TRANSFORM_COST
+	cost = EconomyManager.SCROLL_TRANSFORM_COST
 	stackable = false
 	icon_path = "res://assets/items/scroll_base.png"
 	icon_orb_kind = &"orb_explosive"

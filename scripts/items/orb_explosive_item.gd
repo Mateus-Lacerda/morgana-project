@@ -7,7 +7,7 @@ func _init() -> void:
 	id = &"orb_explosive"
 	display_name = "Orbe Explosiva"
 	description = "Dispara bombas que causam dano em área ao acertar."
-	cost = 75
+	cost = EconomyManager.COST_ORB_EXPLOSIVE
 	icon_orb_kind = &"orb_explosive"
 
 func is_available() -> bool:

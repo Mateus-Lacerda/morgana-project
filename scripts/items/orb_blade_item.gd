@@ -7,7 +7,7 @@ func _init() -> void:
 	id = &"orb_blade"
 	display_name = "Lâmina Giratória"
 	description = "Gira ao seu redor e corta qualquer inimigo que encostar."
-	cost = 55
+	cost = EconomyManager.COST_ORB_BLADE
 	icon_orb_kind = &"orb_blade"
 
 func is_available() -> bool:

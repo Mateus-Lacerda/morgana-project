@@ -1,14 +1,12 @@
 extends ItemBase
 class_name EvolutionScrollBase
 
-const BASE_COST: int = 30
-const COST_PER_LEVEL: int = 15
 
 func compute_cost() -> int:
 	var target = _find_target()
 	if target == null:
-		return BASE_COST
-	return BASE_COST + COST_PER_LEVEL * target.total_evolution_level()
+		return EconomyManager.SCROLL_BASE_COST
+	return EconomyManager.SCROLL_BASE_COST + EconomyManager.SCROLL_COST_PER_LEVEL * target.total_evolution_level()
 
 func is_available() -> bool:
 	var target = _find_target()

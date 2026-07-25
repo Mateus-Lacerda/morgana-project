@@ -17,7 +17,7 @@ signal preparation_started(wave_num: int)
 ## Reverter quando o loop de jogo for definido.
 const INFINITE_TESTING_MODE: bool = false
 
-const STARTING_MONEY: int = 50
+const STARTING_MONEY: int = 500
 
 const WAVES_CONFIG = [
 	{ "prep_time": 15.0, "wave_time": 60.0, "difficulty_mult": 1.0 },
