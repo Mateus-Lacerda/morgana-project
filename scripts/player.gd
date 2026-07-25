@@ -24,9 +24,14 @@ var is_attacking: bool = false
 
 
 
-# Global Magic Cooldown System
+# Global Magic Cooldown System (varinha)
 var global_cooldown_timer: float = 0.0
 var global_cooldown_max: float = 1.0
+
+## Cooldown próprio da aura, independente do da varinha — antes os dois
+## disputavam o mesmo timer, e com a varinha em disparo automático ela
+## sempre vencia a corrida, deixando a aura impossível de ativar.
+var _aura_cooldown_timer: float = 0.0
 
 var cooldown_visualizer: CooldownVisualizer
 var aura_visualizer: AuraVisualizer
@@ -138,10 +143,10 @@ func _find_nearest_enemy() -> Node2D:
 	return nearest
 
 func aura_attack() -> void:
-	if not is_attacking and not is_paralyzed and is_global_cooldown_ready():
+	if not is_attacking and not is_paralyzed and _aura_cooldown_timer <= 0.0:
 		is_attacking = true
 		animation.play("morgana_attack_aura")
-		start_global_cooldown(PlayerManager.AURA_COOLDOWN_MULT * PlayerManager.BASE_GLOBAL_COOLDOWN)
+		_aura_cooldown_timer = PlayerManager.AURA_COOLDOWN_MULT * PlayerManager.BASE_GLOBAL_COOLDOWN
 		AudioManager.play_sfx("aura")
 
 		# Efeito Visual 360 e Dano agora são de responsabilidade total da habilidade
@@ -252,7 +257,9 @@ func _spawn_air_jump_particles() -> void:
 func _handle_combat() -> void:
 	if (wand_ability.auto_fire or Input.is_action_pressed("shoot_attack")) and is_global_cooldown_ready():
 		shoot_magic()
-	elif Input.is_action_pressed("aura_attack") and is_global_cooldown_ready():
+	# Independente do "if" acima (não é elif): a aura tem cooldown próprio,
+	# então o disparo automático da varinha não pode mais bloquear ela.
+	if Input.is_action_just_pressed("aura_attack"):
 		aura_attack()
 
 func _handle_movement() -> void:
@@ -271,6 +278,8 @@ func _update_cooldown(delta: float) -> void:
 		if cooldown_visualizer and global_cooldown_max > 0:
 			var progress = 1.0 - (global_cooldown_timer / global_cooldown_max)
 			cooldown_visualizer.update_cooldown(progress)
+	if _aura_cooldown_timer > 0:
+		_aura_cooldown_timer -= delta
 		if global_cooldown_timer <= 0:
 			if cooldown_visualizer:
 				cooldown_visualizer.play_twinkle()

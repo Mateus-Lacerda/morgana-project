@@ -18,13 +18,16 @@ const COUNTDOWN_STEPS := [
 
 var bat_scene = preload("res://scenes/bat.tscn")
 
+## Ponto único de spawn, fixo no mundo — sempre no limite direito do nível,
+## não muda com a posição da câmera (diferente do MAP_NODES/CAMERA_RELATIVE).
+const SPAWN_POINT: Vector2 = Vector2(4100.0, 550.0)
+
 func _ready() -> void:
 	var spawner: EnemySpawner = $EnemySpawner
-	spawner.spawn_mode = EnemySpawner.SpawnMode.MAP_NODES
-	
-	if has_node("SpawnPoints"):
-		spawner.spawn_nodes = $SpawnPoints.get_children()
-	
+	spawner.spawn_mode = EnemySpawner.SpawnMode.ABSOLUTE
+	spawner.spawn_position = SPAWN_POINT
+	spawner.randomize_y = false
+
 	spawner.set_spawn_table([
 		EnemySpawner.SpawnEntry.new(bat_scene, 0.7, "common"),
 		EnemySpawner.SpawnEntry.new(bat_scene, 0.2, "fast"),
