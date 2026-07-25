@@ -12,7 +12,7 @@ const SCROLL_ITEMS: Array[GDScript] = [
 	preload("res://scripts/items/scroll_orb_blade_item.gd"),
 	preload("res://scripts/items/scroll_orb_explosive_item.gd"),
 	preload("res://scripts/items/scroll_wand_item.gd"),
-	preload("res://scripts/items/scroll_force_field_item.gd"),
+	preload("res://scripts/items/scroll_aura_item.gd"),
 	preload("res://scripts/items/scroll_transform_combo_item.gd"),
 	preload("res://scripts/items/scroll_transform_blade_item.gd"),
 	preload("res://scripts/items/scroll_transform_explosive_item.gd"),

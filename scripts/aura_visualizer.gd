@@ -1,12 +1,7 @@
 extends Node2D
 class_name AuraVisualizer
 
-const EXPAND_DURATION: float = 0.16
-const HOLD_DURATION: float = 0.28
-const RECEDE_DURATION: float = 0.45
-## Duração total de um pulso — usada pelo campo de força pra saber se a
-## cadência está rápida demais pra caber um pulso inteiro entre gatilhos.
-const PULSE_DURATION: float = EXPAND_DURATION + HOLD_DURATION + RECEDE_DURATION
+
 
 var _current_radius: float = 0.0
 var _current_alpha: float = 0.0
@@ -35,11 +30,11 @@ func play_pulse(max_radius: float, stay_expanded: bool) -> void:
 	_current_alpha = 0.4
 
 	_tween = create_tween()
-	_tween.tween_property(self, "_current_radius", max_radius, EXPAND_DURATION).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-	_tween.tween_interval(HOLD_DURATION)
+	_tween.tween_property(self, "_current_radius", max_radius, AuraManager.EXPAND_DURATION).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	_tween.tween_interval(AuraManager.HOLD_DURATION)
 	_tween.set_parallel(true)
-	_tween.tween_property(self, "_current_radius", 0.0, RECEDE_DURATION).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
-	_tween.tween_property(self, "_current_alpha", 0.0, RECEDE_DURATION).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	_tween.tween_property(self, "_current_radius", 0.0, AuraManager.RECEDE_DURATION).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	_tween.tween_property(self, "_current_alpha", 0.0, AuraManager.RECEDE_DURATION).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 
 func _process(_delta: float) -> void:
 	if _current_radius > 0.0:

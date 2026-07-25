@@ -37,7 +37,7 @@ var cooldown_visualizer: CooldownVisualizer
 var aura_visualizer: AuraVisualizer
 
 var wand_ability: WandAbility
-var force_field_ability: ForceFieldAbility
+var aura_ability: AuraAbility
 
 func start_global_cooldown(duration: float) -> void:
 	global_cooldown_timer = duration
@@ -73,18 +73,18 @@ func _ready() -> void:
 	wand_ability = WandAbility.new()
 	add_child(wand_ability)
 
-	force_field_ability = ForceFieldAbility.new()
-	force_field_ability.visual = aura_visualizer # compartilha o anel com o aura_attack, mesmo clique
-	add_child(force_field_ability)
-	force_field_ability.unlock() # já começa equipado; só evolui a partir daqui
+	aura_ability = AuraAbility.new()
+	aura_ability.visual = aura_visualizer # compartilha o anel com o aura_attack, mesmo clique
+	add_child(aura_ability)
+	aura_ability.unlock() # já começa equipado; só evolui a partir daqui
 
 ## Itens já comprados que o pergaminho de evolução pode melhorar.
 func get_evolvable_abilities() -> Array:
 	var abilities: Array = []
 	if wand_ability.unlocked:
 		abilities.append(wand_ability)
-	if force_field_ability.unlocked:
-		abilities.append(force_field_ability)
+	if aura_ability.unlocked:
+		abilities.append(aura_ability)
 	return abilities
 
 func take_damage(amount: int, source: Node = null) -> void:

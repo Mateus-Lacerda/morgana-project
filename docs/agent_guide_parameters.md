@@ -36,14 +36,16 @@ A base de todos os inimigos possui variáveis modulares (`@export`) de fácil ac
 - **`max_village_hits`:** Quantas mordidas o inimigo consegue dar no portão antes de "morrer" de bater a cabeça.
 - **Timings de Ataque (`attack_hit_delay`, `attack_recoil_delay`):** O tempo exato que o morcego demora na animação de bater na vila e recuar.
 
-## 4. Habilidades da Morgana
-**Arquivos:** `scripts/abilities/wand_ability.gd` e `force_field_ability.gd`
+## 4. Habilidades da Morgana (AuraManager)
+**Arquivos:** `scripts/abilities/wand_ability.gd` e `scripts/aura_manager.gd`
 
-Definem as skills ativas da personagem principal, baseadas em constantes.
-- **`BASE_DAMAGE` / `BASE_TRIGGER_COOLDOWN`:** Dano e cadência iniciais.
-- **`DAMAGE_STEP` / `COOLDOWN_STEP`:** O quanto melhora ao comprar um upgrade de magia.
-- **`MIN_TRIGGER_COOLDOWN`:** O limite máximo de velocidade de ataque (para o jogo não quebrar).
-- No `aura_visualizer.gd`: **`PULSE_DURATION`** define o tempo visual da animação da aura mágica batendo na tela.
+Definem as skills ativas da personagem principal. Os parâmetros da Aura foram isolados para balanceamento global.
+- No `aura_manager.gd`:
+  - **`BASE_RADIUS` / `BASE_DAMAGE`:** Raio (tamanho base da área mágica) e dano inicial.
+  - **`BASE_TRIGGER_COOLDOWN` / `COOLDOWN_STEP`:** O ritmo que os pulsos batem e o quanto encurta por upgrade.
+  - **`HOLD_DURATION`:** O "freeze". É o tempo em segundos que o visual da aura fica travado na tela em seu ápice, dando peso ao impacto antes de sumir.
+- No `wand_ability.gd` (ainda local no script):
+  - **`BASE_DAMAGE` / `DAMAGE_STEP`:** Dano dos tiros mágicos e o quanto melhoram.
 
 ## 5. Lojinha e Custos (EconomyManager)
 **Arquivo:** `scripts/economy_manager.gd`

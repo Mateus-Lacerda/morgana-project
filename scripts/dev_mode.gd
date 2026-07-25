@@ -137,8 +137,8 @@ func _build_reset_button() -> Control:
 		var tree := Engine.get_main_loop() as SceneTree
 		var player := tree.get_first_node_in_group("player") as Player if tree else null
 		if player:
-			player.force_field_ability.reset()
-			player.force_field_ability.unlock()
+			player.aura_ability.reset()
+			player.aura_ability.unlock()
 		_refresh()
 	)
 	return button

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://o4nvfc3d3rgv"
-path="res://.godot/imported/force_field_icon_small.png-67ebef4e1bdf38c20042547365a0c618.ctex"
+uid="uid://cvlqya6m82u2j"
+path="res://.godot/imported/aura_icon.png-fd6d8a549fb8d5bc17a76c74ab60a741.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/items/force_field_icon_small.png"
-dest_files=["res://.godot/imported/force_field_icon_small.png-67ebef4e1bdf38c20042547365a0c618.ctex"]
+source_file="res://assets/items/aura_icon.png"
+dest_files=["res://.godot/imported/aura_icon.png-fd6d8a549fb8d5bc17a76c74ab60a741.ctex"]
 
 [params]
 

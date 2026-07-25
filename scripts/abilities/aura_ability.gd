@@ -1,26 +1,16 @@
 extends PlayerAbility
-class_name ForceFieldAbility
+class_name AuraAbility
 
 const MAX_LEVEL: int = 5
-const RADIUS_STEP: float = 20.0
-const DAMAGE_STEP: int = 15
-const BASE_RADIUS: float = 120.0
-const BASE_DAMAGE: int = 60
-const BASE_TRIGGER_COOLDOWN: float = 3.0
-
-## Cadência do próprio campo: cada nível encurta o intervalo entre pulsos.
-## No nível máximo o campo pulsa quase sem pausa — "sempre ativo".
-const COOLDOWN_STEP: float = 0.55
-const MIN_TRIGGER_COOLDOWN: float = 0.15
 
 var auto_trigger: bool = false
 var radius_level: int = 0
 var damage_level: int = 0
 var cooldown_level: int = 0
 
-var radius: float = BASE_RADIUS
-var damage: int = BASE_DAMAGE
-var trigger_cooldown: float = BASE_TRIGGER_COOLDOWN
+var radius: float = AuraManager.BASE_RADIUS
+var damage: int = AuraManager.BASE_DAMAGE
+var trigger_cooldown: float = AuraManager.BASE_TRIGGER_COOLDOWN
 
 var _player: Node2D
 var _can_trigger: bool = true
@@ -73,13 +63,13 @@ func apply_random_evolution() -> void:
 			auto_trigger = true
 		"radius":
 			radius_level += 1
-			radius += RADIUS_STEP
+			radius += AuraManager.RADIUS_STEP
 		"damage":
 			damage_level += 1
-			damage += DAMAGE_STEP
+			damage += AuraManager.DAMAGE_STEP
 		"cooldown":
 			cooldown_level += 1
-			trigger_cooldown = max(MIN_TRIGGER_COOLDOWN, trigger_cooldown - COOLDOWN_STEP)
+			trigger_cooldown = max(AuraManager.MIN_TRIGGER_COOLDOWN, trigger_cooldown - AuraManager.COOLDOWN_STEP)
 
 ## Desfaz totalmente a compra do campo de força e tudo que os pergaminhos evoluíram nele.
 func reset() -> void:
@@ -88,16 +78,16 @@ func reset() -> void:
 	radius_level = 0
 	damage_level = 0
 	cooldown_level = 0
-	radius = BASE_RADIUS
-	damage = BASE_DAMAGE
-	trigger_cooldown = BASE_TRIGGER_COOLDOWN
+	radius = AuraManager.BASE_RADIUS
+	damage = AuraManager.BASE_DAMAGE
+	trigger_cooldown = AuraManager.BASE_TRIGGER_COOLDOWN
 
 func _trigger() -> void:
 	_can_trigger = false
 	# Só trava expandido (sem recuar) quando é automático e rápido demais pra
 	# caber um pulso inteiro entre gatilhos — senão a animação reiniciaria do
 	# zero a cada disparo e travaria sempre no começo, nunca abrindo de vez.
-	var stay_expanded := auto_trigger and trigger_cooldown < AuraVisualizer.PULSE_DURATION
+	var stay_expanded := auto_trigger and trigger_cooldown < AuraManager.PULSE_DURATION
 	visual.play_pulse(radius, stay_expanded)
 	for target in get_tree().get_nodes_in_group("enemies"):
 		if not is_instance_valid(target):

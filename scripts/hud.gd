@@ -123,7 +123,7 @@ func _refresh_active_icons() -> void:
 		return
 
 	# Campo de força já vem equipado desde o início da partida.
-	_add_dynamic_icon(_build_png_icon("res://assets/items/force_field_icon_small.png"))
+	_add_dynamic_icon(_build_png_icon("res://assets/items/aura_icon_small.png"))
 	if player.wand_ability.unlocked:
 		_add_dynamic_icon(_build_png_icon("res://assets/items/wand_icon.png"))
 
