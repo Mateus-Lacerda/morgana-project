@@ -21,7 +21,7 @@ var _attract_speed: float = 0.0
 
 func _ready() -> void:
 	pickup_area.body_entered.connect(_on_pickup_area_body_entered)
-	get_tree().create_timer(LIFETIME).timeout.connect(func():
+	get_tree().create_timer(LIFETIME, false).timeout.connect(func():
 		if is_instance_valid(self):
 			queue_free()
 	)

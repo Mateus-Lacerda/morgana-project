@@ -102,7 +102,7 @@ func _paralyze() -> void:
 	_shake_camera()
 	AudioManager.play_sfx("player_hurt")
 
-	await get_tree().create_timer(PlayerManager.HIT_FREEZE_TIME).timeout
+	await get_tree().create_timer(PlayerManager.HIT_FREEZE_TIME, false).timeout
 
 	is_paralyzed = false
 	animation.modulate = Color(1, 1, 1)
@@ -145,7 +145,7 @@ func aura_attack() -> void:
 		AudioManager.play_sfx("aura")
 
 		# Efeito Visual 360 e Dano agora são de responsabilidade total da habilidade
-		get_tree().create_timer(0.05).timeout.connect(func():
+		get_tree().create_timer(0.05, false).timeout.connect(func():
 			if aura_ability and aura_ability.unlocked:
 				aura_ability.perform_attack()
 		)
@@ -247,7 +247,7 @@ func _spawn_air_jump_particles() -> void:
 	get_parent().add_child(p)
 	p.emitting = true
 
-	get_tree().create_timer(1.0).timeout.connect(p.queue_free)
+	get_tree().create_timer(1.0, false).timeout.connect(p.queue_free)
 
 func _handle_combat() -> void:
 	if (wand_ability.auto_fire or Input.is_action_pressed("shoot_attack")) and is_global_cooldown_ready():

@@ -57,13 +57,13 @@ func _on_wave_started(_wave_num: int) -> void:
 func _spawn_loop() -> void:
 	while _spawning:
 		if GameManager.current_phase == GameManager.GamePhase.PREPARATION:
-			_current_timer = get_tree().create_timer(9999.0)
+			_current_timer = get_tree().create_timer(9999.0, false)
 			await _current_timer.timeout
 			_current_timer = null
 			continue
 			
 		var interval := _get_current_interval()
-		_current_timer = get_tree().create_timer(interval)
+		_current_timer = get_tree().create_timer(interval, false)
 		await _current_timer.timeout
 		_current_timer = null
 		if not _spawning:

@@ -79,7 +79,7 @@ func _execute_attack(_target: Node2D) -> void:
 
 func start_cooldown(time: float) -> void:
 	_can_attack = false
-	await get_tree().create_timer(time).timeout
+	await get_tree().create_timer(time, false).timeout
 	_can_attack = true
 
 func total_evolution_level() -> int:
