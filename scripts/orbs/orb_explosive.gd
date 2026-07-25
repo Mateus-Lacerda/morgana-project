@@ -67,6 +67,7 @@ func _execute_attack(target: Node2D) -> void:
 	bolt.global_position = global_position
 	_player.get_parent().add_child(bolt)
 
+	AudioManager.play_sfx("orb_explosive_fire")
 	_flash()
 	start_cooldown(attack_cooldown)
 

@@ -111,6 +111,7 @@ func _execute_attack(target: Node2D) -> void:
 	else:
 		_fire_bolt((target.global_position - global_position).normalized())
 
+	AudioManager.play_sfx("orb_combo_fire")
 	_flash()
 	start_cooldown(attack_cooldown)
 

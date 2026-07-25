@@ -24,6 +24,7 @@ config/icon="uid://wb8cn8e25c63"
 GameManager="*res://scripts/game_manager.gd"
 ItemManager="*res://scripts/items/item_manager.gd"
 AudioManager="*res://scripts/audio_manager.gd"
+MusicManager="*res://scripts/music_manager.gd"
 DevMode="*res://scripts/dev_mode.gd"
 
 [display]

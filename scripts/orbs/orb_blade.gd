@@ -82,6 +82,7 @@ func _find_target() -> Node2D:
 
 func _execute_attack(target: Node2D) -> void:
 	target.take_damage(damage_amount, self)
+	AudioManager.play_sfx("orb_blade_hit")
 	_flash()
 	start_cooldown(attack_cooldown)
 

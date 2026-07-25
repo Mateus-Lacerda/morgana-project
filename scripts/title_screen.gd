@@ -9,6 +9,8 @@ func _ready() -> void:
 	$VBox/StartButton.pressed.connect(_on_start_pressed)
 	$VBox/StartButton.grab_focus()
 	
+	MusicManager.play("intro", true)
+	
 	Input.joy_connection_changed.connect(_on_joy_connection_changed)
 	_update_controls_text()
 
@@ -27,5 +29,6 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _on_start_pressed() -> void:
 	AudioManager.play_sfx("button")
+	MusicManager.queue_next("main", true)
 	GameManager.clean_for_restart()
 	get_tree().change_scene_to_file("res://scenes/level.tscn")
