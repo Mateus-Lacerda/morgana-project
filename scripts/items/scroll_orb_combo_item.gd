@@ -3,7 +3,7 @@ class_name ScrollOrbComboItem
 
 func _init() -> void:
 	id = &"scroll_orb_combo"
-	display_name = "Pergaminho — Orbe de Combo"
+	display_name = "Pergaminho do Combo"
 	description = "Evolui a orbe de combo ao acaso: velocidade, raio ou ataque."
 	cost = EconomyManager.SCROLL_BASE_COST
 	stackable = true

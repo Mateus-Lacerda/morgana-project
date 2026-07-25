@@ -30,6 +30,11 @@ const WAVES_CONFIG = [
 const TOTAL_EXPECTED_BATS: float = 200.0
 const DAMAGE_PER_HIT: float = 100.0 / TOTAL_EXPECTED_BATS
 
+## Vida máxima da vila: metade do valor original — a defesa tolera bem menos
+## descuido agora (mesmo dano por hit, então na prática a vila aguenta a
+## metade dos morcegos que passavam antes).
+const MAX_VILLAGE_INTEGRITY: float = 50.0
+
 enum GamePhase { PREPARATION, WAVE, ENDED }
 var current_phase: GamePhase = GamePhase.PREPARATION
 var current_wave_index: int = 0
@@ -43,7 +48,7 @@ const COMBO_TIERS := [
 	{"streak": 2, "mult": 2},
 ]
 var enemies_defeated: int = 0
-var village_integrity: float = 100.0
+var village_integrity: float = MAX_VILLAGE_INTEGRITY
 var time_left: float = WAVES_CONFIG[0].prep_time
 var is_game_active: bool = true
 var speed_multiplier: float = 1.0
@@ -62,7 +67,7 @@ func _ready() -> void:
 	_reset_state()
 
 func _reset_state() -> void:
-	village_integrity = 100.0
+	village_integrity = MAX_VILLAGE_INTEGRITY
 	time_left = WAVES_CONFIG[0].prep_time
 	current_phase = GamePhase.PREPARATION
 	current_wave_index = 0
@@ -145,7 +150,7 @@ func _break_combo() -> void:
 func heal_village(amount: float) -> void:
 	if not is_game_active:
 		return
-	village_integrity = min(100.0, village_integrity + amount)
+	village_integrity = min(MAX_VILLAGE_INTEGRITY, village_integrity + amount)
 	village_integrity_changed.emit(village_integrity)
 
 func damage_village(hits: float = 1.0) -> void:

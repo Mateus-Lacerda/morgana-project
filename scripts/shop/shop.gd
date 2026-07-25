@@ -20,7 +20,6 @@ const SCROLL_ITEMS: Array[GDScript] = [
 
 const SINGLE_ITEMS: Array[GDScript] = [
 	preload("res://scripts/items/coin_magnet_item.gd"),
-	preload("res://scripts/items/wand_item.gd"),
 ]
 
 @onready var shop_ui: Control = $ShopUI
@@ -60,7 +59,8 @@ func _find_manager() -> OrbManager:
 
 ## Reúne tudo que dá pra comprar agora: orbes ainda não equipadas (se houver
 ## slot livre), pergaminhos de evolução pras orbes/habilidades já equipadas, e
-## os itens avulsos (ímã, varinha, campo de força) ainda não comprados.
+## os itens avulsos (ímã) ainda não comprados. Varinha e aura já vêm
+## equipadas desde o início — só aparecem os pergaminhos delas.
 func _gather_full_shop_items() -> Array[ItemBase]:
 	var items: Array[ItemBase] = []
 
@@ -103,9 +103,18 @@ func _refresh_full_shop() -> void:
 	for item in items:
 		choice_row.add_child(_build_choice_card(item))
 
+## Tamanho fixo de todo card, sempre — nenhuma parte de conteúdo variável
+## (nome, descrição) pode crescer além do que cabe aqui: nome quebra em até
+## 2 linhas, descrição fica num scroll interno com altura travada. Assim o
+## grid inteiro fica uniforme não importa o tamanho do texto de cada item.
+const CARD_SIZE := Vector2(170, 236)
+const CARD_NAME_HEIGHT := 34.0
+const CARD_DESC_HEIGHT := 70.0
+
 func _build_choice_card(item: ItemBase) -> Control:
 	var card := VBoxContainer.new()
-	card.custom_minimum_size = Vector2(150, 180)
+	card.custom_minimum_size = CARD_SIZE
+	card.clip_contents = true
 	card.add_theme_constant_override("separation", 4)
 
 	var icon_stack := _build_icon_stack(item, Vector2(48, 48))
@@ -115,14 +124,23 @@ func _build_choice_card(item: ItemBase) -> Control:
 	var card_name := Label.new()
 	card_name.text = item.display_name
 	card_name.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	card_name.autowrap_mode = TextServer.AUTOWRAP_WORD
+	card_name.custom_minimum_size = Vector2(0, CARD_NAME_HEIGHT)
+	card_name.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	card.add_child(card_name)
+
+	var desc_scroll := ScrollContainer.new()
+	desc_scroll.custom_minimum_size = Vector2(0, CARD_DESC_HEIGHT)
+	desc_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	card.add_child(desc_scroll)
 
 	var card_desc := Label.new()
 	card_desc.text = item.description
 	card_desc.autowrap_mode = TextServer.AUTOWRAP_WORD
 	card_desc.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	card_desc.add_theme_font_size_override("font_size", 13)
-	card.add_child(card_desc)
+	card_desc.custom_minimum_size = Vector2(CARD_SIZE.x - 20.0, 0)
+	desc_scroll.add_child(card_desc)
 
 	var price := item.compute_cost()
 	var card_cost := Label.new()

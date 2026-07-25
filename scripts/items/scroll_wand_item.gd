@@ -3,7 +3,7 @@ class_name ScrollWandItem
 
 func _init() -> void:
 	id = &"scroll_wand"
-	display_name = "Pergaminho — Varinha"
+	display_name = "Pergaminho da Varinha"
 	description = "Evolui a varinha ao acaso: disparo automático, mira automática, velocidade ou dano."
 	cost = EconomyManager.SCROLL_BASE_COST
 	stackable = true

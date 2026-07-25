@@ -67,6 +67,7 @@ func _ready() -> void:
 
 	wand_ability = WandAbility.new()
 	add_child(wand_ability)
+	wand_ability.unlock() # já começa equipada, igual a aura; só evolui a partir daqui
 
 	aura_ability = AuraAbility.new()
 	aura_ability.visual = aura_visualizer # compartilha o anel com o aura_attack, mesmo clique

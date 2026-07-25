@@ -21,16 +21,29 @@ const INDICATOR_SCENE = preload("res://scenes/ui/offscreen_indicator.tscn")
 var _active_indicators: Dictionary = {}
 var _radar_container: Control
 
+## Minimapa: uma tira simples embaixo mostrando onde a maga está no nível em
+## relação à vila. Esses limites têm que bater com limit_left/limit_right da
+## Camera2D em level.tscn (hoje 100 e 4200).
+const MINIMAP_WIDTH: float = 220.0
+const MINIMAP_HEIGHT: float = 10.0
+const MINIMAP_WORLD_MIN_X: float = 100.0
+const MINIMAP_WORLD_MAX_X: float = 4200.0
+const MINIMAP_MARKER_SIZE: float = 8.0
+var _minimap_player_marker: ColorRect
+
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_radar_container = Control.new()
 	_radar_container.set_anchors_preset(Control.PRESET_FULL_RECT)
 	_radar_container.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_radar_container)
-	
+
+	_build_minimap()
+
 	result_panel.visible = false
 	fade_overlay.modulate.a = 0.0
 	timer_label.pivot_offset = timer_label.size / 2.0
+	village_bar.max_value = GameManager.MAX_VILLAGE_INTEGRITY
 
 	restart_button.pressed.connect(_on_restart_pressed)
 	menu_button.pressed.connect(_on_menu_pressed)
@@ -52,7 +65,7 @@ func _ready() -> void:
 	magnet_icon.visible = ItemManager.is_owned(&"coin_magnet")
 	_refresh_active_icons()
 
-var _last_village_value: float = 100.0
+var _last_village_value: float = GameManager.MAX_VILLAGE_INTEGRITY
 
 func _on_village_changed(value: float) -> void:
 	village_bar.value = value
@@ -158,7 +171,7 @@ func _show_result(title: String, subtitle: String, color: Color) -> void:
 	result_subtitle.text = subtitle
 	stats_label.text = "Inimigos derrotados: %d\nIntegridade final da vila: %d%%\nPontuação final: %d\nRecorde da sessão: %d" % [
 		GameManager.enemies_defeated,
-		int(round(GameManager.village_integrity)),
+		int(round(GameManager.village_integrity / GameManager.MAX_VILLAGE_INTEGRITY * 100.0)),
 		GameManager.score,
 		GameManager.high_score
 	]
@@ -175,13 +188,54 @@ func _on_menu_pressed() -> void:
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://scenes/title.tscn")
 
+## Tira fina com um marcador fixo (vila) e um marcador móvel (maga), mapeando
+## a posição X dela no nível pra dentro da largura fixa da tira.
+func _build_minimap() -> void:
+	var container := Control.new()
+	container.anchor_left = 0.5
+	container.anchor_right = 0.5
+	container.anchor_top = 1.0
+	container.anchor_bottom = 1.0
+	container.offset_left = -MINIMAP_WIDTH / 2.0
+	container.offset_right = MINIMAP_WIDTH / 2.0
+	container.offset_top = -30.0
+	container.offset_bottom = -30.0 + MINIMAP_HEIGHT
+	container.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(container)
+
+	var bg := ColorRect.new()
+	bg.color = Color(0.05, 0.05, 0.08, 0.75)
+	bg.set_anchors_preset(Control.PRESET_FULL_RECT)
+	container.add_child(bg)
+
+	var village_marker := ColorRect.new()
+	village_marker.color = Color(1.0, 0.85, 0.3, 1.0)
+	village_marker.size = Vector2(MINIMAP_MARKER_SIZE * 0.75, MINIMAP_HEIGHT)
+	village_marker.position = Vector2(0, 0)
+	container.add_child(village_marker)
+
+	_minimap_player_marker = ColorRect.new()
+	_minimap_player_marker.color = Color(0.4, 0.9, 1.0, 1.0)
+	_minimap_player_marker.size = Vector2(MINIMAP_MARKER_SIZE * 0.75, MINIMAP_HEIGHT)
+	container.add_child(_minimap_player_marker)
+
+func _update_minimap(player_x: float) -> void:
+	var span := MINIMAP_WORLD_MAX_X - MINIMAP_WORLD_MIN_X
+	var t := clampf((player_x - MINIMAP_WORLD_MIN_X) / span, 0.0, 1.0)
+	var usable_width := MINIMAP_WIDTH - _minimap_player_marker.size.x
+	_minimap_player_marker.position.x = t * usable_width
+
 func _process(_delta: float) -> void:
 	if not GameManager.is_game_active:
 		return
-		
+
 	var camera = get_viewport().get_camera_2d()
 	if not camera: return
-	
+
+	var player := get_tree().get_first_node_in_group("player") as Node2D
+	if player:
+		_update_minimap(player.global_position.x)
+
 	var view_size = get_viewport().get_visible_rect().size
 	var cam_center = camera.get_screen_center_position()
 	var top_left = cam_center - (view_size / 2.0)

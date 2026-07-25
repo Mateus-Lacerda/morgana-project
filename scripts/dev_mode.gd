@@ -132,13 +132,15 @@ func _build_reset_button() -> Control:
 	button.text = "Resetar todos os itens"
 	button.pressed.connect(func():
 		ItemManager.reset()
-		# Campo de força não é mais comprado (já vem equipado de fábrica),
-		# então o ItemManager não sabe resetá-lo — faz direto aqui.
+		# Aura e varinha não são mais compradas (já vêm equipadas de fábrica),
+		# então o ItemManager não sabe resetá-las — faz direto aqui.
 		var tree := Engine.get_main_loop() as SceneTree
 		var player := tree.get_first_node_in_group("player") as Player if tree else null
 		if player:
 			player.aura_ability.reset()
 			player.aura_ability.unlock()
+			player.wand_ability.reset()
+			player.wand_ability.unlock()
 		_refresh()
 	)
 	return button

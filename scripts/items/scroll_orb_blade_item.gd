@@ -3,7 +3,7 @@ class_name ScrollOrbBladeItem
 
 func _init() -> void:
 	id = &"scroll_orb_blade"
-	display_name = "Pergaminho — Lâmina Giratória"
+	display_name = "Pergaminho da Lâmina"
 	description = "Evolui a lâmina giratória ao acaso: velocidade, raio ou ataque."
 	cost = EconomyManager.SCROLL_BASE_COST
 	stackable = true
