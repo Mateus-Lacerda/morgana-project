@@ -104,9 +104,14 @@ func _find_target() -> Node2D:
 
 func _execute_attack(target: Node2D) -> void:
 	if _omni_fire:
+		# A saraivada continua acompanhando o alvo igual o modo normal — um
+		# dos tiros sempre mira exatamente nele, os outros se espalham a
+		# partir dessa direção, em vez de ficarem travados num padrão fixo
+		# que ignora onde o inimigo está.
+		var base_angle: float = (target.global_position - global_position).angle()
 		var angle_step: float = TAU / omni_bolt_count
 		for i in range(omni_bolt_count):
-			var angle: float = angle_step * i
+			var angle: float = base_angle + angle_step * i
 			_fire_bolt(Vector2(cos(angle), sin(angle)))
 	else:
 		_fire_bolt((target.global_position - global_position).normalized())

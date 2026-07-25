@@ -34,7 +34,10 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	_time += delta
 
-	if GameManager.coin_magnet_enabled and _attract_to_player(delta):
+	# Moeda que passou do portão da vila (mesmo limite que os morcegos usam
+	# pra "chegar" nela) não faz mais sentido ser puxada de volta pelo ímã.
+	var past_the_gate := global_position.x <= EnemyBase.GATE_X
+	if GameManager.coin_magnet_enabled and not past_the_gate and _attract_to_player(delta):
 		return
 
 	_fall_with_weight(delta)
