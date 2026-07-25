@@ -154,7 +154,7 @@ func _dissolve_into_smoke() -> void:
 	particles.scale_amount_max = 4.0
 	particles.color = Color(0.55, 0.55, 0.55, 0.85)
 	particles.emitting = true
-	get_tree().create_timer(particles.lifetime + 0.2).timeout.connect(particles.queue_free)
+	get_tree().create_timer(particles.lifetime + 0.2, false).timeout.connect(particles.queue_free)
 
 	var tween := create_tween()
 	tween.tween_property(_animation, "modulate", Color(0.6, 0.6, 0.6, 0.0), 0.35)

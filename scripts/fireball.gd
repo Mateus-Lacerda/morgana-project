@@ -81,4 +81,4 @@ func _spawn_explosion_visual() -> void:
 	particles.scale_amount_max = 4.0
 	particles.color = Color(1.0, 0.5, 0.1, 0.9)
 	particles.emitting = true
-	get_tree().create_timer(particles.lifetime + 0.2).timeout.connect(particles.queue_free)
+	get_tree().create_timer(particles.lifetime + 0.2, false).timeout.connect(particles.queue_free)

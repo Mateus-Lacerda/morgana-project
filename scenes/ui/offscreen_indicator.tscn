@@ -1,17 +1,16 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene format=3 uid="uid://clbsc1q658oqb"]
 
-[ext_resource type="Script" path="res://scripts/ui/offscreen_indicator.gd" id="1_abc"]
+[ext_resource type="Script" uid="uid://8akkdcdwq1ny" path="res://scripts/ui/offscreen_indicator.gd" id="1_abc"]
 
-[node name="OffscreenIndicator" type="Control"]
+[node name="OffscreenIndicator" type="Control" unique_id=1014998550]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_abc")
 
-[node name="Icon" type="ColorRect" parent="."]
+[node name="Icon" type="ColorRect" parent="." unique_id=477191953]
 layout_mode = 0
 offset_left = -10.0
 offset_top = -10.0
 offset_right = 10.0
 offset_bottom = 10.0
 rotation = 0.785398
-color = Color(1, 1, 1, 1)

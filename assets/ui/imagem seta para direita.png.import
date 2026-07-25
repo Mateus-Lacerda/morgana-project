@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://1tocedy4vqh4"
-path="res://.godot/imported/Layer_0001_8.png-9e2edcf05bb1f731c73e75e50f2abc09.ctex"
+uid="uid://dsvdjpq74pn2b"
+path="res://.godot/imported/imagem seta para direita.png-ba09739f0eb019c7ec7582e7c637973b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Background layers/Layer_0001_8.png"
-dest_files=["res://.godot/imported/Layer_0001_8.png-9e2edcf05bb1f731c73e75e50f2abc09.ctex"]
+source_file="res://assets/ui/imagem seta para direita.png"
+dest_files=["res://.godot/imported/imagem seta para direita.png-ba09739f0eb019c7ec7582e7c637973b.ctex"]
 
 [params]
 

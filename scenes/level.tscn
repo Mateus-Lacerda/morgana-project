@@ -1,4 +1,5 @@
 [gd_scene format=3 uid="uid://bht7nxd2g2auw"]
+[ext_resource type="Theme" uid="uid://theme_main" path="res://assets/theme.tres" id="99_theme"]
 
 [ext_resource type="PackedScene" uid="uid://ofb7ihach6qd" path="res://scenes/background.tscn" id="1_w7c3h"]
 [ext_resource type="PackedScene" uid="uid://bitili646qdbr" path="res://scenes/player.tscn" id="2_w8frs"]
@@ -23,7 +24,7 @@ script = ExtResource("6_level")
 [node name="Background" parent="." unique_id=1603449858 instance=ExtResource("1_w7c3h")]
 
 [node name="Player" parent="." unique_id=1941554375 instance=ExtResource("2_w8frs")]
-position = Vector2(350, 696)
+position = Vector2(350, 720)
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=1751170864]
 position = Vector2(0, -96)
@@ -35,7 +36,7 @@ limit_bottom = 780
 position_smoothing_enabled = true
 
 [node name="Gate" parent="." unique_id=1729746193 instance=ExtResource("4_klq6b")]
-position = Vector2(200, 760)
+position = Vector2(200, 814)
 
 [node name="RightWall" type="StaticBody2D" parent="." unique_id=796456717]
 position = Vector2(4200, 600)
@@ -48,7 +49,6 @@ shape = SubResource("RectangleShape2D_walls")
 script = ExtResource("4_enemyspawner")
 
 [node name="HUD" parent="." unique_id=1914251633 instance=ExtResource("5_hud")]
-visible = true
 
 [node name="Shop" parent="." unique_id=1550706319 instance=ExtResource("8_shop")]
 
@@ -60,10 +60,13 @@ visible = true
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0.35)
 
 [node name="CountdownLabel" type="Label" parent="IntroCountdown" unique_id=61243695]
+theme = ExtResource("99_theme")
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

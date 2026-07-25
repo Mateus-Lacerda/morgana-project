@@ -10,7 +10,7 @@ const TICK_INTERVAL: float = 0.5
 var _tick_timer: float = 0.0
 
 func _ready() -> void:
-	get_tree().create_timer(duration).timeout.connect(queue_free)
+	get_tree().create_timer(duration, false).timeout.connect(queue_free)
 	_spawn_visual()
 
 func _process(delta: float) -> void:

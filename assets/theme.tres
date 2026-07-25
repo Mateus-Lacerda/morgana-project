@@ -1,0 +1,6 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://theme_main"]
+
+[ext_resource type="FontVariation" uid="uid://var_alagard" path="res://assets/fonts/font_alagard.tres" id="1_font"]
+
+[resource]
+default_font = ExtResource("1_font")

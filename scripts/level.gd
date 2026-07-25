@@ -10,10 +10,10 @@ extends Node2D
 @onready var camera: Camera2D = $Player/Camera2D
 
 const COUNTDOWN_STEPS := [
-	{"text": "3", "color": Color(1, 1, 1), "hold": 0.2},
-	{"text": "2", "color": Color(1, 1, 1), "hold": 0.2},
-	{"text": "1", "color": Color(1, 1, 1), "hold": 0.2},
-	{"text": "DEFENDA A VILA!", "color": Color(1.0, 0.85, 0.3), "hold": 0.4},
+	{"text": "3", "color": Color(1, 1, 1), "hold": 0.5},
+	{"text": "2", "color": Color(1, 1, 1), "hold": 0.5},
+	{"text": "1", "color": Color(1, 1, 1), "hold": 0.5},
+	{"text": "DEFENDA A VILA!", "color": Color(1.0, 0.85, 0.3), "hold": 1.0},
 ]
 
 var bat_scene = preload("res://scenes/bat.tscn")

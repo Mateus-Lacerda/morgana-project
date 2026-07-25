@@ -1,6 +1,6 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://bvsdaqoo0u1ql"]
 
-[ext_resource type="Script" path="res://scripts/coins/coin_particle.gd" id="1_coin"]
+[ext_resource type="Script" uid="uid://ds4767hx7c7cs" path="res://scripts/coins/coin_particle.gd" id="1_coin"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_coin"]
 radius = 8.0
@@ -8,46 +8,45 @@ radius = 8.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_pickup"]
 radius = 16.0
 
-[node name="CoinParticle" type="CharacterBody2D"]
+[node name="CoinParticle" type="CharacterBody2D" unique_id=847790718]
 scale = Vector2(0.65, 0.65)
 collision_layer = 8
 collision_mask = 3
 script = ExtResource("1_coin")
 coin_value = 1
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=474401257]
 shape = SubResource("CircleShape2D_coin")
 
-[node name="PickupArea" type="Area2D" parent="."]
+[node name="PickupArea" type="Area2D" parent="." unique_id=391973537]
 collision_layer = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea" unique_id=1826118519]
 shape = SubResource("CircleShape2D_pickup")
 
-[node name="Visuals" type="Node2D" parent="."]
+[node name="Visuals" type="Node2D" parent="." unique_id=1803093531]
 
-[node name="Glow" type="Polygon2D" parent="Visuals"]
+[node name="Glow" type="Polygon2D" parent="Visuals" unique_id=917994329]
 visible = false
 scale = Vector2(1.7, 1.7)
 color = Color(0.8, 0.5, 0.3, 0.28)
 polygon = PackedVector2Array(8, 0, 6.93, 4, 4, 6.93, 0, 8, -4, 6.93, -6.93, 4, -8, 0, -6.93, -4, -4, -6.93, 0, -8, 4, -6.93, 6.93, -4)
 
-[node name="Rim" type="Polygon2D" parent="Visuals"]
+[node name="Rim" type="Polygon2D" parent="Visuals" unique_id=313587804]
 color = Color(0.45, 0.25, 0.12, 1)
 polygon = PackedVector2Array(8, 0, 6.93, 4, 4, 6.93, 0, 8, -4, 6.93, -6.93, 4, -8, 0, -6.93, -4, -4, -6.93, 0, -8, 4, -6.93, 6.93, -4)
 
-[node name="Core" type="Polygon2D" parent="Visuals"]
+[node name="Core" type="Polygon2D" parent="Visuals" unique_id=1138453280]
 color = Color(0.72, 0.45, 0.22, 1)
 polygon = PackedVector2Array(6.4, 0, 5.54, 3.2, 3.2, 5.54, 0, 6.4, -3.2, 5.54, -5.54, 3.2, -6.4, 0, -5.54, -3.2, -3.2, -5.54, 0, -6.4, 3.2, -5.54, 5.54, -3.2)
 
-[node name="Highlight" type="Polygon2D" parent="Visuals"]
+[node name="Highlight" type="Polygon2D" parent="Visuals" unique_id=385739323]
 position = Vector2(-1.8, -1.8)
 scale = Vector2(0.35, 0.35)
 color = Color(1, 0.85, 0.6, 0.7)
 polygon = PackedVector2Array(6.4, 0, 5.54, 3.2, 3.2, 5.54, 0, 6.4, -3.2, 5.54, -5.54, 3.2, -6.4, 0, -5.54, -3.2, -3.2, -5.54, 0, -6.4, 3.2, -5.54, 5.54, -3.2)
 
-[node name="Sparkles" type="CPUParticles2D" parent="Visuals"]
-amount = 8
+[node name="Sparkles" type="CPUParticles2D" parent="Visuals" unique_id=668464676]
 lifetime = 1.2
 lifetime_randomness = 0.6
 direction = Vector2(0, 0)
@@ -56,5 +55,4 @@ gravity = Vector2(0, 0)
 initial_velocity_min = 4.0
 initial_velocity_max = 8.0
 scale_amount_min = 0.6
-scale_amount_max = 1.0
 color = Color(0.8, 0.55, 0.3, 0.8)

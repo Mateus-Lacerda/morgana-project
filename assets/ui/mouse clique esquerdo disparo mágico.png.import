@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c1t0nc01tyc44"
-path="res://.godot/imported/Layer_0003_6.png-8d61a21bfe82d459255d5d9a89c327cd.ctex"
+uid="uid://2uvmpf2qhju0"
+path="res://.godot/imported/mouse clique esquerdo disparo mágico.png-d49a1cc026d37d13f900825b8f6fb5a2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Background layers/Layer_0003_6.png"
-dest_files=["res://.godot/imported/Layer_0003_6.png-8d61a21bfe82d459255d5d9a89c327cd.ctex"]
+source_file="res://assets/ui/mouse clique esquerdo disparo mágico.png"
+dest_files=["res://.godot/imported/mouse clique esquerdo disparo mágico.png-d49a1cc026d37d13f900825b8f6fb5a2.ctex"]
 
 [params]
 

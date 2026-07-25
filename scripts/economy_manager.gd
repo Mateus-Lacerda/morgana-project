@@ -22,4 +22,4 @@ const SCROLL_TRANSFORM_COST: int = 1500
 ## ==========================================
 ## CUSTOS DE UTILITÁRIOS
 ## ==========================================
-const COST_COIN_MAGNET: int = 200
+const COST_COIN_MAGNET: int = 800

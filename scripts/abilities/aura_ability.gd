@@ -33,7 +33,7 @@ func _process(_delta: float) -> void:
 	if auto_trigger and _can_trigger:
 		_can_trigger = false
 		perform_attack()
-		get_tree().create_timer(trigger_cooldown).timeout.connect(func():
+		get_tree().create_timer(trigger_cooldown, false).timeout.connect(func():
 			_can_trigger = true
 		)
 
