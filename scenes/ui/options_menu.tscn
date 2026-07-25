@@ -1,12 +1,6 @@
 [gd_scene format=3 uid="uid://dp662g8q8w2aa"]
 
-[ext_resource type="Script" path="res://scripts/ui/options_menu.gd" id="1_opts"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_title"]
-font_size = 46
-font_color = Color(1, 0.85, 0.3, 1)
-outline_size = 9
-outline_color = Color(0, 0, 0, 1)
+[ext_resource type="Script" uid="uid://cebtxullf6ky2" path="res://scripts/ui/options_menu.gd" id="1_opts"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 bg_color = Color(0.05, 0.05, 0.08, 0.95)
@@ -15,6 +9,12 @@ corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
+[sub_resource type="LabelSettings" id="LabelSettings_title"]
+font_size = 46
+font_color = Color(1, 0.85, 0.3, 1)
+outline_size = 9
+outline_color = Color(0, 0, 0, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button"]
 bg_color = Color(0.2, 0.22, 0.3, 1)
 corner_radius_top_left = 10
@@ -22,12 +22,12 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[node name="OptionsMenu" type="CanvasLayer"]
+[node name="OptionsMenu" type="CanvasLayer" unique_id=611687334]
 process_mode = 3
 layer = 60
 script = ExtResource("1_opts")
 
-[node name="Dim" type="ColorRect" parent="."]
+[node name="Dim" type="ColorRect" parent="." unique_id=288702066]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -35,7 +35,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.7)
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="." unique_id=1319218779]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -49,7 +49,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
 
-[node name="VBox" type="VBoxContainer" parent="Panel"]
+[node name="VBox" type="VBoxContainer" parent="Panel" unique_id=1838092357]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -63,54 +63,54 @@ grow_vertical = 2
 theme_override_constants/separation = 16
 alignment = 1
 
-[node name="Title" type="Label" parent="Panel/VBox"]
+[node name="Title" type="Label" parent="Panel/VBox" unique_id=2009447809]
 layout_mode = 2
 text = "OPÇÕES"
 label_settings = SubResource("LabelSettings_title")
 horizontal_alignment = 1
 
-[node name="Spacer" type="Control" parent="Panel/VBox"]
+[node name="Spacer" type="Control" parent="Panel/VBox" unique_id=1356064250]
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="MasterLabel" type="Label" parent="Panel/VBox"]
+[node name="MasterLabel" type="Label" parent="Panel/VBox" unique_id=1959144388]
 layout_mode = 2
 text = "Volume Geral"
 horizontal_alignment = 1
 
-[node name="MasterSlider" type="HSlider" parent="Panel/VBox"]
+[node name="MasterSlider" type="HSlider" parent="Panel/VBox" unique_id=834024480]
 layout_mode = 2
 max_value = 1.0
 step = 0.05
 value = 1.0
 
-[node name="MusicLabel" type="Label" parent="Panel/VBox"]
+[node name="MusicLabel" type="Label" parent="Panel/VBox" unique_id=1995527043]
 layout_mode = 2
 text = "Música"
 horizontal_alignment = 1
 
-[node name="MusicSlider" type="HSlider" parent="Panel/VBox"]
+[node name="MusicSlider" type="HSlider" parent="Panel/VBox" unique_id=909123182]
 layout_mode = 2
 max_value = 1.0
 step = 0.05
 value = 1.0
 
-[node name="SFXLabel" type="Label" parent="Panel/VBox"]
+[node name="SFXLabel" type="Label" parent="Panel/VBox" unique_id=1970996647]
 layout_mode = 2
 text = "Efeitos Sonoros (SFX)"
 horizontal_alignment = 1
 
-[node name="SFXSlider" type="HSlider" parent="Panel/VBox"]
+[node name="SFXSlider" type="HSlider" parent="Panel/VBox" unique_id=1467044833]
 layout_mode = 2
 max_value = 1.0
 step = 0.05
 value = 1.0
 
-[node name="Spacer2" type="Control" parent="Panel/VBox"]
+[node name="Spacer2" type="Control" parent="Panel/VBox" unique_id=1532479458]
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="BackButton" type="Button" parent="Panel/VBox"]
+[node name="BackButton" type="Button" parent="Panel/VBox" unique_id=792992822]
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 theme_override_font_sizes/font_size = 20

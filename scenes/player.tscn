@@ -348,10 +348,10 @@ shape = SubResource("RectangleShape2D_qlg0r")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" unique_id=1593095313]
 shape = SubResource("RectangleShape2D_hitbox")
 
-[node name="Hitbox" type="Area2D" parent="."]
+[node name="Hitbox" type="Area2D" parent="." unique_id=1856071250]
 position = Vector2(40, 0)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=1179810263]
 shape = SubResource("RectangleShape2D_hitbox")
 
 [node name="OrbManager" type="Node2D" parent="." unique_id=1855095270]

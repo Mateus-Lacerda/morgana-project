@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c25jjfwy12gqb"]
 
 [ext_resource type="Script" uid="uid://c0sco2vufhhqe" path="res://scripts/title_screen.gd" id="1_title"]
-[ext_resource type="PackedScene" path="res://scenes/ui/options_menu.tscn" id="2_options"]
+[ext_resource type="PackedScene" uid="uid://dp662g8q8w2aa" path="res://scenes/ui/options_menu.tscn" id="2_options"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_title"]
 font_size = 46
@@ -99,7 +99,7 @@ theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_button")
 text = "Iniciar"
 
-[node name="OptionsButton" type="Button" parent="VBox"]
+[node name="OptionsButton" type="Button" parent="VBox" unique_id=339602507]
 custom_minimum_size = Vector2(200, 56)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -107,4 +107,4 @@ theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_button")
 text = "Opções"
 
-[node name="OptionsMenu" parent="." instance=ExtResource("2_options")]
+[node name="OptionsMenu" parent="." unique_id=1225692911 instance=ExtResource("2_options")]
