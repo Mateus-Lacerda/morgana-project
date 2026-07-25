@@ -7,6 +7,7 @@ const JOYPAD_CONTROLS = "Analógico / D-Pad  Mover     Botão Inferior (A/Cruz) 
 
 func _ready() -> void:
 	$VBox/StartButton.pressed.connect(_on_start_pressed)
+	$VBox/OptionsButton.pressed.connect(_on_options_pressed)
 	$VBox/StartButton.grab_focus()
 	
 	MusicManager.play("intro", true)
@@ -32,3 +33,7 @@ func _on_start_pressed() -> void:
 	MusicManager.queue_next("main", true)
 	GameManager.clean_for_restart()
 	get_tree().change_scene_to_file("res://scenes/level.tscn")
+
+func _on_options_pressed() -> void:
+	AudioManager.play_sfx("button")
+	$OptionsMenu.open()

@@ -86,9 +86,9 @@ func _on_track_finished(player: AudioStreamPlayer) -> void:
 func _inactive_player() -> AudioStreamPlayer:
 	return _player_b if _active_player == _player_a else _player_a
 
-func _load_track(name: String) -> AudioStream:
-	var path: String = MUSIC_REGISTRY.get(name, "")
+func _load_track(track_name: String) -> AudioStream:
+	var path: String = MUSIC_REGISTRY.get(track_name, "")
 	if path == "":
-		push_warning("MusicManager: Track desconhecida '%s'" % name)
+		push_warning("MusicManager: Track desconhecida '%s'" % track_name)
 		return null
 	return load(path)

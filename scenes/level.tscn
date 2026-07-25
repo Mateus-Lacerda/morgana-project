@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" path="res://scenes/hud.tscn" id="5_hud"]
 [ext_resource type="Script" uid="uid://bodpsd6r2s6kr" path="res://scripts/level.gd" id="6_level"]
 [ext_resource type="PackedScene" uid="uid://dyooh3yxpqggd" path="res://scenes/shop/shop.tscn" id="8_shop"]
-[ext_resource type="PackedScene" path="res://scenes/ui/pause_menu.tscn" id="9_pause"]
+[ext_resource type="PackedScene" uid="uid://dd82j0x7p6wq1" path="res://scenes/ui/pause_menu.tscn" id="9_pause"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_walls"]
 size = Vector2(100, 2000)
@@ -51,7 +51,7 @@ script = ExtResource("4_enemyspawner")
 
 [node name="Shop" parent="." unique_id=1550706319 instance=ExtResource("8_shop")]
 
-[node name="PauseMenu" parent="." instance=ExtResource("9_pause")]
+[node name="PauseMenu" parent="." unique_id=2051128425 instance=ExtResource("9_pause")]
 
 [node name="IntroCountdown" type="CanvasLayer" parent="." unique_id=1081364165]
 

@@ -3,6 +3,7 @@ extends CanvasLayer
 @onready var panel: Panel = $Panel
 @onready var resume_btn: Button = $Panel/VBox/ResumeButton
 @onready var restart_btn: Button = $Panel/VBox/RestartButton
+@onready var options_btn: Button = $Panel/VBox/OptionsButton
 @onready var menu_btn: Button = $Panel/VBox/MenuButton
 @onready var quit_btn: Button = $Panel/VBox/QuitButton
 
@@ -11,6 +12,7 @@ func _ready() -> void:
 	visible = false
 	resume_btn.pressed.connect(_on_resume)
 	restart_btn.pressed.connect(_on_restart)
+	options_btn.pressed.connect(_on_options)
 	menu_btn.pressed.connect(_on_menu)
 	quit_btn.pressed.connect(_on_quit)
 
@@ -45,6 +47,10 @@ func _on_menu() -> void:
 	AudioManager.play_sfx("button")
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://scenes/title.tscn")
+
+func _on_options() -> void:
+	AudioManager.play_sfx("button")
+	$OptionsMenu.open()
 
 func _on_quit() -> void:
 	AudioManager.play_sfx("button")
