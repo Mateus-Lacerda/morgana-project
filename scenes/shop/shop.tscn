@@ -1,6 +1,9 @@
 [gd_scene format=3 uid="uid://dyooh3yxpqggd"]
+[ext_resource type="Theme" uid="uid://theme_main" path="res://assets/theme.tres" id="99_theme"]
 
 [ext_resource type="Script" uid="uid://e8bg48ct04ga" path="res://scripts/shop/shop.gd" id="1_shop"]
+
+[sub_resource type="Theme" id="Theme_100s2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 bg_color = Color(0.05, 0.05, 0.08, 0.92)
@@ -34,12 +37,14 @@ corner_radius_bottom_left = 10
 script = ExtResource("1_shop")
 
 [node name="ShopUI" type="Control" parent="." unique_id=718591612]
+theme = ExtResource("99_theme")
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = SubResource("Theme_100s2")
 
 [node name="Dim" type="ColorRect" parent="ShopUI" unique_id=1912997468]
 layout_mode = 0

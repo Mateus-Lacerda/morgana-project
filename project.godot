@@ -28,6 +28,10 @@ DevMode="*res://scripts/dev_mode.gd"
 
 window/stretch/mode="canvas_items"
 
+[gui]
+
+theme/custom="res://assets/theme.tres"
+
 [input]
 
 move_left={

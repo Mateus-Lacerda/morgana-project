@@ -1,4 +1,5 @@
 [gd_scene format=3 uid="uid://dp662g8q8w2aa"]
+[ext_resource type="Theme" uid="uid://theme_main" path="res://assets/theme.tres" id="99_theme"]
 
 [ext_resource type="Script" uid="uid://cebtxullf6ky2" path="res://scripts/ui/options_menu.gd" id="1_opts"]
 
@@ -70,6 +71,7 @@ label_settings = SubResource("LabelSettings_title")
 horizontal_alignment = 1
 
 [node name="Spacer" type="Control" parent="Panel/VBox" unique_id=1356064250]
+theme = ExtResource("99_theme")
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
@@ -107,6 +109,7 @@ step = 0.05
 value = 1.0
 
 [node name="Spacer2" type="Control" parent="Panel/VBox" unique_id=1532479458]
+theme = ExtResource("99_theme")
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
