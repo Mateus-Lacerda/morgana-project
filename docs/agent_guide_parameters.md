@@ -36,16 +36,21 @@ A base de todos os inimigos possui variáveis modulares (`@export`) de fácil ac
 - **`max_village_hits`:** Quantas mordidas o inimigo consegue dar no portão antes de "morrer" de bater a cabeça.
 - **Timings de Ataque (`attack_hit_delay`, `attack_recoil_delay`):** O tempo exato que o morcego demora na animação de bater na vila e recuar.
 
-## 4. Habilidades da Morgana (AuraManager)
-**Arquivos:** `scripts/abilities/wand_ability.gd` e `scripts/aura_manager.gd`
+## 4. Habilidades da Morgana e Lógica de Personagem
+**Arquivos:** `scripts/player_manager.gd`, `scripts/abilities/wand_ability.gd` e `scripts/aura_manager.gd`
 
-Definem as skills ativas da personagem principal. Os parâmetros da Aura foram isolados para balanceamento global.
+Definem as skills ativas e o comportamento base da Morgana. Para facilitar o balanceamento e não sujar o código do player, os status bases foram extraídos:
+- No `player_manager.gd`:
+  - **`BASE_WAND_DAMAGE`:** Dano dos tiros mágicos antes de qualquer upgrade.
+  - **`MOVE_SPEED`:** Velocidade de corrida da personagem.
+  - **`HIT_FREEZE_TIME`:** Quanto tempo (em segundos) a Morgana fica paralisada/congelada sempre que sofre dano.
+  - **`BASE_GLOBAL_COOLDOWN` / `WAND_COOLDOWN_MULT` / `AURA_COOLDOWN_MULT`:** A matemática por trás do cooldown que a Morgana tem entre uma ação e outra.
 - No `aura_manager.gd`:
   - **`BASE_RADIUS` / `BASE_DAMAGE`:** Raio (tamanho base da área mágica) e dano inicial.
   - **`BASE_TRIGGER_COOLDOWN` / `COOLDOWN_STEP`:** O ritmo que os pulsos batem e o quanto encurta por upgrade.
-  - **`HOLD_DURATION`:** O "freeze". É o tempo em segundos que o visual da aura fica travado na tela em seu ápice, dando peso ao impacto antes de sumir.
+  - **`HOLD_DURATION`:** O tempo em segundos que o visual da aura fica travado na tela em seu ápice.
 - No `wand_ability.gd` (ainda local no script):
-  - **`BASE_DAMAGE` / `DAMAGE_STEP`:** Dano dos tiros mágicos e o quanto melhoram.
+  - **`DAMAGE_STEP` / `SPEED_STEP`:** O quanto a varinha melhora (dano e velocidade do tiro) a cada upgrade de pergaminho.
 
 ## 5. Lojinha e Custos (EconomyManager)
 **Arquivo:** `scripts/economy_manager.gd`

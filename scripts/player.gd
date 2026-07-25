@@ -5,7 +5,7 @@ class_name Player
 @onready var hurt_box: Area2D = $HurtBox
 
 # --- Movimentação e pulo (mecânica de plataforma, igual ao documento de referência) ---
-const SPEED = 300.0
+
 const MAX_JUMPS: int = 4
 # Cada pulo extra impulsiona um pouco menos, para a maga alcançar a horda de
 # morcegos no alto da tela sem jamais encostar na barra de vida (UI) no topo.
@@ -13,19 +13,15 @@ const JUMP_VELOCITIES: Array[float] = [-400.0, -380.0, -350.0, -310.0]
 var jump_count: int = 0
 
 # --- Sistema de Magia e Base de Tempo ---
-var base_magic_cooldown: float = 1.0 # Tempo base. Alterar isso acelera/desacelera TODAS as magias
 
-const MAGIC_COOLDOWN_MULT: float = 0.35
-const MAGIC_DAMAGE = 25
-const PARALYSIS_TIME = 0.5 # reduzido de 2.0 para o jogador ficar preso por menos tempo
+
 
 var fireball_scene = preload("res://scenes/fireball.tscn")
 var facing_right: bool = true
 var is_paralyzed: bool = false
 var is_attacking: bool = false
 
-# Aura Attack Variables
-const AURA_COOLDOWN_MULT: float = 0.75
+
 
 
 # Global Magic Cooldown System
@@ -105,7 +101,7 @@ func _paralyze() -> void:
 	_shake_camera()
 	AudioManager.play_sfx("player_hurt")
 
-	await get_tree().create_timer(PARALYSIS_TIME).timeout
+	await get_tree().create_timer(PlayerManager.HIT_FREEZE_TIME).timeout
 
 	is_paralyzed = false
 	animation.modulate = Color(1, 1, 1)
@@ -144,7 +140,7 @@ func aura_attack() -> void:
 	if not is_attacking and not is_paralyzed and is_global_cooldown_ready():
 		is_attacking = true
 		animation.play("morgana_attack_aura")
-		start_global_cooldown(AURA_COOLDOWN_MULT * base_magic_cooldown)
+		start_global_cooldown(PlayerManager.AURA_COOLDOWN_MULT * PlayerManager.BASE_GLOBAL_COOLDOWN)
 		AudioManager.play_sfx("aura")
 
 		# Efeito Visual 360 e Dano agora são de responsabilidade total da habilidade
@@ -160,11 +156,11 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 func shoot_magic() -> void:
 	is_attacking = true
 	animation.play("morgana_attack_shoot")
-	start_global_cooldown(MAGIC_COOLDOWN_MULT * base_magic_cooldown)
+	start_global_cooldown(PlayerManager.WAND_COOLDOWN_MULT * PlayerManager.BASE_GLOBAL_COOLDOWN)
 	AudioManager.play_sfx("shoot")
 	var fireball = fireball_scene.instantiate()
 	fireball.shooter = self
-	fireball.damage = MAGIC_DAMAGE + wand_ability.damage_bonus
+	fireball.damage = PlayerManager.BASE_WAND_DAMAGE + wand_ability.damage_bonus
 	fireball.speed += wand_ability.speed_bonus
 	fireball.direction = _aim_direction()
 	fireball.global_position = global_position + fireball.direction * 24.0
@@ -261,9 +257,9 @@ func _handle_combat() -> void:
 func _handle_movement() -> void:
 	var direction := Input.get_axis("move_left", "move_right")
 	if direction:
-		velocity.x = direction * SPEED
+		velocity.x = direction * PlayerManager.MOVE_SPEED
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
+		velocity.x = move_toward(velocity.x, 0, PlayerManager.MOVE_SPEED)
 
 
 # --- Funções de Componentes do _process ---
