@@ -11,7 +11,7 @@ const MOVE_SPEED: float = 300.0
 ## STATUS QUANDO SOFRE DANO (FREEZE)
 ## ==========================================
 ## Quanto tempo a Morgana fica paralisada/congelada após tomar um hit
-const HIT_FREEZE_TIME: float = 1.0
+const HIT_FREEZE_TIME: float = 0.75
 
 ## ==========================================
 ## COOLDOWNS GLOBAIS DE ATAQUE

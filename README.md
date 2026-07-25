@@ -18,7 +18,7 @@ O combate primário da Morgana é regido por um **Cooldown Global** visual (que 
 ### Orbes e Familiares (Assistência Autônoma)
 Morgana nunca luta sozinha. Ela é orbitada por **Orbes Familiares**, pequenos satélites autônomos impulsionados por Inteligência Artificial que escaneiam o campo de batalha.
 
-Destaca-se o poderoso **Orbe de Combo** (`ai_familiar.gd`):
+Destaca-se o poderoso **Orbe de Combo** (`orb_combo.gd`):
 - **Sistema de Busca Inteligente:** O orbe varre dinamicamente os arredores com base no seu raio de detecção (`detection_radius`) e seleciona automaticamente o monstro do grupo `"enemies"` mais próximo, atirando bolas de fogo guiadas, complementando o poder de fogo da maga.
 - **Sinergia com o Multiplicador (Kill Chain):** As estatísticas do orbe sobem agressivamente com o seu desempenho. Se nenhum monstro cruzar a linha da vila, o Multiplicador cresce, injetando os seguintes *Tiers* de poder na orbe:
   - **Tier Baixo (x1 a x2):** O orbe é azul e contido. Dispara aproximadamente a cada 1.6s, com dano padrão de assistência (15) e órbita tranquila.

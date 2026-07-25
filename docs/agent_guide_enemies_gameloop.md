@@ -60,5 +60,5 @@ Os inimigos são orquestrados e instanciados em tela pelo **`EnemySpawner`** (sc
 Todo o ecossistema age dinamicamente sobre o grupo `"enemies"`. Agentes que criarem novas funções devem manter a seguinte filosofia:
 
 - **Colisões da Player:** A classe `player.gd` (em sua HurtBox) escaneia interseções buscando o grupo `"enemies"`. Portanto, qualquer nó desse grupo paralisará a jogadora e anulará seus frames.
-- **Automação Aliada (Familiares):** A classe `ai_familiar.gd` (as Orbes protetoras) faz um scaneamento do inimigo **mais próximo em raio** dentro do grupo `"enemies"`. O dano será aplicado via Duck Typing (tentando chamar o método `.take_damage()`).
+- **Automação Aliada (Familiares):** A classe `orb_combo.gd` (as Orbes protetoras) faz um scaneamento do inimigo **mais próximo em raio** dentro do grupo `"enemies"`. O dano será aplicado via Duck Typing (tentando chamar o método `.take_damage()`).
 - **HUD:** Exclusivamente visual. Todo feedback escrito ou sinal que transita no `hud.gd` deve utilizar jargões de "Inimigos" para se manter neutro a futuras atualizações e consumirá os sinais padronizados `enemy_defeated_changed`.

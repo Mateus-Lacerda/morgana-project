@@ -43,7 +43,7 @@ func _ready() -> void:
 	orbit_radius = 60.0
 	# O Player agora é o "avô" (AIFamiliar -> OrbManager -> Player)
 	_player = get_parent().get_parent()
-	add_to_group("ai_familiar")
+	add_to_group("orb_combo")
 	GameManager.combo_changed.connect(_on_combo_changed)
 	_apply_tier(_tier_for_multiplier(GameManager.combo_multiplier))
 
