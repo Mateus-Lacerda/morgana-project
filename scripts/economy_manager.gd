@@ -7,7 +7,6 @@ extends RefCounted
 const COST_ORB_COMBO: int = 400
 const COST_ORB_BLADE: int = 550
 const COST_ORB_EXPLOSIVE: int = 750
-const COST_WAND: int = 45
 
 ## ==========================================
 ## CUSTOS DE UPGRADES (PERGAMINHOS)
@@ -23,4 +22,4 @@ const SCROLL_TRANSFORM_COST: int = 1500
 ## ==========================================
 ## CUSTOS DE UTILITÁRIOS
 ## ==========================================
-const COST_COIN_MAGNET: int = 50
+const COST_COIN_MAGNET: int = 200
