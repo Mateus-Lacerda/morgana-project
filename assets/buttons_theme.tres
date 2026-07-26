@@ -1,0 +1,6 @@
+[gd_resource type="Theme" format=3 uid="uid://csq5iwu6rni0c"]
+
+[ext_resource type="FontFile" uid="uid://dw6ofshup0gk0" path="res://assets/fonts/OldLondon.ttf" id="1_ombqv"]
+
+[resource]
+default_font = ExtResource("1_ombqv")

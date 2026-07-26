@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cebtxullf6ky2" path="res://scripts/ui/options_menu.gd" id="1_opts"]
 [ext_resource type="Theme" uid="uid://dnlk6j8b7t7s" path="res://assets/title_theme.tres" id="2_imaij"]
+[ext_resource type="Theme" uid="uid://csq5iwu6rni0c" path="res://assets/buttons_theme.tres" id="4_c4822"]
 [ext_resource type="Theme" uid="uid://bqjtrs4poj3g" path="res://assets/theme.tres" id="99_theme"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
@@ -118,6 +119,7 @@ theme = ExtResource("99_theme")
 [node name="BackButton" type="Button" parent="Panel/VBox" unique_id=792992822]
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
+theme = ExtResource("4_c4822")
 theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxFlat_button")
 text = "Voltar"

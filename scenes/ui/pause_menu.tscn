@@ -3,11 +3,8 @@
 [ext_resource type="Script" uid="uid://bns6lxb7md4f0" path="res://scripts/ui/pause_menu.gd" id="1_pause"]
 [ext_resource type="Theme" uid="uid://dnlk6j8b7t7s" path="res://assets/title_theme.tres" id="2_2rlsb"]
 [ext_resource type="PackedScene" uid="uid://dp662g8q8w2aa" path="res://scenes/ui/options_menu.tscn" id="2_options"]
-[ext_resource type="Texture2D" uid="uid://dgrlkg76yyeqr" path="res://assets/ui/imagem seta para esquerda.png" id="3_arrow_left"]
-[ext_resource type="Texture2D" uid="uid://dsvdjpq74pn2b" path="res://assets/ui/imagem seta para direita.png" id="4_arrow_right"]
-[ext_resource type="Texture2D" uid="uid://bj53udctnd4l7" path="res://assets/ui/imagem seta cima para pulo.png" id="5_arrow_up"]
-[ext_resource type="Texture2D" uid="uid://2uvmpf2qhju0" path="res://assets/ui/mouse clique esquerdo disparo mágico.png" id="6_mouse_left"]
-[ext_resource type="Texture2D" uid="uid://b4avhuo4jrfxj" path="res://assets/ui/mouse clique direito aura.png" id="7_mouse_right"]
+[ext_resource type="Theme" uid="uid://csq5iwu6rni0c" path="res://assets/buttons_theme.tres" id="3_0bnpd"]
+[ext_resource type="PackedScene" uid="uid://ewntic1kip7n" path="res://scenes/ui/controls_grid.tscn" id="98_controls_grid"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 bg_color = Color(0.05, 0.05, 0.08, 0.95)
@@ -28,10 +25,6 @@ corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
-
-[sub_resource type="LabelSettings" id="LabelSettings_controls"]
-font_size = 18
-font_color = Color(0.85, 0.85, 0.9, 1)
 
 [node name="PauseMenu" type="CanvasLayer" unique_id=900135443]
 process_mode = 3
@@ -84,6 +77,7 @@ horizontal_alignment = 1
 [node name="ResumeButton" type="Button" parent="Panel/VBox" unique_id=1881461157]
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
+theme = ExtResource("3_0bnpd")
 theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxFlat_button")
 text = "Continuar"
@@ -91,6 +85,7 @@ text = "Continuar"
 [node name="RestartButton" type="Button" parent="Panel/VBox" unique_id=1683502116]
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
+theme = ExtResource("3_0bnpd")
 theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxFlat_button")
 text = "Reiniciar Partida"
@@ -98,6 +93,7 @@ text = "Reiniciar Partida"
 [node name="OptionsButton" type="Button" parent="Panel/VBox" unique_id=1118976520]
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
+theme = ExtResource("3_0bnpd")
 theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxFlat_button")
 text = "Opções"
@@ -105,6 +101,7 @@ text = "Opções"
 [node name="MenuButton" type="Button" parent="Panel/VBox" unique_id=1632615605]
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
+theme = ExtResource("3_0bnpd")
 theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxFlat_button")
 text = "Menu Principal"
@@ -112,6 +109,7 @@ text = "Menu Principal"
 [node name="QuitButton" type="Button" parent="Panel/VBox" unique_id=1817887036]
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
+theme = ExtResource("3_0bnpd")
 theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxFlat_button")
 text = "Sair do Jogo"
@@ -151,89 +149,8 @@ text = "CONTROLES"
 label_settings = SubResource("LabelSettings_title")
 horizontal_alignment = 1
 
-[node name="ControlsContainer" type="VBoxContainer" parent="ControlsPanel/VBox" unique_id=250462301]
+[node name="ControlsGrid" parent="ControlsPanel/VBox" unique_id=1250182073 instance=ExtResource("98_controls_grid")]
 layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/separation = 12
-alignment = 1
-
-[node name="MoveRow" type="HBoxContainer" parent="ControlsPanel/VBox/ControlsContainer" unique_id=785684110]
-layout_mode = 2
-theme_override_constants/separation = 8
-alignment = 1
-
-[node name="IconLeft" type="TextureRect" parent="ControlsPanel/VBox/ControlsContainer/MoveRow" unique_id=1602275883]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-texture = ExtResource("3_arrow_left")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="IconRight" type="TextureRect" parent="ControlsPanel/VBox/ControlsContainer/MoveRow" unique_id=598132883]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-texture = ExtResource("4_arrow_right")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="MoveLabel" type="Label" parent="ControlsPanel/VBox/ControlsContainer/MoveRow" unique_id=657673243]
-layout_mode = 2
-text = "Mover"
-label_settings = SubResource("LabelSettings_controls")
-vertical_alignment = 1
-
-[node name="JumpRow" type="HBoxContainer" parent="ControlsPanel/VBox/ControlsContainer" unique_id=135938224]
-layout_mode = 2
-theme_override_constants/separation = 8
-alignment = 1
-
-[node name="IconJump" type="TextureRect" parent="ControlsPanel/VBox/ControlsContainer/JumpRow" unique_id=472632110]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-texture = ExtResource("5_arrow_up")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="JumpLabel" type="Label" parent="ControlsPanel/VBox/ControlsContainer/JumpRow" unique_id=1531434763]
-layout_mode = 2
-text = "Pular (até 4x)"
-label_settings = SubResource("LabelSettings_controls")
-vertical_alignment = 1
-
-[node name="ShootRow" type="HBoxContainer" parent="ControlsPanel/VBox/ControlsContainer" unique_id=645936358]
-layout_mode = 2
-theme_override_constants/separation = 8
-alignment = 1
-
-[node name="IconShoot" type="TextureRect" parent="ControlsPanel/VBox/ControlsContainer/ShootRow" unique_id=637279887]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-texture = ExtResource("6_mouse_left")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="ShootLabel" type="Label" parent="ControlsPanel/VBox/ControlsContainer/ShootRow" unique_id=1830721444]
-layout_mode = 2
-text = "Disparo Mágico"
-label_settings = SubResource("LabelSettings_controls")
-vertical_alignment = 1
-
-[node name="AuraRow" type="HBoxContainer" parent="ControlsPanel/VBox/ControlsContainer" unique_id=1640821837]
-layout_mode = 2
-theme_override_constants/separation = 8
-alignment = 1
-
-[node name="IconAura" type="TextureRect" parent="ControlsPanel/VBox/ControlsContainer/AuraRow" unique_id=1275036914]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-texture = ExtResource("7_mouse_right")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="AuraLabel" type="Label" parent="ControlsPanel/VBox/ControlsContainer/AuraRow" unique_id=1658959126]
-layout_mode = 2
-text = "Aura"
-label_settings = SubResource("LabelSettings_controls")
-vertical_alignment = 1
 
 [node name="OptionsMenu" parent="." unique_id=1467537238 instance=ExtResource("2_options")]
+visible = false

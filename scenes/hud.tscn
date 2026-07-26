@@ -4,6 +4,7 @@
 [ext_resource type="Theme" uid="uid://bqjtrs4poj3g" path="res://assets/theme.tres" id="2_5ysmq"]
 [ext_resource type="Texture2D" uid="uid://tfdwu5bmjy42" path="res://assets/items/magnet_small.png" id="2_magnet_small"]
 [ext_resource type="Theme" uid="uid://dnlk6j8b7t7s" path="res://assets/title_theme.tres" id="3_6fi6k"]
+[ext_resource type="Theme" uid="uid://csq5iwu6rni0c" path="res://assets/buttons_theme.tres" id="5_uo2fv"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_hud"]
 font_size = 22
@@ -23,8 +24,6 @@ corner_radius_top_left = 12
 corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
-
-[sub_resource type="Theme" id="Theme_uo2fv"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_title"]
 font_size = 56
@@ -194,7 +193,7 @@ alignment = 1
 
 [node name="ResultTitle" type="Label" parent="ResultPanel/VBox" unique_id=1638364433]
 layout_mode = 2
-theme = SubResource("Theme_uo2fv")
+theme = ExtResource("3_6fi6k")
 label_settings = SubResource("LabelSettings_title")
 horizontal_alignment = 1
 
@@ -223,6 +222,7 @@ alignment = 1
 [node name="RestartButton" type="Button" parent="ResultPanel/VBox/ButtonRow" unique_id=339217543]
 custom_minimum_size = Vector2(170, 48)
 layout_mode = 2
+theme = ExtResource("5_uo2fv")
 theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxFlat_restart")
 text = "Jogar de Novo"
@@ -230,6 +230,7 @@ text = "Jogar de Novo"
 [node name="MenuButton" type="Button" parent="ResultPanel/VBox/ButtonRow" unique_id=249816455]
 custom_minimum_size = Vector2(170, 48)
 layout_mode = 2
+theme = ExtResource("5_uo2fv")
 theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxFlat_menu")
 text = "Menu Principal"
