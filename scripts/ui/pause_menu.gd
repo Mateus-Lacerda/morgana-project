@@ -20,7 +20,7 @@ func _ready() -> void:
 	
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel"):
+	if event.is_action_pressed("pause") or event.is_action_pressed("ui_cancel"):
 		if not GameManager.is_game_active and GameManager.current_phase == GameManager.GamePhase.ENDED:
 			return # Não pausa se já deu Game Over ou Vitória
 		

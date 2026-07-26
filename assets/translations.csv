@@ -17,6 +17,7 @@ CTRL_MOVE,Mover,Move
 CTRL_JUMP,Impulso Mágico,Magic Jump
 CTRL_SHOOT,Disparo Mágico,Magic Shot
 CTRL_AURA,Aura,Aura
+CTRL_PAUSE,Pausar,Pause
 HUD_VILLAGE_HP,Vida da Vila,Village Health
 HUD_PREP,PREPARAÇÃO: %02d:%02d,PREPARATION: %02d:%02d
 HUD_WAVE,WAVE %d: %02d:%02d,WAVE %d: %02d:%02d

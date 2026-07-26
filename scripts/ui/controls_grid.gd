@@ -6,6 +6,7 @@ const KEYBOARD_DATA := {
 	"jump_label": "CTRL_JUMP",
 	"shoot_label": "CTRL_SHOOT",
 	"aura_label": "CTRL_AURA",
+	"pause_label": "CTRL_PAUSE",
 }
 
 const JOYPAD_DATA := {
@@ -13,6 +14,7 @@ const JOYPAD_DATA := {
 	"jump_label": "CTRL_JUMP",
 	"shoot_label": "CTRL_SHOOT",
 	"aura_label": "CTRL_AURA",
+	"pause_label": "CTRL_PAUSE",
 }
 
 var kb_icons := {
@@ -30,6 +32,7 @@ var pad_icons := kb_icons  # placeholder
 	"jump_label": $JumpLabel,
 	"shoot_label": $ShootLabel,
 	"aura_label": $AuraLabel,
+	"pause_label": $PauseLabel,
 }
 
 @onready var _icons: Dictionary = {
