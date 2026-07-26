@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d4c8gscs43jo0"
-path="res://.godot/imported/morgana titulo.png-1d063cc5a17d55e3d6d1da3c1ce84861.ctex"
+uid="uid://d1q8agu27ubey"
+path="res://.godot/imported/titulo.png-9b95d1e9c1642232890cf778a705fab1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/morgana titulo.png"
-dest_files=["res://.godot/imported/morgana titulo.png-1d063cc5a17d55e3d6d1da3c1ce84861.ctex"]
+source_file="res://assets/ui/titulo.png"
+dest_files=["res://.godot/imported/titulo.png-9b95d1e9c1642232890cf778a705fab1.ctex"]
 
 [params]
 

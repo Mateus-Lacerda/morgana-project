@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c0sco2vufhhqe" path="res://scripts/title_screen.gd" id="1_title"]
 [ext_resource type="PackedScene" uid="uid://dp662g8q8w2aa" path="res://scenes/ui/options_menu.tscn" id="2_options"]
-[ext_resource type="Texture2D" uid="uid://d4c8gscs43jo0" path="res://assets/ui/morgana titulo.png" id="3_w65of"]
+[ext_resource type="Texture2D" uid="uid://d1q8agu27ubey" path="res://assets/ui/titulo.png" id="3_4rr2b"]
 [ext_resource type="Theme" uid="uid://csq5iwu6rni0c" path="res://assets/buttons_theme.tres" id="5_4rr2b"]
 [ext_resource type="PackedScene" uid="uid://ewntic1kip7n" path="res://scenes/ui/controls_grid.tscn" id="98_controls_grid"]
 [ext_resource type="Theme" uid="uid://bqjtrs4poj3g" path="res://assets/theme.tres" id="99_theme"]
@@ -57,7 +57,7 @@ alignment = 1
 [node name="TextureRect" type="TextureRect" parent="VBox" unique_id=1837431644]
 custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
-texture = ExtResource("3_w65of")
+texture = ExtResource("3_4rr2b")
 expand_mode = 1
 stretch_mode = 5
 
