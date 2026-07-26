@@ -3,6 +3,10 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main, develop]
+    paths-ignore:
+      - 'README.md'
+      - 'docs/**'
+      - 'screenshots/**'
   workflow_dispatch:
 
 permissions:

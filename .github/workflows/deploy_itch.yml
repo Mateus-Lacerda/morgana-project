@@ -3,6 +3,10 @@ name: Deploy to itch.io
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - 'README.md'
+      - 'docs/**'
+      - 'screenshots/**'
   workflow_dispatch:
 
 concurrency:
