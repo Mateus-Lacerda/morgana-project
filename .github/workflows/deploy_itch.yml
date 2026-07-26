@@ -34,7 +34,20 @@ jobs:
       - name: Install Butler
         uses: remarkablegames/setup-butler@v3
 
-      - name: Push to itch.io
-        run: butler push ${{ steps.export.outputs.build_directory }} jpedro-fsgs/morgana-a-egide:web
+      - name: Push to itch.io (Deadline Check)
+        run: |
+          # 13:30 no Horário de Brasília (BRT) = 16:30 em UTC
+          DEADLINE_TIMESTAMP=$(date -d "2026-07-26 16:30:00 UTC" +%s)
+          CURRENT_TIMESTAMP=$(date +%s)
+          
+          echo "Current time: $(date -u)"
+          
+          if [ $CURRENT_TIMESTAMP -gt $DEADLINE_TIMESTAMP ]; then
+            echo "⚠️ DEADLINE ULTRAPASSADA!"
+            echo "O upload para o itch.io foi cancelado para evitar desclassificação na Jam."
+          else
+            echo "✅ Dentro do prazo. Iniciando upload para o itch.io..."
+            butler push ${{ steps.export.outputs.build_directory }} jpedro-fsgs/morgana-a-egide:web
+          fi
         env:
           BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
