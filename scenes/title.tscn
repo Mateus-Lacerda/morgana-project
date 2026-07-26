@@ -7,10 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://ewntic1kip7n" path="res://scenes/ui/controls_grid.tscn" id="98_controls_grid"]
 [ext_resource type="Theme" uid="uid://bqjtrs4poj3g" path="res://assets/theme.tres" id="99_theme"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ygloa"]
-atlas = ExtResource("3_w65of")
-region = Rect2(92, 268, 776, 404)
-
 [sub_resource type="LabelSettings" id="LabelSettings_subtitle"]
 font_size = 20
 font_color = Color(0.85, 0.85, 0.9, 1)
@@ -61,7 +57,7 @@ alignment = 1
 [node name="TextureRect" type="TextureRect" parent="VBox" unique_id=1837431644]
 custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
-texture = SubResource("AtlasTexture_ygloa")
+texture = ExtResource("3_w65of")
 expand_mode = 1
 stretch_mode = 5
 

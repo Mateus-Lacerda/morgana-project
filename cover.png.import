@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b5akeqmvpa2pt"
-path="res://.godot/imported/teclas.png-f05296a7d1b4af8a1db1bedd6782b2bc.ctex"
+uid="uid://b5eip5lo7vd5f"
+path="res://.godot/imported/cover.png-7415a2400197f69905d305dff229e3ab.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/teclas.png"
-dest_files=["res://.godot/imported/teclas.png-f05296a7d1b4af8a1db1bedd6782b2bc.ctex"]
+source_file="res://cover.png"
+dest_files=["res://.godot/imported/cover.png-7415a2400197f69905d305dff229e3ab.ctex"]
 
 [params]
 
