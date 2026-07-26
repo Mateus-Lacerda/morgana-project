@@ -40,7 +40,7 @@ stretch_mode = 5
 
 [node name="MoveLabel" type="Label" parent="." unique_id=1641937572]
 layout_mode = 2
-text = "Mover"
+text = "CTRL_MOVE"
 label_settings = SubResource("LabelSettings_controls")
 vertical_alignment = 1
 
@@ -54,7 +54,7 @@ stretch_mode = 5
 
 [node name="JumpLabel" type="Label" parent="." unique_id=1106337726]
 layout_mode = 2
-text = "Impulso Mágico"
+text = "CTRL_JUMP"
 label_settings = SubResource("LabelSettings_controls")
 vertical_alignment = 1
 
@@ -68,7 +68,7 @@ stretch_mode = 5
 
 [node name="ShootLabel" type="Label" parent="." unique_id=962818453]
 layout_mode = 2
-text = "Disparo Mágico"
+text = "CTRL_SHOOT"
 label_settings = SubResource("LabelSettings_controls")
 vertical_alignment = 1
 
@@ -82,6 +82,6 @@ stretch_mode = 5
 
 [node name="AuraLabel" type="Label" parent="." unique_id=492458474]
 layout_mode = 2
-text = "Aura"
+text = "CTRL_AURA"
 label_settings = SubResource("LabelSettings_controls")
 vertical_alignment = 1

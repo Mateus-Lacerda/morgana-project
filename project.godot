@@ -81,6 +81,10 @@ aura_attack={
 ]
 }
 
+[internationalization]
+
+locale/translations=PackedStringArray("res://assets/translations.en.translation", "res://assets/translations.pt_BR.translation")
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0

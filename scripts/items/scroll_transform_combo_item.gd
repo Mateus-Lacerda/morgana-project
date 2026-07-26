@@ -3,8 +3,8 @@ class_name ScrollTransformComboItem
 
 func _init() -> void:
 	id = &"scroll_transform_combo"
-	display_name = "Transformação — Orbe de Combo"
-	description = "A orbe de combo passa a disparar em todas as direções a cada ataque."
+	display_name = "ITEM_TRANSFORM_COMBO_NAME"
+	description = "ITEM_TRANSFORM_COMBO_DESC"
 	cost = EconomyManager.SCROLL_TRANSFORM_COST
 	stackable = false
 	icon_path = "res://assets/items/scroll_base.png"

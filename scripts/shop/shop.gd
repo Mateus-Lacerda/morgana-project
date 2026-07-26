@@ -29,10 +29,10 @@ const SINGLE_ITEMS: Array[GDScript] = [
 @onready var choice_row: GridContainer = $ShopUI/ChoicePanel/VBox/ChoiceScroll/ChoiceRow
 @onready var choice_close_button: Button = $ShopUI/ChoicePanel/VBox/CloseButton
 
-const INTRO_TITLE := "Loja - Prepare-se para a primeira horda"
-const INTRO_HINT := "Compre o que o dinheiro der: orbes, pergaminhos de evolução e outros itens. Feche quando estiver pronta."
-const WAVE_TITLE_FMT := "Loja - Prepare-se para a horda %d"
-const WAVE_HINT := "Compre o que o dinheiro der. A horda só começa quando você fechar a loja."
+const INTRO_TITLE := "SHOP_INTRO_TITLE"
+const INTRO_HINT := "SHOP_INTRO_HINT"
+const WAVE_TITLE_FMT := "SHOP_WAVE_TITLE_FMT"
+const WAVE_HINT := "SHOP_WAVE_HINT"
 
 func _ready() -> void:
 	shop_ui.visible = false
@@ -50,10 +50,10 @@ func _run_first_shop() -> void:
 	await get_tree().process_frame
 	while not GameManager.is_game_active:
 		await get_tree().create_timer(0.2).timeout
-	_open_full_shop(INTRO_TITLE, INTRO_HINT)
+	_open_full_shop(tr(INTRO_TITLE), tr(INTRO_HINT))
 
 func _on_preparation_started(wave_num: int) -> void:
-	_open_full_shop(WAVE_TITLE_FMT % wave_num, WAVE_HINT)
+	_open_full_shop(tr(WAVE_TITLE_FMT) % wave_num, tr(WAVE_HINT))
 
 func _find_manager() -> OrbManager:
 	return get_tree().get_first_node_in_group("orb_manager") as OrbManager
@@ -124,7 +124,7 @@ func _build_choice_card(item: ItemBase) -> Control:
 
 	var card_name := Label.new()
 	card_name.theme = preload("res://assets/title_theme.tres")
-	card_name.text = item.display_name
+	card_name.text = tr(item.display_name)
 	card_name.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	card_name.autowrap_mode = TextServer.AUTOWRAP_WORD
 	card_name.custom_minimum_size = Vector2(0, CARD_NAME_HEIGHT)
@@ -137,7 +137,7 @@ func _build_choice_card(item: ItemBase) -> Control:
 	card.add_child(desc_scroll)
 
 	var card_desc := Label.new()
-	card_desc.text = item.description
+	card_desc.text = tr(item.description)
 	card_desc.autowrap_mode = TextServer.AUTOWRAP_WORD
 	card_desc.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	card_desc.add_theme_font_size_override("font_size", 13)
@@ -146,12 +146,12 @@ func _build_choice_card(item: ItemBase) -> Control:
 
 	var price := item.compute_cost()
 	var card_cost := Label.new()
-	card_cost.text = "Custo: %d moedas" % price
+	card_cost.text = tr("SHOP_COST") % price
 	card_cost.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	card.add_child(card_cost)
 
 	var buy_button := Button.new()
-	buy_button.text = "Comprar"
+	buy_button.text = tr("SHOP_BUY")
 	buy_button.disabled = GameManager.money < price
 	buy_button.pressed.connect(func():
 		if ItemManager.purchase(item):

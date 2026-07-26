@@ -3,8 +3,8 @@ class_name ScrollTransformBladeItem
 
 func _init() -> void:
 	id = &"scroll_transform_blade"
-	display_name = "Transformação — Lâmina Giratória"
-	description = "A lâmina cresce bastante e passa a perseguir o morcego gigante mais próximo."
+	display_name = "ITEM_TRANSFORM_BLADE_NAME"
+	description = "ITEM_TRANSFORM_BLADE_DESC"
 	cost = EconomyManager.SCROLL_TRANSFORM_COST
 	stackable = false
 	icon_path = "res://assets/items/scroll_base.png"

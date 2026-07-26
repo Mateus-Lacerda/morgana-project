@@ -3,8 +3,8 @@ class_name ScrollTransformExplosiveItem
 
 func _init() -> void:
 	id = &"scroll_transform_explosive"
-	display_name = "Transformação — Orbe Explosiva"
-	description = "Vira um molotov mágico: a explosão deixa uma área em chamas que continua causando dano."
+	display_name = "ITEM_TRANSFORM_EXPLOSIVE_NAME"
+	description = "ITEM_TRANSFORM_EXPLOSIVE_DESC"
 	cost = EconomyManager.SCROLL_TRANSFORM_COST
 	stackable = false
 	icon_path = "res://assets/items/scroll_base.png"

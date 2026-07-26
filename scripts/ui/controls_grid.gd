@@ -2,17 +2,17 @@ extends GridContainer
 class_name ControlsGrid
 
 const KEYBOARD_DATA := {
-	"move_label": "Mover",
-	"jump_label": "Impulso Mágico",
-	"shoot_label": "Disparo Mágico",
-	"aura_label": "Aura",
+	"move_label": "CTRL_MOVE",
+	"jump_label": "CTRL_JUMP",
+	"shoot_label": "CTRL_SHOOT",
+	"aura_label": "CTRL_AURA",
 }
 
 const JOYPAD_DATA := {
-	"move_label": "Mover",
-	"jump_label": "Impulso Mágico",
-	"shoot_label": "Disparo Mágico",
-	"aura_label": "Aura",
+	"move_label": "CTRL_MOVE",
+	"jump_label": "CTRL_JUMP",
+	"shoot_label": "CTRL_SHOOT",
+	"aura_label": "CTRL_AURA",
 }
 
 var kb_icons := {

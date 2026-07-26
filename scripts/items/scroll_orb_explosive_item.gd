@@ -3,8 +3,8 @@ class_name ScrollOrbExplosiveItem
 
 func _init() -> void:
 	id = &"scroll_orb_explosive"
-	display_name = "Pergaminho da Explosiva"
-	description = "Evolui a orbe explosiva ao acaso: velocidade, raio ou ataque."
+	display_name = "ITEM_SCROLL_EXPLOSIVE_NAME"
+	description = "ITEM_SCROLL_EXPLOSIVE_DESC"
 	cost = EconomyManager.SCROLL_BASE_COST
 	stackable = true
 	icon_path = "res://assets/items/scroll_base.png"

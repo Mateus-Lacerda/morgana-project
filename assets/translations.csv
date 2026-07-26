@@ -1,0 +1,87 @@
+id,pt_BR,en
+TITLE_SUBTITLE,Proteja a vila contra os Morcegos. Colete a energia dos inimigos abatidos para despertar magias e defenda o portão até o amanhecer.,Defend the village from Bats. Collect energy from defeated enemies to awaken magic and defend the gate until dawn.
+UI_START,Iniciar,Start
+UI_OPTIONS,Opções,Options
+UI_QUIT,Sair do Jogo,Quit
+UI_RESUME,Continuar,Resume
+UI_RESTART,Reiniciar Partida,Restart Match
+UI_MAIN_MENU,Menu Principal,Main Menu
+UI_BACK,Voltar,Back
+UI_PAUSED,PAUSADO,PAUSED
+UI_OPTIONS_TITLE,OPÇÕES,OPTIONS
+UI_VOL_MASTER,Volume Geral,Master Volume
+UI_VOL_MUSIC,Música,Music
+UI_VOL_SFX,Efeitos Sonoros (SFX),Sound Effects (SFX)
+UI_CONTROLS,CONTROLES,CONTROLS
+CTRL_MOVE,Mover,Move
+CTRL_JUMP,Impulso Mágico,Magic Jump
+CTRL_SHOOT,Disparo Mágico,Magic Shot
+CTRL_AURA,Aura,Aura
+HUD_VILLAGE_HP,Vida da Vila,Village Health
+HUD_PREP,PREPARAÇÃO: %02d:%02d,PREPARATION: %02d:%02d
+HUD_WAVE,WAVE %d: %02d:%02d,WAVE %d: %02d:%02d
+HUD_SCORE,Pontos: %d,Score: %d
+HUD_COINS,Moedas: %d,Coins: %d
+HUD_COMBO,Combo ×%d (%d),Combo ×%d (%d)
+HUD_STATS,Inimigos derrotados: %d\nIntegridade final da vila: %d%%\nPontuação final: %d\nRecorde da sessão: %d,Defeated enemies: %d\nFinal village integrity: %d%%\nFinal score: %d\nSession high score: %d
+HUD_PLAY_AGAIN,Jogar de Novo,Play Again
+SHOP_TITLE,Escolha uma orbe,Choose an orb
+SHOP_CLOSE,Fechar,Close
+SHOP_COST,Custo: %d moedas,Cost: %d coins
+SHOP_BUY,Comprar,Buy
+SHOP_ITEM_WAND_DAMAGE_NAME,Dano da Varinha,Wand Damage
+SHOP_ITEM_WAND_DAMAGE_DESC,Aumenta o dano do disparo mágico.,Increases magic shot damage.
+SHOP_ITEM_WAND_SPEED_NAME,Velocidade da Varinha,Wand Speed
+SHOP_ITEM_WAND_SPEED_DESC,Aumenta a velocidade do disparo mágico.,Increases magic shot speed.
+SHOP_ITEM_WAND_COOLDOWN_NAME,Recarga da Varinha,Wand Cooldown
+SHOP_ITEM_WAND_COOLDOWN_DESC,Diminui o tempo de recarga da varinha.,Decreases wand cooldown time.
+SHOP_ITEM_AURA_DAMAGE_NAME,Dano da Aura,Aura Damage
+SHOP_ITEM_AURA_DAMAGE_DESC,Aumenta o dano do ataque em área.,Increases area attack damage.
+SHOP_ITEM_AURA_RADIUS_NAME,Alcance da Aura,Aura Radius
+SHOP_ITEM_AURA_RADIUS_DESC,Aumenta a área de efeito da Aura.,Increases Aura area of effect.
+SHOP_ITEM_AURA_COOLDOWN_NAME,Recarga da Aura,Aura Cooldown
+SHOP_ITEM_AURA_COOLDOWN_DESC,Reduz o tempo de recarga da Aura.,Reduces Aura cooldown time.
+SHOP_ITEM_PLAYER_SPEED_NAME,Velocidade de Movimento,Movement Speed
+SHOP_ITEM_PLAYER_SPEED_DESC,Aumenta a velocidade de movimento.,Increases movement speed.
+SHOP_ITEM_VILLAGE_HEAL_NAME,Cura da Vila,Village Heal
+SHOP_ITEM_VILLAGE_HEAL_DESC,Restaura 25 pontos de vida da vila.,Restores 25 village health points.
+SHOP_ITEM_VILLAGE_MAX_HP_NAME,Fortificação da Vila,Village Fortification
+SHOP_ITEM_VILLAGE_MAX_HP_DESC,Aumenta a vida máxima da vila em 50.,Increases max village health by 50.
+ITEM_MAGNET_NAME,"Ímã de Moedas","Coin Magnet"
+ITEM_MAGNET_DESC,"Moedas voam até você em vez de esperar no chão.","Coins fly to you instead of waiting on the ground."
+ITEM_BLADE_NAME,"Lâmina Giratória","Spinning Blade"
+ITEM_BLADE_DESC,"Gira ao seu redor e corta qualquer inimigo que encostar.","Spins around you and cuts any enemy it touches."
+ITEM_COMBO_NAME,"Orbe de Combo","Combo Orb"
+ITEM_COMBO_DESC,"Atira raios nos inimigos; fica mais forte quanto maior o combo.","Shoots lightning at enemies; gets stronger with higher combos."
+ITEM_EXPLOSIVE_NAME,"Orbe Explosiva","Explosive Orb"
+ITEM_EXPLOSIVE_DESC,"Dispara bombas que causam dano em área ao acertar.","Shoots bombs that deal area damage on hit."
+ITEM_SCROLL_AURA_NAME,"Pergaminho da Aura","Aura Scroll"
+ITEM_SCROLL_AURA_DESC,"Evolui o campo de força ao acaso: ativação automática, raio ou dano.","Randomly evolves the force field: auto-activation, radius, or damage."
+ITEM_SCROLL_BLADE_NAME,"Pergaminho da Lâmina","Blade Scroll"
+ITEM_SCROLL_BLADE_DESC,"Evolui a lâmina giratória ao acaso: velocidade, raio ou ataque.","Randomly evolves the spinning blade: speed, radius, or attack."
+ITEM_SCROLL_COMBO_NAME,"Pergaminho do Combo","Combo Scroll"
+ITEM_SCROLL_COMBO_DESC,"Evolui a orbe de combo ao acaso: velocidade, raio ou ataque.","Randomly evolves the combo orb: speed, radius, or attack."
+ITEM_SCROLL_EXPLOSIVE_NAME,"Pergaminho da Explosiva","Explosive Scroll"
+ITEM_SCROLL_EXPLOSIVE_DESC,"Evolui a orbe explosiva ao acaso: velocidade, raio ou ataque.","Randomly evolves the explosive orb: speed, radius, or attack."
+ITEM_TRANSFORM_BLADE_NAME,"Transformação — Lâmina Giratória","Transformation — Spinning Blade"
+ITEM_TRANSFORM_BLADE_DESC,"A lâmina cresce bastante e passa a perseguir o morcego gigante mais próximo.","The blade grows large and chases the nearest giant bat."
+ITEM_TRANSFORM_COMBO_NAME,"Transformação — Orbe de Combo","Transformation — Combo Orb"
+ITEM_TRANSFORM_COMBO_DESC,"A orbe de combo passa a disparar em todas as direções a cada ataque.","The combo orb fires in all directions on each attack."
+ITEM_TRANSFORM_EXPLOSIVE_NAME,"Transformação — Orbe Explosiva","Transformation — Explosive Orb"
+ITEM_TRANSFORM_EXPLOSIVE_DESC,"Vira um molotov mágico: a explosão deixa uma área em chamas que continua causando dano.","Becomes a magical molotov: the explosion leaves a burning area that deals continuous damage."
+ITEM_SCROLL_WAND_NAME,"Pergaminho da Varinha","Wand Scroll"
+ITEM_SCROLL_WAND_DESC,"Evolui a varinha ao acaso: disparo automático, mira automática, velocidade ou dano.","Randomly evolves the wand: auto-fire, auto-aim, speed, or damage."
+SHOP_INTRO_TITLE,"Loja - Prepare-se para a primeira horda","Shop - Prepare for the first horde"
+SHOP_INTRO_HINT,"Compre o que o dinheiro der: orbes, pergaminhos de evolução e outros itens. Feche quando estiver pronta.","Buy whatever you can afford: orbs, evolution scrolls, and other items. Close when ready."
+SHOP_WAVE_TITLE_FMT,"Loja - Prepare-se para a horda %d","Shop - Prepare for horde %d"
+SHOP_WAVE_HINT,"Compre o que o dinheiro der. A horda só começa quando você fechar a loja.","Buy whatever you can afford. The horde only starts when you close the shop."
+LEVEL_DEFEND,"DEFENDA A VILA!","DEFEND THE VILLAGE!"
+ORB_EVO_SPEED,"Velocidade ↑","Speed ↑"
+ORB_EVO_SIZE,"Raio ↑","Radius ↑"
+ORB_EVO_ATTACK,"Ataque ↑","Attack ↑"
+ORB_EVO_TRANSFORM,"Transformação!","Transformation!"
+ORB_EVO_GENERIC,"Evoluiu!","Evolved!"
+HUD_GAMEOVER_TITLE,"FIM DE JOGO","GAME OVER"
+HUD_GAMEOVER_SUBTITLE,"A vila caiu...","The village has fallen..."
+HUD_VICTORY_TITLE,"VITÓRIA!","VICTORY!"
+HUD_VICTORY_SUBTITLE,"O sol nasceu. As trevas recuaram.","The sun has risen. Darkness retreated."

@@ -5,8 +5,8 @@ const ORB_SCENE: PackedScene = preload("res://scenes/orbs/orb_blade.tscn")
 
 func _init() -> void:
 	id = &"orb_blade"
-	display_name = "Lâmina Giratória"
-	description = "Gira ao seu redor e corta qualquer inimigo que encostar."
+	display_name = "ITEM_BLADE_NAME"
+	description = "ITEM_BLADE_DESC"
 	cost = EconomyManager.COST_ORB_BLADE
 	icon_orb_kind = &"orb_blade"
 

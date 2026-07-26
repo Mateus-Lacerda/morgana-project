@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://cebtxullf6ky2" path="res://scripts/ui/options_menu.gd" id="1_opts"]
 [ext_resource type="Theme" uid="uid://dnlk6j8b7t7s" path="res://assets/title_theme.tres" id="2_imaij"]
 [ext_resource type="Theme" uid="uid://csq5iwu6rni0c" path="res://assets/buttons_theme.tres" id="4_c4822"]
-[ext_resource type="Theme" uid="uid://bqjtrs4poj3g" path="res://assets/theme.tres" id="99_theme"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 bg_color = Color(0.05, 0.05, 0.08, 0.95)
@@ -69,18 +68,13 @@ alignment = 1
 [node name="Title" type="Label" parent="Panel/VBox" unique_id=2009447809]
 layout_mode = 2
 theme = ExtResource("2_imaij")
-text = "OPÇÕES"
+text = "UI_OPTIONS_TITLE"
 label_settings = SubResource("LabelSettings_title")
 horizontal_alignment = 1
 
-[node name="Spacer" type="Control" parent="Panel/VBox" unique_id=1356064250]
-custom_minimum_size = Vector2(0, 10)
-layout_mode = 2
-theme = ExtResource("99_theme")
-
 [node name="MasterLabel" type="Label" parent="Panel/VBox" unique_id=1959144388]
 layout_mode = 2
-text = "Volume Geral"
+text = "UI_VOL_MASTER"
 horizontal_alignment = 1
 
 [node name="MasterSlider" type="HSlider" parent="Panel/VBox" unique_id=834024480]
@@ -91,7 +85,7 @@ value = 1.0
 
 [node name="MusicLabel" type="Label" parent="Panel/VBox" unique_id=1995527043]
 layout_mode = 2
-text = "Música"
+text = "UI_VOL_MUSIC"
 horizontal_alignment = 1
 
 [node name="MusicSlider" type="HSlider" parent="Panel/VBox" unique_id=909123182]
@@ -102,7 +96,7 @@ value = 1.0
 
 [node name="SFXLabel" type="Label" parent="Panel/VBox" unique_id=1970996647]
 layout_mode = 2
-text = "Efeitos Sonoros (SFX)"
+text = "UI_VOL_SFX"
 horizontal_alignment = 1
 
 [node name="SFXSlider" type="HSlider" parent="Panel/VBox" unique_id=1467044833]
@@ -111,10 +105,20 @@ max_value = 1.0
 step = 0.05
 value = 1.0
 
-[node name="Spacer2" type="Control" parent="Panel/VBox" unique_id=1532479458]
-custom_minimum_size = Vector2(0, 10)
+[node name="LanguageContainer" type="HBoxContainer" parent="Panel/VBox" unique_id=88733113]
 layout_mode = 2
-theme = ExtResource("99_theme")
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="PTBRButton" type="Button" parent="Panel/VBox/LanguageContainer" unique_id=250754786]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+text = "Português"
+
+[node name="ENButton" type="Button" parent="Panel/VBox/LanguageContainer" unique_id=396676043]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+text = "English"
 
 [node name="BackButton" type="Button" parent="Panel/VBox" unique_id=792992822]
 custom_minimum_size = Vector2(0, 48)
@@ -122,4 +126,4 @@ layout_mode = 2
 theme = ExtResource("4_c4822")
 theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxFlat_button")
-text = "Voltar"
+text = "UI_BACK"

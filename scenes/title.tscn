@@ -73,7 +73,7 @@ theme = ExtResource("99_theme")
 [node name="SubtitleLabel" type="Label" parent="VBox" unique_id=1271997949]
 custom_minimum_size = Vector2(150, 35)
 layout_mode = 2
-text = "Proteja a vila contra os Morcegos. Colete a energia dos inimigos abatidos para despertar magias e defenda o portão até o amanhecer."
+text = "TITLE_SUBTITLE"
 label_settings = SubResource("LabelSettings_subtitle")
 horizontal_alignment = 1
 autowrap_mode = 2
@@ -98,7 +98,7 @@ size_flags_horizontal = 4
 theme = ExtResource("5_4rr2b")
 theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_button")
-text = "Iniciar"
+text = "UI_START"
 
 [node name="OptionsButton" type="Button" parent="VBox" unique_id=339602507]
 custom_minimum_size = Vector2(200, 56)
@@ -107,7 +107,7 @@ size_flags_horizontal = 4
 theme = ExtResource("5_4rr2b")
 theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_button")
-text = "Opções"
+text = "UI_OPTIONS"
 
 [node name="OptionsMenu" parent="." unique_id=1225692911 instance=ExtResource("2_options")]
 visible = false

@@ -78,7 +78,7 @@ alignment = 1
 
 [node name="TitleLabel" type="Label" parent="ShopUI/ChoicePanel/VBox" unique_id=1540692703]
 layout_mode = 2
-text = "Escolha uma orbe"
+text = "SHOP_TITLE"
 label_settings = SubResource("LabelSettings_title")
 horizontal_alignment = 1
 
@@ -106,4 +106,4 @@ custom_minimum_size = Vector2(120, 40)
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 theme_override_styles/normal = SubResource("StyleBoxFlat_close")
-text = "Fechar"
+text = "SHOP_CLOSE"

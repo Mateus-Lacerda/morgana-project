@@ -5,8 +5,8 @@ const ORB_SCENE: PackedScene = preload("res://scenes/orbs/orb_explosive.tscn")
 
 func _init() -> void:
 	id = &"orb_explosive"
-	display_name = "Orbe Explosiva"
-	description = "Dispara bombas que causam dano em área ao acertar."
+	display_name = "ITEM_EXPLOSIVE_NAME"
+	description = "ITEM_EXPLOSIVE_DESC"
 	cost = EconomyManager.COST_ORB_EXPLOSIVE
 	icon_orb_kind = &"orb_explosive"
 

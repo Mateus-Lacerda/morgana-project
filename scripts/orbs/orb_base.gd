@@ -13,10 +13,10 @@ var _can_attack: bool = true
 ## --- Evolução (pergaminho de evolução, ver ItemManager) ---
 const MAX_EVOLUTION_LEVEL: int = 5
 const EVOLUTION_FEEDBACK := {
-	"speed": "Velocidade ↑",
-	"size": "Raio ↑",
-	"attack": "Ataque ↑",
-	"transform": "Transformação!",
+	"speed": "ORB_EVO_SPEED",
+	"size": "ORB_EVO_SIZE",
+	"attack": "ORB_EVO_ATTACK",
+	"transform": "ORB_EVO_TRANSFORM",
 }
 
 var speed_level: int = 0
@@ -154,7 +154,7 @@ func _on_attack_evolved() -> void:
 
 func _show_evolution_feedback(kind: String) -> void:
 	var label := Label.new()
-	label.text = EVOLUTION_FEEDBACK.get(kind, "Evoluiu!")
+	label.text = tr(EVOLUTION_FEEDBACK.get(kind, "ORB_EVO_GENERIC"))
 	label.z_index = 100
 	label.add_theme_font_size_override("font_size", 18)
 	label.add_theme_color_override("font_color", Color(1, 0.85, 0.3))

@@ -3,8 +3,8 @@ class_name ScrollWandItem
 
 func _init() -> void:
 	id = &"scroll_wand"
-	display_name = "Pergaminho da Varinha"
-	description = "Evolui a varinha ao acaso: disparo automático, mira automática, velocidade ou dano."
+	display_name = "ITEM_SCROLL_WAND_NAME"
+	description = "ITEM_SCROLL_WAND_DESC"
 	cost = EconomyManager.SCROLL_BASE_COST
 	stackable = true
 	icon_path = "res://assets/items/scroll_base.png"

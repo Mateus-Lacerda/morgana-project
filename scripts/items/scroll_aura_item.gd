@@ -3,8 +3,8 @@ class_name ScrollAuraItem
 
 func _init() -> void:
 	id = &"scroll_aura"
-	display_name = "Pergaminho da Aura"
-	description = "Evolui o campo de força ao acaso: ativação automática, raio ou dano."
+	display_name = "ITEM_SCROLL_AURA_NAME"
+	description = "ITEM_SCROLL_AURA_DESC"
 	cost = EconomyManager.SCROLL_BASE_COST
 	stackable = true
 	icon_path = "res://assets/items/scroll_base.png"

@@ -13,7 +13,7 @@ const COUNTDOWN_STEPS := [
 	{"text": "3", "color": Color(1, 1, 1), "hold": 0.5},
 	{"text": "2", "color": Color(1, 1, 1), "hold": 0.5},
 	{"text": "1", "color": Color(1, 1, 1), "hold": 0.5},
-	{"text": "DEFENDA A VILA!", "color": Color(1.0, 0.85, 0.3), "hold": 1.0},
+	{"text": "LEVEL_DEFEND", "color": Color(1.0, 0.85, 0.3), "hold": 1.0},
 ]
 
 var bat_scene = preload("res://scenes/bat.tscn")
@@ -64,7 +64,7 @@ func _shake_camera() -> void:
 
 func _run_intro_countdown() -> void:
 	for step in COUNTDOWN_STEPS:
-		countdown_label.text = step.text
+		countdown_label.text = tr(step.text)
 		countdown_label.add_theme_color_override("font_color", step.color)
 		countdown_label.scale = Vector2(1.5, 1.5)
 		var tween := create_tween()

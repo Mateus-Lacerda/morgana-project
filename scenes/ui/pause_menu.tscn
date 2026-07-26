@@ -70,7 +70,7 @@ alignment = 1
 [node name="Title" type="Label" parent="Panel/VBox" unique_id=1871929854]
 layout_mode = 2
 theme = ExtResource("2_2rlsb")
-text = "PAUSADO"
+text = "UI_PAUSED"
 label_settings = SubResource("LabelSettings_title")
 horizontal_alignment = 1
 
@@ -80,7 +80,7 @@ layout_mode = 2
 theme = ExtResource("3_0bnpd")
 theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxFlat_button")
-text = "Continuar"
+text = "UI_RESUME"
 
 [node name="RestartButton" type="Button" parent="Panel/VBox" unique_id=1683502116]
 custom_minimum_size = Vector2(0, 48)
@@ -88,7 +88,7 @@ layout_mode = 2
 theme = ExtResource("3_0bnpd")
 theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxFlat_button")
-text = "Reiniciar Partida"
+text = "UI_RESTART"
 
 [node name="OptionsButton" type="Button" parent="Panel/VBox" unique_id=1118976520]
 custom_minimum_size = Vector2(0, 48)
@@ -96,7 +96,7 @@ layout_mode = 2
 theme = ExtResource("3_0bnpd")
 theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxFlat_button")
-text = "Opções"
+text = "UI_OPTIONS"
 
 [node name="MenuButton" type="Button" parent="Panel/VBox" unique_id=1632615605]
 custom_minimum_size = Vector2(0, 48)
@@ -104,7 +104,7 @@ layout_mode = 2
 theme = ExtResource("3_0bnpd")
 theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxFlat_button")
-text = "Menu Principal"
+text = "UI_MAIN_MENU"
 
 [node name="QuitButton" type="Button" parent="Panel/VBox" unique_id=1817887036]
 custom_minimum_size = Vector2(0, 48)
@@ -112,7 +112,7 @@ layout_mode = 2
 theme = ExtResource("3_0bnpd")
 theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxFlat_button")
-text = "Sair do Jogo"
+text = "UI_QUIT"
 
 [node name="ControlsPanel" type="Panel" parent="." unique_id=1803664077]
 anchors_preset = 8
@@ -145,7 +145,7 @@ alignment = 1
 [node name="Title" type="Label" parent="ControlsPanel/VBox" unique_id=1518712199]
 layout_mode = 2
 theme = ExtResource("2_2rlsb")
-text = "CONTROLES"
+text = "UI_CONTROLS"
 label_settings = SubResource("LabelSettings_title")
 horizontal_alignment = 1
 

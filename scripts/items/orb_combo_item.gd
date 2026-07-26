@@ -5,8 +5,8 @@ const ORB_SCENE: PackedScene = preload("res://scenes/orbs/orb_combo.tscn")
 
 func _init() -> void:
 	id = &"orb_combo"
-	display_name = "Orbe de Combo"
-	description = "Atira raios nos inimigos; fica mais forte quanto maior o combo."
+	display_name = "ITEM_COMBO_NAME"
+	description = "ITEM_COMBO_DESC"
 	cost = EconomyManager.COST_ORB_COMBO
 	icon_orb_kind = &"orb_combo"
 

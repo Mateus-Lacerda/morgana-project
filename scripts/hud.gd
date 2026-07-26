@@ -85,10 +85,10 @@ func _on_time_changed(time_left: float) -> void:
 	var seconds := int(time_left) % 60
 	
 	if GameManager.current_phase == GameManager.GamePhase.PREPARATION:
-		timer_label.text = "PREPARAÇÃO: %02d:%02d" % [minutes, seconds]
+		timer_label.text = tr("HUD_PREP") % [minutes, seconds]
 		timer_label.remove_theme_color_override("font_color")
 	else:
-		timer_label.text = "WAVE %d: %02d:%02d" % [GameManager.current_wave_index + 1, minutes, seconds]
+		timer_label.text = tr("HUD_WAVE") % [GameManager.current_wave_index + 1, minutes, seconds]
 		timer_label.add_theme_color_override("font_color", Color(1.0, 0.25, 0.25))
 		
 		# Apenas pulsa dramático nos últimos 10 segundos da Horda
@@ -104,17 +104,17 @@ func _pulse_timer() -> void:
 	tween.tween_property(timer_label, "scale", Vector2(1.0, 1.0), 0.2)
 
 func _on_score_changed(value: int) -> void:
-	score_label.text = "Pontos: %d" % value
+	score_label.text = tr("HUD_SCORE") % value
 
 func _on_combo_changed(multiplier: int, streak: int) -> void:
 	if streak >= 2:
-		combo_label.text = "Combo ×%d (%d)" % [multiplier, streak]
+		combo_label.text = tr("HUD_COMBO") % [multiplier, streak]
 		combo_label.add_theme_color_override("font_color", Color(1.0, 0.85, 0.3))
 	else:
 		combo_label.text = ""
 
 func _on_money_changed(value: int) -> void:
-	money_label.text = "Moedas: %d" % value
+	money_label.text = tr("HUD_COINS") % value
 
 func _on_item_acquired(item: ItemBase) -> void:
 	if item.id == &"coin_magnet":
@@ -155,10 +155,10 @@ func _add_dynamic_icon(icon: Control) -> void:
 	_dynamic_icons.append(icon)
 
 func _on_game_over() -> void:
-	_show_result("GAME OVER", "A vila caiu...", Color(0.85, 0.2, 0.2))
+	_show_result(tr("HUD_GAMEOVER_TITLE"), tr("HUD_GAMEOVER_SUBTITLE"), Color(0.85, 0.2, 0.2))
 
 func _on_victory() -> void:
-	_show_result("VITÓRIA!", "O sol nasceu. As trevas recuaram.", Color(1.0, 0.85, 0.3))
+	_show_result(tr("HUD_VICTORY_TITLE"), tr("HUD_VICTORY_SUBTITLE"), Color(1.0, 0.85, 0.3))
 
 func _show_result(title: String, subtitle: String, color: Color) -> void:
 	var tween := create_tween()
@@ -169,7 +169,7 @@ func _show_result(title: String, subtitle: String, color: Color) -> void:
 	result_title.text = title
 	result_title.add_theme_color_override("font_color", color)
 	result_subtitle.text = subtitle
-	stats_label.text = "Inimigos derrotados: %d\nIntegridade final da vila: %d%%\nPontuação final: %d\nRecorde da sessão: %d" % [
+	stats_label.text = tr("HUD_STATS") % [
 		GameManager.enemies_defeated,
 		int(round(GameManager.village_integrity / GameManager.MAX_VILLAGE_INTEGRITY * 100.0)),
 		GameManager.score,
