@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://dp662g8q8w2aa"]
-[ext_resource type="Theme" uid="uid://theme_main" path="res://assets/theme.tres" id="99_theme"]
 
 [ext_resource type="Script" uid="uid://cebtxullf6ky2" path="res://scripts/ui/options_menu.gd" id="1_opts"]
+[ext_resource type="Theme" uid="uid://dnlk6j8b7t7s" path="res://assets/title_theme.tres" id="2_imaij"]
+[ext_resource type="Theme" uid="uid://bqjtrs4poj3g" path="res://assets/theme.tres" id="99_theme"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 bg_color = Color(0.05, 0.05, 0.08, 0.95)
@@ -66,14 +67,15 @@ alignment = 1
 
 [node name="Title" type="Label" parent="Panel/VBox" unique_id=2009447809]
 layout_mode = 2
+theme = ExtResource("2_imaij")
 text = "OPÇÕES"
 label_settings = SubResource("LabelSettings_title")
 horizontal_alignment = 1
 
 [node name="Spacer" type="Control" parent="Panel/VBox" unique_id=1356064250]
-theme = ExtResource("99_theme")
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
+theme = ExtResource("99_theme")
 
 [node name="MasterLabel" type="Label" parent="Panel/VBox" unique_id=1959144388]
 layout_mode = 2
@@ -109,9 +111,9 @@ step = 0.05
 value = 1.0
 
 [node name="Spacer2" type="Control" parent="Panel/VBox" unique_id=1532479458]
-theme = ExtResource("99_theme")
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
+theme = ExtResource("99_theme")
 
 [node name="BackButton" type="Button" parent="Panel/VBox" unique_id=792992822]
 custom_minimum_size = Vector2(0, 48)

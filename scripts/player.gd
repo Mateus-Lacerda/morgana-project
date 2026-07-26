@@ -32,6 +32,7 @@ var global_cooldown_max: float = 1.0
 ## disputavam o mesmo timer, e com a varinha em disparo automático ela
 ## sempre vencia a corrida, deixando a aura impossível de ativar.
 var _aura_cooldown_timer: float = 0.0
+var _aura_cooldown_max: float = 0.0
 
 var cooldown_visualizer: CooldownVisualizer
 var aura_visualizer: AuraVisualizer
@@ -149,7 +150,8 @@ func aura_attack() -> void:
 	if not is_paralyzed and _aura_cooldown_timer <= 0.0:
 		is_attacking = true
 		animation.play("morgana_attack_aura")
-		_aura_cooldown_timer = PlayerManager.AURA_COOLDOWN_MULT * PlayerManager.BASE_GLOBAL_COOLDOWN
+		_aura_cooldown_max = PlayerManager.AURA_COOLDOWN_MULT * PlayerManager.BASE_GLOBAL_COOLDOWN
+		_aura_cooldown_timer = _aura_cooldown_max
 		AudioManager.play_sfx("aura")
 
 		# Efeito Visual 360 e Dano agora são de responsabilidade total da habilidade
@@ -278,14 +280,24 @@ func _handle_movement() -> void:
 func _update_cooldown(delta: float) -> void:
 	if global_cooldown_timer > 0:
 		global_cooldown_timer -= delta
-		if cooldown_visualizer and global_cooldown_max > 0:
-			var progress = 1.0 - (global_cooldown_timer / global_cooldown_max)
-			cooldown_visualizer.update_cooldown(progress)
+		if global_cooldown_timer <= 0 and cooldown_visualizer:
+			cooldown_visualizer.play_twinkle()
+			
 	if _aura_cooldown_timer > 0:
 		_aura_cooldown_timer -= delta
-		if global_cooldown_timer <= 0:
-			if cooldown_visualizer:
-				cooldown_visualizer.play_twinkle()
+		if _aura_cooldown_timer <= 0 and cooldown_visualizer:
+			cooldown_visualizer.play_twinkle()
+
+	if cooldown_visualizer:
+		var global_prog = 1.0
+		if global_cooldown_max > 0 and global_cooldown_timer > 0:
+			global_prog = 1.0 - (global_cooldown_timer / global_cooldown_max)
+			
+		var aura_prog = 1.0
+		if _aura_cooldown_max > 0 and _aura_cooldown_timer > 0:
+			aura_prog = 1.0 - (_aura_cooldown_timer / _aura_cooldown_max)
+			
+		cooldown_visualizer.update_cooldown(min(global_prog, aura_prog))
 
 func _update_animations() -> void:
 	if velocity.x > 0:

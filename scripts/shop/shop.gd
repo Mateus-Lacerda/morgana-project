@@ -38,6 +38,7 @@ func _ready() -> void:
 	shop_ui.visible = false
 	choice_panel.visible = false
 	choice_close_button.pressed.connect(_close_shop)
+	choice_title.theme = preload("res://assets/title_theme.tres")
 	GameManager.preparation_started.connect(_on_preparation_started)
 	_run_first_shop()
 
@@ -122,6 +123,7 @@ func _build_choice_card(item: ItemBase) -> Control:
 	card.add_child(icon_stack)
 
 	var card_name := Label.new()
+	card_name.theme = preload("res://assets/title_theme.tres")
 	card_name.text = item.display_name
 	card_name.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	card_name.autowrap_mode = TextServer.AUTOWRAP_WORD

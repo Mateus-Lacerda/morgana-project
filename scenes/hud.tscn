@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://dc35x3pyd3v20"]
-[ext_resource type="Theme" uid="uid://theme_main" path="res://assets/theme.tres" id="99_theme"]
 
 [ext_resource type="Script" uid="uid://de4dhkub150c0" path="res://scripts/hud.gd" id="1_hud"]
-[ext_resource type="Theme" path="res://assets/theme.tres" id="2_5ysmq"]
+[ext_resource type="Theme" uid="uid://bqjtrs4poj3g" path="res://assets/theme.tres" id="2_5ysmq"]
 [ext_resource type="Texture2D" uid="uid://tfdwu5bmjy42" path="res://assets/items/magnet_small.png" id="2_magnet_small"]
+[ext_resource type="Theme" uid="uid://dnlk6j8b7t7s" path="res://assets/title_theme.tres" id="3_6fi6k"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_hud"]
 font_size = 22
@@ -57,7 +57,6 @@ corner_radius_bottom_left = 10
 script = ExtResource("1_hud")
 
 [node name="TopBar" type="Control" parent="." unique_id=1396802765]
-theme = ExtResource("99_theme")
 layout_mode = 3
 anchors_preset = 10
 anchor_right = 1.0
@@ -72,7 +71,7 @@ offset_left = 20.0
 offset_top = 8.0
 offset_right = 320.0
 offset_bottom = 34.0
-theme = ExtResource("2_5ysmq")
+theme = ExtResource("3_6fi6k")
 text = "Vida da Vila"
 label_settings = SubResource("LabelSettings_hud")
 
@@ -93,6 +92,7 @@ offset_top = 14.0
 offset_right = -20.0
 offset_bottom = 56.0
 grow_horizontal = 0
+theme = ExtResource("3_6fi6k")
 text = "03:00"
 label_settings = SubResource("LabelSettings_timer")
 horizontal_alignment = 2
@@ -117,7 +117,6 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="BottomRight" type="Control" parent="." unique_id=77852806]
-theme = ExtResource("99_theme")
 layout_mode = 3
 anchors_preset = 3
 anchor_left = 1.0
@@ -137,6 +136,7 @@ theme = SubResource("Theme_6fi6k")
 layout_mode = 0
 offset_right = 240.0
 offset_bottom = 26.0
+theme = ExtResource("3_6fi6k")
 text = "Pontos: 0"
 label_settings = SubResource("LabelSettings_hud")
 horizontal_alignment = 2
@@ -146,6 +146,7 @@ layout_mode = 0
 offset_top = 30.0
 offset_right = 240.0
 offset_bottom = 56.0
+theme = ExtResource("3_6fi6k")
 label_settings = SubResource("LabelSettings_hud")
 horizontal_alignment = 2
 
@@ -154,6 +155,7 @@ layout_mode = 0
 offset_top = 60.0
 offset_right = 240.0
 offset_bottom = 86.0
+theme = ExtResource("3_6fi6k")
 text = "Moedas: 0"
 label_settings = SubResource("LabelSettings_hud")
 horizontal_alignment = 2
@@ -209,9 +211,9 @@ label_settings = SubResource("LabelSettings_hud")
 horizontal_alignment = 1
 
 [node name="ButtonSpacer" type="Control" parent="ResultPanel/VBox" unique_id=763912789]
-theme = ExtResource("99_theme")
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
+theme = ExtResource("2_5ysmq")
 
 [node name="ButtonRow" type="HBoxContainer" parent="ResultPanel/VBox" unique_id=1055476419]
 layout_mode = 2

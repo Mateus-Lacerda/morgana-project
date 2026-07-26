@@ -1,5 +1,4 @@
 [gd_scene format=3 uid="uid://dyooh3yxpqggd"]
-[ext_resource type="Theme" uid="uid://theme_main" path="res://assets/theme.tres" id="99_theme"]
 
 [ext_resource type="Script" uid="uid://e8bg48ct04ga" path="res://scripts/shop/shop.gd" id="1_shop"]
 
@@ -37,7 +36,6 @@ corner_radius_bottom_left = 10
 script = ExtResource("1_shop")
 
 [node name="ShopUI" type="Control" parent="." unique_id=718591612]
-theme = ExtResource("99_theme")
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

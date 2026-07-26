@@ -1,6 +1,6 @@
 [gd_resource type="Theme" format=3 uid="uid://bqjtrs4poj3g"]
 
-[ext_resource type="FontFile" uid="uid://d1ovo5ex0vrc2" path="res://assets/fonts/Alkhemikal.ttf" id="1_5x3i2"]
+[ext_resource type="FontVariation" path="res://assets/fonts/font_rainyhearts.tres" id="1_5x3i2"]
 
 [resource]
 default_font = ExtResource("1_5x3i2")

@@ -9,6 +9,10 @@ var _items_box: VBoxContainer
 var _infinite_mode_btn: CheckButton
 
 func _ready() -> void:
+	if not OS.has_feature("debug"):
+		queue_free()
+		return
+		
 	layer = 100
 	visible = false
 	_build_ui()

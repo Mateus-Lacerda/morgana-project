@@ -1,5 +1,4 @@
 [gd_scene format=3 uid="uid://bht7nxd2g2auw"]
-[ext_resource type="Theme" uid="uid://theme_main" path="res://assets/theme.tres" id="99_theme"]
 
 [ext_resource type="PackedScene" uid="uid://ofb7ihach6qd" path="res://scenes/background.tscn" id="1_w7c3h"]
 [ext_resource type="PackedScene" uid="uid://bitili646qdbr" path="res://scenes/player.tscn" id="2_w8frs"]
@@ -9,6 +8,7 @@
 [ext_resource type="Script" uid="uid://bodpsd6r2s6kr" path="res://scripts/level.gd" id="6_level"]
 [ext_resource type="PackedScene" uid="uid://dyooh3yxpqggd" path="res://scenes/shop/shop.tscn" id="8_shop"]
 [ext_resource type="PackedScene" uid="uid://dd82j0x7p6wq1" path="res://scenes/ui/pause_menu.tscn" id="9_pause"]
+[ext_resource type="Theme" uid="uid://bqjtrs4poj3g" path="res://assets/theme.tres" id="99_theme"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_walls"]
 size = Vector2(100, 2000)
@@ -66,7 +66,6 @@ mouse_filter = 2
 color = Color(0, 0, 0, 0.35)
 
 [node name="CountdownLabel" type="Label" parent="IntroCountdown" unique_id=61243695]
-theme = ExtResource("99_theme")
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -78,6 +77,7 @@ offset_right = 300.0
 offset_bottom = 70.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("99_theme")
 theme_override_font_sizes/font_size = 96
 text = "3"
 label_settings = SubResource("LabelSettings_countdown")

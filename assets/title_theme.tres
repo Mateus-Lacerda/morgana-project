@@ -1,0 +1,6 @@
+[gd_resource type="Theme" format=3 uid="uid://dnlk6j8b7t7s"]
+
+[ext_resource type="FontFile" uid="uid://d1ovo5ex0vrc2" path="res://assets/fonts/Alkhemikal.ttf" id="1_jipfq"]
+
+[resource]
+default_font = ExtResource("1_jipfq")
