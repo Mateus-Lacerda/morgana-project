@@ -10,6 +10,8 @@ var _player_b: AudioStreamPlayer
 var _active_player: AudioStreamPlayer
 var _queued_track: String = ""
 var _current_track: String = ""
+var _current_loop: bool = false
+var _queued_loop: bool = false
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -26,27 +28,29 @@ func _ready() -> void:
 func play(track_name: String, loop: bool = true) -> void:
 	_queued_track = ""
 	_current_track = track_name
+	_current_loop = loop
 	var stream := _load_track(track_name)
 	if stream == null:
 		return
-	stream.loop = loop
+	stream.loop = false
 	_active_player.stop()
 	_active_player.stream = stream
 	_active_player.play()
 
 func queue_next(track_name: String, loop: bool = true) -> void:
 	_queued_track = track_name
-	if _active_player.stream and _active_player.stream.loop:
-		_active_player.stream.loop = false
+	_queued_loop = loop
+	_current_loop = false
 
 func change_now(track_name: String, loop: bool = true, fade_time: float = 0.5) -> void:
 	_queued_track = ""
 	_current_track = track_name
+	_current_loop = loop
 	var next_player := _inactive_player()
 	var stream := _load_track(track_name)
 	if stream == null:
 		return
-	stream.loop = loop
+	stream.loop = false
 	next_player.stream = stream
 	next_player.volume_db = -40.0
 	next_player.play()
@@ -80,8 +84,11 @@ func _on_track_finished(player: AudioStreamPlayer) -> void:
 		return
 	if _queued_track != "":
 		var next_track := _queued_track
+		var next_loop := _queued_loop
 		_queued_track = ""
-		play(next_track)
+		play(next_track, next_loop)
+	elif _current_loop:
+		player.play()
 
 func _inactive_player() -> AudioStreamPlayer:
 	return _player_b if _active_player == _player_a else _player_a
