@@ -1,0 +1,40 @@
+name: Deploy to itch.io
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: "itch"
+  cancel-in-progress: true
+
+jobs:
+  export-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # ── Build (idêntico ao deploy-pages) ──────────────────────
+      - name: Export Godot project (Web)
+        id: export
+        uses: firebelley/godot-export@v6.0.0
+        with:
+          godot_executable_download_url: https://github.com/godotengine/godot/releases/download/4.6-stable/Godot_v4.6-stable_linux.x86_64.zip
+          godot_export_templates_download_url: https://github.com/godotengine/godot/releases/download/4.6-stable/Godot_v4.6-stable_export_templates.tpz
+          relative_project_path: ./
+          archive_output: false
+          export_preset: Web
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # ── Deploy (específico do itch.io) ────────────────────────
+      - name: Install Butler
+        uses: remarkablegames/setup-butler@v3
+
+      - name: Push to itch.io
+        run: butler push ${{ steps.export.outputs.build_directory }} jpedro-fsgs/morgana-a-egide:web
+        env:
+          BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
